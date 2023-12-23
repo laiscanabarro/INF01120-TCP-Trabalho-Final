@@ -1,11 +1,11 @@
 //import java.util.ArrayList;
 
 public class Event {
-    String name;
-    Location location; 
-    Period period;
-    Recurrence recurrence;
-    //ArrayList<User> participants = new ArrayList<>()
+    private String name;
+    private Location location; 
+    private Period period;
+    private Recurrence recurrence;
+    //private ArrayList<User> participants = new ArrayList<>()
 
     public Event(String name, Location location, Period period, Recurrence recurrence){
         this.name = name;
@@ -14,13 +14,61 @@ public class Event {
         this.recurrence = recurrence;
     }
 
-    //public Event(String name, Location location, Period period, ArrayList<User> participants){}
+    public String getName(){
+        return this.name;
+    }
+
+    public Location getLocation(){
+        return this.location;
+    }
+
+    public Period getPeriod(){
+        return this.period;
+    }
+
+    public Recurrence getRecurrence(){
+        return this.recurrence;
+    }
+
+    /* 
+    public ArrayList<User> getParticipants(){
+        return this.participants;
+    }
+    */
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setLocation(Location location){
+        this.location = location;
+    }
+
+    public void setPeriod(Period period){
+        this.period = period;
+    }
+
+    public void setRecurrence(Recurrence recurrence){
+        this.recurrence = recurrence;
+    }
+
+    /*
+    public void setParticipants(ArrayList<User> participants){
+        this.participants = participants;
+    }
+    */
+
+    //public Event(String name, Location location, Period period, Recurrence recurrence, ArrayList<User> participants){}
 
     //public void shareWhithFriend(User friend){}
 
     //public void shareWhithCommunity(Community community){}
 
-    //public boolean creatRecurrence(Period period, Recurrence recurrence){}
+    public boolean creatRecurrence(Recurrence recurrence){
+        setRecurrence(recurrence);
+
+        return true; //precisa ser booleano? precisa dessa função?
+    }
 
     
 }
