@@ -3,12 +3,12 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 public class Period {
-    LocalDate startDate;
-    LocalDate endDate;
-    LocalTime startTime;
-    LocalTime endTime;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
-    public Period (LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime){
+    public Period(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime){
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;

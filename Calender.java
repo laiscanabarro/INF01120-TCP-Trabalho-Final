@@ -1,10 +1,14 @@
 import java.util.ArrayList;
 
 public class Calender {
-    ArrayList<Event> events = new ArrayList<>();
-    //ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Event> events = new ArrayList<>();
+    //private ArrayList<Task> tasks = new ArrayList<>();
 
-    //public boolean addEvent(Event event){}
+    public boolean addEvent(Event event){
+        events.add(event);
+
+        return true; //precisa ser booleano?
+    }
 
     //public boolean addTask(Task task){}
 
