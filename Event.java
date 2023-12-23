@@ -4,11 +4,16 @@ import java.time.LocalDate;
 public class Event {
     String eventName;
     Location location; 
-    LocalDate starDate;
+    LocalDate startDate;
     LocalDate endDate;
     //ArrayList<User> participants = new ArrayList<>()
 
-    public Event(String name, Location location, LocalDate star, LocalDate end){}
+    public Event(String name, Location location, LocalDate start, LocalDate end){
+        this.eventName = name;
+        this.location = location;
+        this.startDate = start;
+        this.endDate = end;
+    }
     //public Event(String name, Location location, LocalDate star, LocalDate end, ArrayList<User> participants){}
 
     //public void shareWhithFriend(User friend){}
