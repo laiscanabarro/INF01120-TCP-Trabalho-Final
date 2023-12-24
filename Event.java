@@ -14,6 +14,16 @@ public class Event {
         this.recurrence = recurrence;
     }
 
+    /*
+    public Event(String name, Location location, Period period, Recurrence recurrence, ArrayList<User> participants){
+        this.name = name;
+        this.location = location;
+        this.period = period;
+        this.recurrence = recurrence;
+        this.participants = participants;
+    }
+    */
+
     public String getName(){
         return this.name;
     }
@@ -57,8 +67,6 @@ public class Event {
         this.participants = participants;
     }
     */
-
-    //public Event(String name, Location location, Period period, Recurrence recurrence, ArrayList<User> participants){}
 
     //public void shareWhithFriend(User friend){}
 
