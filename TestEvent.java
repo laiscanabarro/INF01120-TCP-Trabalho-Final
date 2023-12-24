@@ -23,9 +23,5 @@ public class TestEvent {
         System.out.println(e1.getPeriod().getEndDate());
         System.out.println(e1.getPeriod().getEndTime());
 
-
     }
-    
-
-
 }

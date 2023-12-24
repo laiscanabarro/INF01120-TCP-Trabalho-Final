@@ -76,7 +76,5 @@ public class Event {
         setRecurrence(recurrence);
 
         return true; //precisa ser booleano? precisa dessa função?
-    }
-
-    
+    }  
 }

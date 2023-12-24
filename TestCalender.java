@@ -23,7 +23,8 @@ public class TestCalender {
 
         Calender c1 = new Calender();
 
-        c1.displayCalender(1964, 12);
-    }
+        c1.blockCalender();
+        c1.displayCalender(2002,12);
 
+    }
 }

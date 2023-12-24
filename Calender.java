@@ -4,6 +4,7 @@ import java.util.Calendar;
 public class Calender { //essa classe é estática?
     private ArrayList<Event> events = new ArrayList<>();
     //private ArrayList<Task> tasks = new ArrayList<>();
+    //private ArrayList<Habit> habits = new ArrayList<>(); //hábitos tbm aparece no calendário?
 
     public ArrayList<Event> getEvents(){
         return this.events;
@@ -20,7 +21,7 @@ public class Calender { //essa classe é estática?
          //precisa ser booleano a saida?
     }
 
-    public void remoreEvent(Event event){
+    public void removeEvent(Event event){
         events.remove(event);
     }
 
@@ -34,11 +35,11 @@ public class Calender { //essa classe é estática?
     }
     */
 
-    //public void blockCalender(){}
-    //O que faz aqui?
-    //Não aparece mais o calenderio para o usuário?
+    public void blockCalender(){
+        displayCalender(0, 0);
+    }
 
-    private int firstDayYear(int year, int month) {
+    private int calculeFirstDayMonth(int year, int month) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month-1, 1); 
         return calendar.get(Calendar.DAY_OF_WEEK);
@@ -97,15 +98,19 @@ public class Calender { //essa classe é estática?
 
     public void displayCalender(int year, int month){
         //first day of the year
-        int firstDay = firstDayYear(year, month);
-        System.out.println(firstDay);
+        int firstDay = calculeFirstDayMonth(year, month);
+        //System.out.println(firstDay);
 
         //leap year = true (29 days in february); = false (28 days in february)
         boolean leapYear = leapYear(year);
 
         //number of days in the month
         int daysMonth = calculeDaysMonth(month, leapYear);
-        System.out.println(daysMonth);
+        //System.out.println(daysMonth);
+
+        if (year == 0){
+            return;
+        }
 
         System.out.printf("        %d/%d \n", month, year);
         System.out.println(" S  M  T  W  T  F  S");
@@ -125,13 +130,27 @@ public class Calender { //essa classe é estática?
 
     }   
     
+    public Event searchEvent(String name){
+        for (Event event : events){
+            if(event.getName().equals(name)){
+                return event;
+            }
+        }
+        return null;
+    }
 
-    //public Event searchEvent(String name){}
-    //getName();
+    /*
+    public Task searchTask(String name){
+        for (Task task : tasks){
+            if(task.getName().equals(name)){
+                return task;
+            }
+        }
+        return null;
+    }
+    */
 
-    //public Task searchTask(String name){}
-    //getName();
-
+    //acho q isso é questão da interface
     //public void selectDay(){}
 
     //public void selectMonth(){}
