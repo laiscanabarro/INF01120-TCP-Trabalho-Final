@@ -66,7 +66,7 @@ public class Task {
         setCurrentList(null);
         setOldList(null);
         setDescription("");
-        setImportanceScale(0);
+        setImportanceScale(TasksUtils.MIN_IMPORTANCE);
         setDeadline(null);
         setStatus(!TasksUtils.COMPLETED);
         ArrayList<Subtask> emptySubtasks = new ArrayList<>();
