@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Calender { //essa classe é estática?
+public class Calender { 
     private ArrayList<Event> events = new ArrayList<>();
     //private ArrayList<Task> tasks = new ArrayList<>();
-    //private ArrayList<Habit> habits = new ArrayList<>(); //hábitos tbm aparece no calendário?
+    //private ArrayList<Habit> habits = new ArrayList<>(); //hábitos tbm não podia aparecer no calendário?
 
     public ArrayList<Event> getEvents(){
         return this.events;
@@ -73,12 +73,8 @@ public class Calender { //essa classe é estática?
 
     private int calculeDaysMonth(int month, boolean leapYear){
         int daysMonth;
-        //months with 31 days
         int[] month31Days = {1,3,5,7,8,10,12};
-        //months with 30 days
         int[] month30Days = {4,6,9,11};
-        //month 2: february with 28 or 29 days
-
 
         if (contains(month31Days, month)){
             daysMonth = 31;
@@ -108,7 +104,7 @@ public class Calender { //essa classe é estática?
         int daysMonth = calculeDaysMonth(month, leapYear);
         //System.out.println(daysMonth);
 
-        if (year == 0){
+        if (year == 0){ //block calender
             return;
         }
 
@@ -127,6 +123,7 @@ public class Calender { //essa classe é estática?
                 System.out.println();
             }
         }
+        System.out.println();
 
     }   
     
