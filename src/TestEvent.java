@@ -1,10 +1,10 @@
+package src;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class TestCalender {
-
+public class TestEvent {
+    
     public static void main(String args[]){
-
         Location location = new Location("Porto Alegre", "Brazil", "RS", "Maua", 123);
 
         LocalDate startDate = LocalDate.of(2023, 12, 13);
@@ -16,13 +16,13 @@ public class TestCalender {
         Recurrence recurrence = new Recurrence();
 
         Event e1 = new Event("Viagem", location, time, recurrence);
+        System.out.println(e1.getRecurrence().getDaily());
 
-        Calender c1 = new Calender();
-        c1.addEvent(e1);
+        recurrence.setDaily(true);
+        System.out.println(e1.getRecurrence().getDaily());
 
-        c1.blockCalender();
-        c1.displayCalender(2002,10);
-        System.out.println(c1.searchEvent("Viagem").getLocation().getCity());
+        System.out.println(e1.getPeriod().getEndDate());
+        System.out.println(e1.getPeriod().getEndTime());
 
     }
 }

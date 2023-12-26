@@ -1,3 +1,4 @@
+package src;
 public class Invitation {
     private boolean accept;
     //private User guest;

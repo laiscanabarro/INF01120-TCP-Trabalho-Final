@@ -1,3 +1,4 @@
+package src;
 import java.time.LocalDateTime;
 
 public class Notification {
@@ -14,7 +15,7 @@ public class Notification {
         this.invitation = invitation;
         this.time = LocalDateTime.now();
     }
-    
+
     public Alarm getAlarm(){
         return this.alarm;
     }
