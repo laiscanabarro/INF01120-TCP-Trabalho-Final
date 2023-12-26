@@ -15,7 +15,6 @@ public class Authentication {
             } else {
                 System.out.println("Login failed. Check your email and password and try again. After 3 attempts your account will be blocked.");
             }
-            System.out.println("Login failed. Check your email and password.");
             return false;
         }
     }
