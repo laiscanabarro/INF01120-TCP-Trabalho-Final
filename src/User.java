@@ -12,24 +12,33 @@ public class User {
 
 
     public void editProfile(){}
+        //  TBD
 
     public boolean addFriend(User friend){
+        //  TBD
         return true;
     }
 
     public boolean removeFriend(User friend){
+        //  TBD
         return true;
     }
 
     public boolean inviteFriend(User friend){
+        //  TBD
         return true;
     }
 
     public void createCommunity(){}
+        //  TBD
 
     public void createList(){}
+        //  TBD
 
     public boolean createUser(){}
+        //  TBD
 
-
+    public Report generateProductivityReport(){
+        return new Report(productivity);
+    }
 }

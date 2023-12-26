@@ -6,11 +6,14 @@ public class Productivity {
 
 
     private int goal;
-    private Date start;
-    private Date end;
+    private Date startDate;
+    private Date endDate;
     private double currentState;
 
-
+    // Constructor
+    public Productivity(int goal){
+        this.goal = goal; 
+    }
 
     // Getters and setters
     public int getGoal(){
@@ -22,23 +25,23 @@ public class Productivity {
     }
 
     public Date getStart(){
-        return this.start;
+        return this.startDate;
     }
 
-    public void setStart(Date start){
-        this.start = start;
+    public void setStartDate(Date startDate){
+        this.startDate = startDate;
     }
 
 
-    public Date getEnd(){
-        return this.end;
+    public Date getEndDate(){
+        return this.endDate;
     }
 
-    public void setEnd(Date end){
-        this.end = end;
+    public void setEndDate(Date endDate){
+        this.endDate = endDate;
     }
 
-    public double getcurrentState(){
+    public double getCurrentState(){
         return this.currentState;
     }
 
@@ -79,6 +82,8 @@ public class Productivity {
     }
 
     public void calculateCurrentState(){
-        
+        // TBD 
+        // get the startDate and end date and check how many tasks were completed?
+        // = tasks done / goal 
     }
 }

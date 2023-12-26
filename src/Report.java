@@ -4,52 +4,48 @@ import java.util.Date;
 
 public class Report {
 
-    private User user;
-    private Date start;
-    private Date end; 
+    private Productivity productivity;
+    private Date startDate;
+    private Date endDate; 
 
+
+    // Constructor 
+    public Report(Productivity productivity){
+        this.productivity = productivity; 
+    }
 
 
     // Getters and setters
-    public User getUser(){
-        return this.user;
+    public Productivity getProductivity(){
+        return this.productivity;
     }
 
-    public void setUser(User user){
-        this.user = user;
+    public void setProductivity(Productivity productivity){
+        this.productivity = productivity;
     }
 
     public Date getStart(){
         return this.start;
     }
 
-    public void setStart(Date start){
-        this.start = start;
+    public void setStartDate(Date startDate){
+        this.startDate = startDate;
     }
 
 
-    public Date getEnd(){
-        return this.end;
+    public Date getEndDate(){
+        return this.endDate;
     }
 
-    public void setEnd(Date end){
-        this.end = end;
+    public void setEndDate(Date endDate){
+        this.endDate = endDate;
     }
 
     // Other methods
-    public Productivity checkProductivity(){
-
-        return this.user.productivity;
-    }
-
-    public state generateProductivityReport(){
-        float state = this.user.productivity.getCurrentState(); 
-        return state;
-    }
-
-    public void getUserInfo(){
-        System.out.println("Name: " + this.user.name); 
-        // return other attributes, lists, etc 
+    public void displayProductivityReport (){
+        System.out.println("Goal: " + productivity.getGoal());
+        System.out.println("Current State:" + productivity.getCurrentState());
+        // maybe: days passed, days left, etc 
     }
 }
 
