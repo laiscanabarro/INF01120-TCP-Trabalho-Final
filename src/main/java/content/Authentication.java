@@ -1,3 +1,4 @@
+package content;
 public class Authentication {
 
     public static final int MAX_LOGIN_ATTEMPTS = 3;
