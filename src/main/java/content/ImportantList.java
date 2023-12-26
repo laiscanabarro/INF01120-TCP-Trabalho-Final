@@ -1,6 +1,8 @@
+package content;
+
 import utils.TasksUtils;
 
-public class ImportantList extends TaskList{
+public class ImportantList extends TaskList {
     private static String listOrder;
     private static final ImportantList importantList;
     private ImportantList(){
@@ -18,13 +20,16 @@ public class ImportantList extends TaskList{
     public static String getDefaultOrder(){ return listOrder; }
     public static void removeImportance(Task task){
         task.setImportanceScale(TasksUtils.MIN_IMPORTANCE);
-        task.changeList(task.getCurrentList(), task.getOldList());
+        if (task.getCurrentList().equals(getInstance())) {
+            task.changeList(task.getOldList());
+        }
     }
     public static void increasePriority(Task task){
         int newPriorityValue = task.getImportanceScale() + 1;
         if (newPriorityValue <= TasksUtils.MAX_IMPORTANCE) {
             task.setImportanceScale(newPriorityValue);
-            getInstance().changeOrder(TasksUtils.ORDER_IMPORTANCE_DESC);
+        } else {
+            task.setImportanceScale(TasksUtils.MAX_IMPORTANCE);
         }
         resetOrder();
     }
@@ -36,6 +41,8 @@ public class ImportantList extends TaskList{
             } else {
                 task.setImportanceScale(newPriorityValue);
             }
+        } else {
+            removeImportance(task);
         }
         resetOrder();
     }
