@@ -31,20 +31,20 @@ public class Period {
         return this.endTime;
     }
 
-    public void setStartDate(LocalDate start){
-        this.startDate = start;
+    public void setStartDate(LocalDate date){
+        this.startDate = date;
     }
 
-    public void setEndDate(LocalDate end){
-        this.endDate = end;
+    public void setEndDate(LocalDate date){
+        this.endDate = date;
     }
 
-    public void setStartTime(LocalTime start){
-        this.startTime = start;
+    public void setStartTime(LocalTime time){
+        this.startTime = time;
     }
 
-    public void setEndTime(LocalTime end){
-        this.endTime = end;
+    public void setEndTime(LocalTime time){
+        this.endTime = time;
     }
 
     public long countDays(LocalDate startDate, LocalDate endDate){
