@@ -62,4 +62,28 @@ public class Recurrence {
     public void setCustom(boolean custom){
         this.custom = custom;
     }
+
+    public RecurrenceType getRecurrenceType() {
+        if (getDaily()) {
+            return RecurrenceType.DAILY;
+        } 
+        else if (getWeekday()) {
+            return RecurrenceType.WEEKDAY;
+        } 
+        else if (getWeekly()) {
+            return RecurrenceType.WEEKLY;
+        } 
+        else if (getMonthly()) {
+            return RecurrenceType.MONTHLY;
+        } 
+        else if (getAnnualy()) {
+            return RecurrenceType.ANNUALLY;
+        }
+
+        return RecurrenceType.DAILY;
+    }
+
+    enum RecurrenceType {
+        DAILY, WEEKDAY, WEEKLY, MONTHLY, ANNUALLY;
+    }
 }
