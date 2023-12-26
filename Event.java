@@ -66,15 +66,15 @@ public class Event {
     public void setParticipants(ArrayList<User> participants){
         this.participants = participants;
     }
+
+    public void shareWhithFriend(User friend){
+        Invitation invitation = new Invitation(friend); //se o convite for aceito esse amigo tem q entrar na lista de participantes
+        Notification notification = new Notification(invitation);
+    }
+
+    public void shareWhithCommunity(Community community){
+        Invitation invitation = new Invitation(friend); //se o convite for aceito esse amigo tem q entrar na lista de participantes
+        Notification notification = new Notification(invitation);
+    } 
     */
-
-    //public void shareWhithFriend(User friend){}
-
-    //public void shareWhithCommunity(Community community){}
-
-    public boolean creatRecurrence(Recurrence recurrence){
-        setRecurrence(recurrence);
-
-        return true; //precisa ser booleano? precisa dessa função?
-    }  
 }
