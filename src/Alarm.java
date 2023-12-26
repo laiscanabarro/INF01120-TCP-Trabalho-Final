@@ -1,93 +1,36 @@
 package src;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
+
+import java.util.Date;
 
 public class Alarm {
-    private int time;
-    private boolean minutes;
-    private boolean hours;
-    private boolean days;
-    private boolean weeks;
+    private Date date;
+    Notification notification;
 
-    public Alarm(){
-        this.time = 0;
-        this.minutes = false;
-        this.hours = false;
-        this.days = false;
-        this.weeks = false;
+    public Alarm(Date time){
+        this.date = time;
     }
 
-    public int getTime(){
-        return this.time;
+    public Date getDate(){
+        return this.date;
     }
 
-    public boolean getMinutes(){
-        return this.minutes;
+    public Notification getNotification(){
+        return this.notification;
     }
 
-    public boolean getHours(){
-        return this.hours;
+    public void setDate(Date date){
+        this.date = date;
     }
 
-    public boolean getDays(){
-        return this.days;
+    public void setNotification(Notification notification){
+        this.notification = notification;
     }
 
-    public boolean getWeeks(){
-        return this.weeks;
-    }
-
-    public void setTime(int value){
-        this.time = value;
-    }
-
-    public void setMinutes(boolean value){
-        this.minutes = value;
-    }
-
-    public void setHours(boolean value){
-        this.hours = value;
-    }
-
-    public void setDays(boolean value){
-        this.days = value;
-    }
-
-    public void setWeeks(boolean value){
-        this.weeks = value;
-    }
-
-    private LocalTime minutesToLocalTime(int minutes) {
-        Duration duration = Duration.ofMinutes(minutes);
-        LocalTime localTime = LocalTime.MIDNIGHT.plus(duration);
-
-        return localTime;
-    }
-
-    public LocalTime calculeTime(){
-        int minute = 0;
-        if (minutes == true){
-            minute = 1;
+    public void compareDate(){
+        Date currentDate = new Date();
+        
+        if (currentDate.compareTo(this.date) == 0){
+            NotificationList.addNotification(this.notification);
         }
-        else if (hours == true){
-            minute = 60;
-        }
-        else if (days == true){
-            minute = 1440;
-        }
-        else if (weeks = true){
-            minute = 10080;
-        }
-
-        int minutesTotal = (this.time)*minute;
-
-        return minutesToLocalTime(minutesTotal);
     }
-
-    //private LocalDateTime subtracTime(LocalTime deadlineTime, LocalDate deadlineDate, LocalTime alarm) {}
-
-    //public void startTimer(LocalTime deadline, LocalTime alarm) {}
 }
