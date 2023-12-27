@@ -1,31 +1,39 @@
 package src;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Notification {
-    Alarm alarm;
-    Invitation invitation;
-    LocalDateTime time;
+    private String name;
+    private Date date;
+    private boolean ignore;
 
-    public Notification(Alarm alarm){
-        this.alarm = alarm;
-        //this.time = alarm.;
+    public Notification(String name, Date date){
+        this.name = name;
+        this.date = date;
+        this.ignore = false;
     }
 
-    public Notification(Invitation invitation){
-        this.invitation = invitation;
-        this.time = LocalDateTime.now();
+    public String getName(){
+        return this.name;
     }
 
-    public Alarm getAlarm(){
-        return this.alarm;
+    public Date getDate(){
+        return this.date;
     }
 
-    public Invitation geInvitation(){
-        return this.invitation;
+    public boolean getIgnore(){
+        return this.ignore;
     }
 
-    public LocalDateTime getTime(){
-        return time;
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setDate(Date date){
+        this.date = date;
+    }
+
+    public void setIgnore(boolean value){
+        this.ignore = value;
     }
 
 }

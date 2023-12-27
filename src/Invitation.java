@@ -38,7 +38,6 @@ public class Invitation {
     public void acceptInvitation(){
         setAccept(true);
 
-
     }
 
     public void rejectInvatation(){
