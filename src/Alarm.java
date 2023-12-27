@@ -6,8 +6,9 @@ public class Alarm {
     private Date date;
     Notification notification;
 
-    public Alarm(Date time){
+    public Alarm(Date time, Notification notification){
         this.date = time;
+        this.notification = notification;
     }
 
     public Date getDate(){
