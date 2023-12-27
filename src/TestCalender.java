@@ -22,7 +22,7 @@ public class TestCalender {
         c1.addEvent(e1);
 
         c1.blockCalender();
-        c1.displayCalender(2002,10);
+        c1.displayCalender(2002,12);
         System.out.println(c1.searchEvent("Viagem").getLocation().getCity());
 
     }
