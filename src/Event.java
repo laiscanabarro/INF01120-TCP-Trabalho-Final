@@ -74,7 +74,7 @@ public class Event {
     }
 
     public void shareWhithCommunity(Community community){
-        Invitation invitation = new Invitation(friend); //se o convite for aceito esse amigo tem q entrar na lista de participantes
+        Invitation invitation = new Invitation(community);
         Notification notification = new Notification(invitation);
     } 
     */
