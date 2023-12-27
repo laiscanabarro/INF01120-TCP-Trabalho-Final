@@ -5,7 +5,6 @@ public class Location {
     private String state;
     private String street;
     private int number;
-    //dá pra interagir esses atributos com alguma api de mapa?
 
     public Location(String city, String country, String state, String street, int number){
         this.city = city;

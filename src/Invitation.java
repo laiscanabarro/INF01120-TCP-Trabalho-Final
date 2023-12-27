@@ -3,17 +3,19 @@ public class Invitation {
     private boolean accept;
     //private User guest;
     //private Community community;
+    private Notification notification;
 
     /* 
-    public Invitation(User user){
+    public Invitation(User user, Notification notification){
         this.accept = false;
-        this.invited = guest;
+        this.guest = user;
+        this.notification = notification;
     }
 
-    public Invitation(Community community){
+    public Invitation(Community community, NOtification notification){
         this.accept = false;
-        User owner = community.owner; //owner é um usuário ou só uma string?
-        this.invited = owner;
+        this.guest = community;
+        this.notification = notification;
     }
     */
 
@@ -31,16 +33,29 @@ public class Invitation {
     }
      */
 
+    public Notification getNotification(){
+        return this.notification;
+    }
+
     public void setAccept(boolean value){
         this.accept = value;
     }
 
-    public void acceptInvitation(){
+    public void setNotification(Notification notification){
+        this.notification = notification;
+    }
+
+    /*
+    public void acceptInvitation(User user){
         setAccept(true);
+        user.getNotificationList().addNotification(notification);
 
     }
 
-    public void rejectInvatation(){
-        setAccept(false);
+    public void acceptInvitation(Community community){
+        setAccept(true);
+        community.getNotificationList().addNotification(notification);
+
     }
+     */
 }

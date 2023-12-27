@@ -69,13 +69,15 @@ public class Event {
     }
 
     public void shareWhithFriend(User friend){
-        Invitation invitation = new Invitation(friend); //se o convite for aceito esse amigo tem q entrar na lista de participantes
-        Notification notification = new Notification(invitation);
+        Date currentDate = new Date();
+        Notification notification = new Notification(this.name, currentDate);
+        Invitation invitation = new Invitation(friend, notification); //se o convite for aceito esse amigo tem q entrar na lista de participantes
     }
 
     public void shareWhithCommunity(Community community){
-        Invitation invitation = new Invitation(community);
-        Notification notification = new Notification(invitation);
+        Date currentDate = new Date();
+        Notification notification = new Notification(this.name, currentDate);
+        Invitation invitation = new Invitation(community, notification);
     } 
     */
 }

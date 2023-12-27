@@ -1,11 +1,12 @@
 package src;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Calender { 
     private ArrayList<Event> events = new ArrayList<>();
     //private ArrayList<Task> tasks = new ArrayList<>();
-    //private ArrayList<Habit> habits = new ArrayList<>(); //hábitos tbm não podia aparecer no calendário?
+    //private ArrayList<Habit> habits = new ArrayList<>(); //hábitos tbm não podiam aparecer no calendário?
 
     public ArrayList<Event> getEvents(){
         return this.events;
@@ -148,7 +149,6 @@ public class Calender {
     }
     */
 
-    //acho q isso é questão da interface
     //public void selectDay(){}
 
     //public void selectMonth(){}

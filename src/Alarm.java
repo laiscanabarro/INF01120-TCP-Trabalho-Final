@@ -27,11 +27,11 @@ public class Alarm {
         this.notification = notification;
     }
 
-    public void compareDate(){
+    public void compareDate(/*User user*/){
         Date currentDate = new Date();
         
         if (currentDate.compareTo(this.date) == 0){
-            NotificationList.addNotification(this.notification);
+            //user.getNotificationList().addNotification(this.notification);
         }
     }
 }

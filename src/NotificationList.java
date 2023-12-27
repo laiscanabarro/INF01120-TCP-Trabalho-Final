@@ -14,7 +14,7 @@ public class NotificationList {
         NotificationList.notifications = notifications;
     }
 
-    public static void addNotification(Notification notification){
+    public void addNotification(Notification notification){
         notifications.add(notification);
         displayNotification(notification);        
     }
@@ -30,7 +30,6 @@ public class NotificationList {
     private static void displayNotification(Notification notification){
         String name = notification.getName();
         Date date = notification.getDate();
-        
         System.out.printf(name + date.getTime());
     }
 
