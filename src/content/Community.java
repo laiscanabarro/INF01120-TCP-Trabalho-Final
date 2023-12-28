@@ -1,3 +1,5 @@
+package content;
+
 import java.util.ArrayList;
 
 public class Community {

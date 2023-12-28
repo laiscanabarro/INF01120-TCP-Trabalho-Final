@@ -1,6 +1,11 @@
+package tests;
+
+import content.Habit;
+import content.HabitsList;
+import content.Recurrence;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 import java.time.LocalDate;
 
 public class HabitsTest {
@@ -15,13 +20,13 @@ public class HabitsTest {
         Recurrence recurrence2 = new Recurrence();
         recurrence2.setWeekday(true);
 
-        Habit habit1 = new Habit("Exercise", "Physical", recurrence1, 30, 60);
-        Habit habit2 = new Habit("Read", "Mental", recurrence2, 15, 30);
+        Habit habit1 = new Habit("Exercise", "Physical", recurrence1, 30);
+        Habit habit2 = new Habit("Read", "Mental", recurrence2, 15);
 
         assertEquals(true, habitsList.addHabit(habit1));
         assertEquals(true, habitsList.addHabit(habit2));
 
-        Habit habitWithSameName = new Habit("Exercise", "Physical", recurrence1, 20, 50);
+        Habit habitWithSameName = new Habit("Exercise", "Physical", recurrence1, 20);
         assertEquals(false, habitsList.addHabit(habitWithSameName));
     }
 
@@ -35,8 +40,8 @@ public class HabitsTest {
         Recurrence recurrence2 = new Recurrence();
         recurrence2.setWeekday(true);
 
-        Habit habit1 = new Habit("Exercise", "Physical", recurrence1, 30, 60);
-        Habit habit2 = new Habit("Read", "Mental", recurrence2, 15, 30);
+        Habit habit1 = new Habit("Exercise", "Physical", recurrence1, 30);
+        Habit habit2 = new Habit("Read", "Mental", recurrence2, 15);
 
         habitsList.addHabit(habit1);
         habitsList.addHabit(habit2);
@@ -52,7 +57,7 @@ public class HabitsTest {
         Recurrence recurrence = new Recurrence();
         recurrence.setDaily(true);
 
-        Habit dailyHabit = new Habit("Exercise", "Physical", recurrence, 30, 60);
+        Habit dailyHabit = new Habit("Exercise", "Physical", recurrence, 30);
         habitsList.addHabit(dailyHabit);
 
         dailyHabit.markComplete();
@@ -75,7 +80,7 @@ public class HabitsTest {
         Recurrence recurrence = new Recurrence();
         recurrence.setWeekday(true);
 
-        Habit weekdayHabit = new Habit("Exercise", "Physical", recurrence, 30, 60);
+        Habit weekdayHabit = new Habit("Exercise", "Physical", recurrence, 30);
         habitsList.addHabit(weekdayHabit);
 
         weekdayHabit.markComplete();
@@ -98,7 +103,7 @@ public class HabitsTest {
         Recurrence recurrence = new Recurrence();
         recurrence.setWeekly(true);
 
-        Habit weeklyHabit = new Habit("Exercise", "Physical", recurrence, 30, 60);
+        Habit weeklyHabit = new Habit("Exercise", "Physical", recurrence, 30);
         habitsList.addHabit(weeklyHabit);
 
         weeklyHabit.markComplete();
@@ -121,7 +126,7 @@ public class HabitsTest {
         Recurrence recurrence = new Recurrence();
         recurrence.setMonthly(true);
 
-        Habit monthlyHabit = new Habit("Exercise", "Physical", recurrence, 30, 60);
+        Habit monthlyHabit = new Habit("Exercise", "Physical", recurrence, 30);
         habitsList.addHabit(monthlyHabit);
 
         monthlyHabit.markComplete();
@@ -138,13 +143,13 @@ public class HabitsTest {
     }
 
     @Test
-    public void testCheckCompletionAnnually() { 
+    public void testCheckCompletionAnnually() {
         HabitsList habitsList = new HabitsList("Health");
 
         Recurrence recurrence = new Recurrence();
         recurrence.setAnnually(true);
 
-        Habit annuallyHabit = new Habit("Exercise", "Physical", recurrence, 30, 60);
+        Habit annuallyHabit = new Habit("Exercise", "Physical", recurrence, 30);
         habitsList.addHabit(annuallyHabit);
 
         annuallyHabit.markComplete();
@@ -160,4 +165,31 @@ public class HabitsTest {
         assertEquals(true, annuallyHabit.isComplete());
     }
 
+    @Test
+    public void testGetProgress() {
+        HabitsList habitsList = new HabitsList("Health");
+
+        Recurrence recurrence = new Recurrence();
+        recurrence.setDaily(true);
+
+        Habit habit = new Habit("Exercise", "Physical", recurrence, 30);
+        habitsList.addHabit(habit);
+
+        assertEquals(0.0, habit.getProgress(), 0.01);
+
+        habit.setComplete(false);
+        habit.markComplete();
+        assertEquals(3.33, habit.getProgress(), 0.01);
+
+        habit.setComplete(false);
+        habit.markComplete();
+        assertEquals(6.67, habit.getProgress(), 0.01);
+
+        habit.setComplete(false);
+        habit.markComplete();
+        assertEquals(10.0, habit.getProgress(), 0.01);
+
+        habit.markIncomplete();
+        assertEquals(6.67, habit.getProgress(), 0.01);
+    }
 }

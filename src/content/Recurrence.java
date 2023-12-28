@@ -1,3 +1,5 @@
+package content;
+
 public class Recurrence {
     private boolean daily;
     private boolean weekday;

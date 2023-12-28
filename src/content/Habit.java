@@ -1,3 +1,5 @@
+package content;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -5,19 +7,19 @@ public class Habit {
     private String name;
     private String category;
     private Recurrence recurrence;
-    private int minGoal;
-    private int maxGoal;
+    private int goal;
+    private int completionCount;
     private boolean complete;
     private LocalDate lastCompletionDate;
 
-    public Habit(String name, String category, Recurrence recurrence, int minGoal, int maxGoal) {
+    public Habit(String name, String category, Recurrence recurrence, int goal) {
         this.name = name;
         this.category = category;
         this.recurrence = recurrence;
-        this.minGoal = minGoal;
-        this.maxGoal = maxGoal;
+        this.goal = goal;
         this.complete = false;
         this.lastCompletionDate = null;
+        this.completionCount = 0;
     }
 
     public String getName() {
@@ -44,33 +46,35 @@ public class Habit {
         this.recurrence = recurrence;
     }
 
-    public int getMinGoal() {
-        return minGoal;
+    public int getGoal() {
+        return goal;
     }
 
-    public void setMinGoal(int minGoal) {
-        this.minGoal = minGoal;
-    }
-
-    public int getMaxGoal() {
-        return maxGoal;
-    }
-
-    public void setMaxGoal(int maxGoal) {
-        this.maxGoal = maxGoal;
-    }
-
-    public boolean isComplete() {
-        return complete;
+    public void setGoal(int goal) {
+        this.goal = goal;
     }
 
     public void setComplete(boolean complete) {
         this.complete = complete;
     }
 
+    public boolean isComplete() {
+        return complete;
+    }
+
     public void markComplete() {
-        this.complete = true;
-        this.lastCompletionDate = LocalDate.now();
+        if(!complete){
+            this.complete = true;
+            this.lastCompletionDate = LocalDate.now();
+            completionCount++;
+        }
+    }
+
+    public void markIncomplete() {
+        if(complete){
+            this.complete = false;
+            completionCount--;
+        }
     }
 
     public LocalDate getLastCompletionDate() {
@@ -79,6 +83,14 @@ public class Habit {
 
     public void setLastCompletionDate(LocalDate lastCompletionDate) {
         this.lastCompletionDate = lastCompletionDate;
+    }
+
+    public int getCompletionCount() {
+        return completionCount;
+    }
+
+    public void setCompletionCount(int completionCount) {
+        this.completionCount = completionCount;
     }
 
     public void checkCompletion() {
@@ -111,6 +123,15 @@ public class Habit {
             if (shouldUnmark) {
                 setComplete(false);
             }
+        }
+    }
+
+    public double getProgress() {
+        if (goal > 0) {
+            return ((double) completionCount / goal) * 100;
+        } 
+        else {
+            return 0;
         }
     }
 }
