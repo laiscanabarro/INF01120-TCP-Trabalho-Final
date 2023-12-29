@@ -1,7 +1,6 @@
 package tests;
 
 import content.Habit;
-import content.HabitsList;
 import content.Recurrence;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,18 +10,14 @@ import static org.junit.Assert.*;
 import java.time.LocalDate;
 
 public class HabitTest {
-    private HabitsList habitsList;
     private Recurrence recurrence;
     private Habit habit;
 
     @BeforeEach
     public void init() {
-        habitsList = new HabitsList("Health");
-
         recurrence = new Recurrence();
 
         habit = new Habit("Exercise", "Physical", recurrence, 30);
-        habitsList.addHabit(habit);
     }
 
     @Test
