@@ -11,6 +11,7 @@ public class Habit {
     private int completionCount;
     private boolean complete;
     private LocalDate lastCompletionDate;
+    private LocalDate prevLastCompletionDate;
 
     public Habit(String name, String category, Recurrence recurrence, int goal) {
         this.name = name;
@@ -19,6 +20,7 @@ public class Habit {
         this.goal = goal;
         this.complete = false;
         this.lastCompletionDate = null;
+        this.prevLastCompletionDate = null;
         this.completionCount = 0;
     }
 
@@ -64,16 +66,20 @@ public class Habit {
 
     public void markComplete() {
         if(!complete){
-            this.complete = true;
-            this.lastCompletionDate = LocalDate.now();
+            complete = true;
+            prevLastCompletionDate = lastCompletionDate;
+            lastCompletionDate = LocalDate.now();
             completionCount++;
         }
     }
 
     public void markIncomplete() {
         if(complete){
-            this.complete = false;
-            completionCount--;
+            complete = false;
+            lastCompletionDate = prevLastCompletionDate;
+            if(completionCount > 0){
+                completionCount--;
+            }
         }
     }
 
@@ -91,6 +97,14 @@ public class Habit {
 
     public void setCompletionCount(int completionCount) {
         this.completionCount = completionCount;
+    }
+
+    public LocalDate getPrevLastCompletionDate() {
+        return prevLastCompletionDate;
+    }
+
+    public void setPrevLastCompletionDate(LocalDate prevLastCompletionDate) {
+        this.prevLastCompletionDate = prevLastCompletionDate;
     }
 
     public void checkCompletion() {

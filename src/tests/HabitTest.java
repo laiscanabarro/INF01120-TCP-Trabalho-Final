@@ -124,4 +124,29 @@ public class HabitTest {
         habit.markIncomplete();
         assertEquals(6.67, habit.getProgress(), 0.01);
     } 
+
+    @Test
+    public void testMarkCompleteAndIncomplete() {
+        habit.markComplete();
+
+        assertEquals(null, habit.getPrevLastCompletionDate());
+        assertEquals(LocalDate.now(), habit.getLastCompletionDate());
+
+        habit.markIncomplete();
+
+        assertEquals(null, habit.getPrevLastCompletionDate());
+        assertEquals(null, habit.getLastCompletionDate());
+
+        habit.setLastCompletionDate(LocalDate.now().minusDays(300));
+
+        habit.markComplete();
+
+        assertEquals(LocalDate.now().minusDays(300), habit.getPrevLastCompletionDate());
+        assertEquals(LocalDate.now(), habit.getLastCompletionDate());
+
+        habit.markIncomplete();
+
+        assertEquals(LocalDate.now().minusDays(300), habit.getPrevLastCompletionDate());
+        assertEquals(LocalDate.now().minusDays(300), habit.getLastCompletionDate());
+    }
 }
