@@ -1,6 +1,7 @@
 package content;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class HabitsList {
     private ArrayList<Habit> habits;
@@ -73,5 +74,41 @@ public class HabitsList {
 
     public void selectHabit(Habit habit) {
 
+    }
+
+    private void habitOrderByLetter(){
+        habits.sort(Comparator.comparing(Habit::getName));
+    }
+
+    private void habitOrderByCategory(){
+        habits.sort(Comparator.comparing(Habit::getCategory));
+    }
+
+    private void habitOrderByGoal(boolean isAsc){
+        if (isAsc){
+            habits.sort(Comparator.comparingInt(Habit::getGoal));
+        } else {
+            habits.sort(Comparator.comparingInt(Habit::getGoal).reversed());
+        }
+    }
+
+    public void habitChangeOrder(String orderBy) {
+        switch (orderBy) {
+            case "goalAscending":
+                habitOrderByGoal(true);
+                break;
+            case "goalDescending":
+                habitOrderByGoal(false);
+                break;
+            case "name":
+                habitOrderByLetter();
+                break;
+            case "category":
+                habitOrderByCategory();
+                break;
+            default:
+                setHabits(habits);
+                break;
+        }
     }
 }
