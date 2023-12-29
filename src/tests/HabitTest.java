@@ -4,137 +4,114 @@ import content.Habit;
 import content.HabitsList;
 import content.Recurrence;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.Assert.*;
 import java.time.LocalDate;
 
 public class HabitTest {
+    private HabitsList habitsList;
+    private Recurrence recurrence;
+    private Habit habit;
+
+    @BeforeEach
+    public void init() {
+        habitsList = new HabitsList("Health");
+
+        recurrence = new Recurrence();
+
+        habit = new Habit("Exercise", "Physical", recurrence, 30);
+        habitsList.addHabit(habit);
+    }
 
     @Test
     public void testCheckCompletionDaily() {
-        HabitsList habitsList = new HabitsList("Health");
-
-        Recurrence recurrence = new Recurrence();
         recurrence.setDaily(true);
 
-        Habit dailyHabit = new Habit("Exercise", "Physical", recurrence, 30);
-        habitsList.addHabit(dailyHabit);
+        habit.markComplete();
+        habit.setLastCompletionDate(LocalDate.now().minusDays(1));
 
-        dailyHabit.markComplete();
-        dailyHabit.setLastCompletionDate(LocalDate.now().minusDays(1));
+        habit.checkCompletion();
+        assertEquals(false, habit.isComplete());
 
-        dailyHabit.checkCompletion();
-        assertEquals(false, dailyHabit.isComplete());
+        habit.markComplete();
+        habit.setLastCompletionDate(LocalDate.now());
 
-        dailyHabit.markComplete();
-        dailyHabit.setLastCompletionDate(LocalDate.now());
-
-        dailyHabit.checkCompletion();
-        assertEquals(true, dailyHabit.isComplete());
+        habit.checkCompletion();
+        assertEquals(true, habit.isComplete());
     }
 
     @Test
     public void testCheckCompletionWeekday() {
-        HabitsList habitsList = new HabitsList("Health");
-
-        Recurrence recurrence = new Recurrence();
         recurrence.setWeekday(true);
 
-        Habit weekdayHabit = new Habit("Exercise", "Physical", recurrence, 30);
-        habitsList.addHabit(weekdayHabit);
+        habit.markComplete();
+        habit.setLastCompletionDate(LocalDate.now().minusDays(1));
 
-        weekdayHabit.markComplete();
-        weekdayHabit.setLastCompletionDate(LocalDate.now().minusDays(1));
+        habit.checkCompletion();
+        assertEquals(false, habit.isComplete());
 
-        weekdayHabit.checkCompletion();
-        assertEquals(false, weekdayHabit.isComplete());
+        habit.markComplete();
+        habit.setLastCompletionDate(LocalDate.now());
 
-        weekdayHabit.markComplete();
-        weekdayHabit.setLastCompletionDate(LocalDate.now());
-
-        weekdayHabit.checkCompletion();
-        assertEquals(true, weekdayHabit.isComplete());
+        habit.checkCompletion();
+        assertEquals(true, habit.isComplete());
     }
 
     @Test
     public void testCheckCompletionWeekly() {
-        HabitsList habitsList = new HabitsList("Health");
-
-        Recurrence recurrence = new Recurrence();
         recurrence.setWeekly(true);
 
-        Habit weeklyHabit = new Habit("Exercise", "Physical", recurrence, 30);
-        habitsList.addHabit(weeklyHabit);
+        habit.markComplete();
+        habit.setLastCompletionDate(LocalDate.now().minusDays(7));
 
-        weeklyHabit.markComplete();
-        weeklyHabit.setLastCompletionDate(LocalDate.now().minusDays(7));
+        habit.checkCompletion();
+        assertEquals(false, habit.isComplete());
 
-        weeklyHabit.checkCompletion();
-        assertEquals(false, weeklyHabit.isComplete());
+        habit.markComplete();
+        habit.setLastCompletionDate(LocalDate.now());
 
-        weeklyHabit.markComplete();
-        weeklyHabit.setLastCompletionDate(LocalDate.now());
-
-        weeklyHabit.checkCompletion();
-        assertEquals(true, weeklyHabit.isComplete());
+        habit.checkCompletion();
+        assertEquals(true, habit.isComplete());
     }
 
     @Test
     public void testCheckCompletionMonthly() {
-        HabitsList habitsList = new HabitsList("Health");
-
-        Recurrence recurrence = new Recurrence();
         recurrence.setMonthly(true);
 
-        Habit monthlyHabit = new Habit("Exercise", "Physical", recurrence, 30);
-        habitsList.addHabit(monthlyHabit);
+        habit.markComplete();
+        habit.setLastCompletionDate(LocalDate.now().minusDays(30));
 
-        monthlyHabit.markComplete();
-        monthlyHabit.setLastCompletionDate(LocalDate.now().minusDays(30));
+        habit.checkCompletion();
+        assertEquals(false, habit.isComplete());
 
-        monthlyHabit.checkCompletion();
-        assertEquals(false, monthlyHabit.isComplete());
+        habit.markComplete();
+        habit.setLastCompletionDate(LocalDate.now().minusDays(28));
 
-        monthlyHabit.markComplete();
-        monthlyHabit.setLastCompletionDate(LocalDate.now().minusDays(28));
-
-        monthlyHabit.checkCompletion();
-        assertEquals(true, monthlyHabit.isComplete());
+        habit.checkCompletion();
+        assertEquals(true, habit.isComplete());
     }
 
     @Test
     public void testCheckCompletionAnnually() {
-        HabitsList habitsList = new HabitsList("Health");
-
-        Recurrence recurrence = new Recurrence();
         recurrence.setAnnually(true);
 
-        Habit annuallyHabit = new Habit("Exercise", "Physical", recurrence, 30);
-        habitsList.addHabit(annuallyHabit);
+        habit.markComplete();
+        habit.setLastCompletionDate(LocalDate.now().minusDays(365));
 
-        annuallyHabit.markComplete();
-        annuallyHabit.setLastCompletionDate(LocalDate.now().minusDays(365));
+        habit.checkCompletion();
+        assertEquals(false, habit.isComplete());
 
-        annuallyHabit.checkCompletion();
-        assertEquals(false, annuallyHabit.isComplete());
+        habit.markComplete();
+        habit.setLastCompletionDate(LocalDate.now().minusDays(300));
 
-        annuallyHabit.markComplete();
-        annuallyHabit.setLastCompletionDate(LocalDate.now().minusDays(300));
-
-        annuallyHabit.checkCompletion();
-        assertEquals(true, annuallyHabit.isComplete());
+        habit.checkCompletion();
+        assertEquals(true, habit.isComplete());
     }
 
     @Test
     public void testGetProgress() {
-        HabitsList habitsList = new HabitsList("Health");
-
-        Recurrence recurrence = new Recurrence();
-        recurrence.setDaily(true);
-
-        Habit habit = new Habit("Exercise", "Physical", recurrence, 30);
-        habitsList.addHabit(habit);
-
         assertEquals(0.0, habit.getProgress(), 0.01);
 
         habit.setComplete(false);
