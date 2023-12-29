@@ -94,26 +94,26 @@ public class HabitsListTest {
     }
 
     @Test
-public void testHabitChangeOrderByName() {
-    HabitsList habitsList = new HabitsList("Health");
-
-    Recurrence recurrence = new Recurrence();
-    recurrence.setDaily(true);
-
-    Habit habit1 = new Habit("Exercise", "Physical", recurrence, 30);
-    Habit habit2 = new Habit("Read", "Mental", recurrence, 15);
-    Habit habit3 = new Habit("Teach", "Educational", recurrence, 45);
-
-    habitsList.addHabit(habit1);
-    habitsList.addHabit(habit2);
-    habitsList.addHabit(habit3);
-
-    habitsList.habitChangeOrder("name");
-
-    assertEquals(habit1, habitsList.getHabits().get(0));
-    assertEquals(habit2, habitsList.getHabits().get(1));
-    assertEquals(habit3, habitsList.getHabits().get(2));
-}
+    public void testHabitChangeOrderByName() {
+        HabitsList habitsList = new HabitsList("Health");
+    
+        Recurrence recurrence = new Recurrence();
+        recurrence.setDaily(true);
+    
+        Habit habit1 = new Habit("Exercise", "Physical", recurrence, 30);
+        Habit habit2 = new Habit("Read", "Mental", recurrence, 15);
+        Habit habit3 = new Habit("Teach", "Educational", recurrence, 45);
+    
+        habitsList.addHabit(habit1);
+        habitsList.addHabit(habit2);
+        habitsList.addHabit(habit3);
+    
+        habitsList.habitChangeOrder("name");
+    
+        assertEquals(habit1, habitsList.getHabits().get(0));
+        assertEquals(habit2, habitsList.getHabits().get(1));
+        assertEquals(habit3, habitsList.getHabits().get(2));
+    }
 
     @Test
     public void testHabitChangeOrderByCategory() {
