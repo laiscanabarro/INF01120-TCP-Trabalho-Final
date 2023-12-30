@@ -26,9 +26,18 @@ public class User {
         return password;
     }
 
-    public void editProfile() {
+    public void setEmail(String email) {
+        this.email = email;
     }
-    // TBD
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public void editProfile() {
+        // TBD
+    }
+
 
     public boolean addFriend(User friend) {
         // TBD
@@ -45,9 +54,10 @@ public class User {
         return true;
     }
 
-    public void createCommunity() {
+    public void createCommunity(String communityName, String owner) {
+        return new Community(communityName, this.name); 
     }
-    // TBD
+
 
     public void createList() {
     }
