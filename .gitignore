@@ -1,3 +1,14 @@
-target/classes/content/Productivity.class
-target/classes/content/User.class
-target/classes/content/Report.class
+# Ignore all .class files
+*.class
+
+# Ignore all files in the /build directory
+/build/
+
+# Ignore all .log files
+*.log
+
+# Ignore all .jar files
+*.jar
+
+# Ignore all .war files
+*.war
