@@ -1,4 +1,4 @@
-package content;
+package user;
 public class Authentication {
 
     public static final int MAX_LOGIN_ATTEMPTS = 3;
