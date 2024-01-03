@@ -1,8 +1,4 @@
-package tests;
-
-import content.Habit;
-import content.HabitsList;
-import content.Recurrence;
+package content;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
