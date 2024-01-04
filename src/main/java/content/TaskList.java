@@ -2,6 +2,7 @@ package content;
 
 import utils.TasksUtils;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class TaskList {
@@ -29,7 +30,7 @@ public class TaskList {
     public String getName(){ return name; }
     public ArrayList<Task> getTasks(){ return tasks; }
     private void reset(){
-        setName("");
+        setName(null);
         ArrayList<Task> emptyTasks = new ArrayList<>();
         setTasks(emptyTasks);
     }
@@ -42,28 +43,26 @@ public class TaskList {
     public void changeOrder(String orderBy){
         switch (orderBy) {
             case TasksUtils.ORDER_ALPHABET -> orderByLetter();
-            case TasksUtils.ORDER_END_DATE_ASC -> orderByEndDate(true);
-            case TasksUtils.ORDER_END_DATE_DESC -> orderByEndDate(false);
-            case TasksUtils.ORDER_IMPORTANCE_ASC -> orderByImportance(true);
-            case TasksUtils.ORDER_IMPORTANCE_DESC -> orderByImportance(false);
+            case TasksUtils.ORDER_END_DATE_ASC -> orderByEndDate(false);
+            case TasksUtils.ORDER_END_DATE_DESC -> orderByEndDate(true);
+            case TasksUtils.ORDER_IMPORTANCE_ASC -> orderByImportance(false);
+            case TasksUtils.ORDER_IMPORTANCE_DESC -> orderByImportance(true);
             default -> setTasks(tasks);
         }
     }
     private void orderByLetter(){
         tasks.sort(Comparator.comparing(Task::getName));
     }
-    private void orderByEndDate(boolean isAsc){
-        if (isAsc){
-            tasks.sort(Comparator.comparing(Task::getDeadline));
-        } else {
-            tasks.sort(Comparator.comparing(Task::getDeadline).reversed());
+    private void orderByEndDate(boolean isDesc){
+        tasks.sort(Comparator.comparing(Task::getDeadline));
+        if (isDesc){
+            Collections.reverse(tasks);
         }
     }
-    private void orderByImportance(boolean isAsc){
-        if (isAsc){
-            tasks.sort(Comparator.comparingInt(Task::getImportanceScale));
-        } else {
-            tasks.sort(Comparator.comparingInt(Task::getImportanceScale).reversed());
+    private void orderByImportance(boolean isDesc){
+        tasks.sort(Comparator.comparingInt(Task::getImportanceScale));
+        if (isDesc){
+            Collections.reverse(tasks);
         }
     }
 }

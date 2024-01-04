@@ -7,8 +7,6 @@ import org.junit.jupiter.api.*;
 import utils.TasksUtils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class ImportantListTest {
     TaskList taskList;
@@ -22,6 +20,8 @@ public class ImportantListTest {
 
     @BeforeEach
     public void init() {
+        ImportantList.getInstance().getTasks().clear();
+
         taskList = new TaskList();
         task1 = new Task();
         task1.setCurrentList(taskList);

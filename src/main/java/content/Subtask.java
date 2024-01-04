@@ -22,7 +22,7 @@ public class Subtask {
     public boolean getStatus(){ return status; }
     public Task getMainTask(){ return mainTask; }
     public void reset(){
-        setName("");
+        setName(null);
         setStatus(!TasksUtils.COMPLETED);
         setMainTask(null);
     }

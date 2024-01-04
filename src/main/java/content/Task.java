@@ -21,12 +21,11 @@ public class Task {
     public Task() {
         reset();
     }
-    public Task(String name, TaskList currentList, TaskList oldList,
-                String description, int importanceScale, Date deadline,
-                boolean status, ArrayList<Subtask> subtasks, Date conclusionDate) {
+    public Task(String name, TaskList currentList, String description,
+                int importanceScale, Date deadline, boolean status,
+                ArrayList<Subtask> subtasks, Date conclusionDate) {
         setName(name);
         setCurrentList(currentList);
-        setOldList(oldList);
         setDescription(description);
         setImportanceScale(importanceScale);
         setDeadline(deadline);
@@ -64,10 +63,9 @@ public class Task {
     public ArrayList<Subtask> getSubtasks(){ return subtasks; }
     public Date getConclusionDate(){ return conclusionDate; }
     private void reset(){
-        setName("");
+        setName(null);
         setCurrentList(null);
-        setOldList(null);
-        setDescription("");
+        setDescription(null);
         setImportanceScale(TasksUtils.MIN_IMPORTANCE);
         setDeadline(null);
         setStatus(!TasksUtils.COMPLETED);
@@ -84,6 +82,6 @@ public class Task {
         setOldList(currentList);
         setCurrentList(newList);
         getOldList().removeTask(this);
-        newList.addTask(this);
+        getCurrentList().addTask(this);
     }
 }

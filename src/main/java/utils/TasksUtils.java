@@ -3,9 +3,9 @@ package utils;
 import java.util.Locale;
 
 public class TasksUtils {
-    public static boolean COMPLETED = true;
-    public static int MIN_IMPORTANCE = 0;
-    public static int MAX_IMPORTANCE = 5;
+    public static final boolean COMPLETED = true;
+    public static final int MIN_IMPORTANCE = 0;
+    public static final int MAX_IMPORTANCE = 5;
     public static final String ORDER_ALPHABET = "alphabet";
     public static final String ORDER_IMPORTANCE_ASC = "importanceAsc";
     public static final String ORDER_IMPORTANCE_DESC = "importanceDesc";
