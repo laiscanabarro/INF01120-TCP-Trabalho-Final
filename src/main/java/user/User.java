@@ -11,8 +11,16 @@ public class User {
     private String password;
     private Set<User> friends;
     private Set<User> pendingFriends;
-    private HabitsList habits;
-    private Productivity productivity;
+    private ArrayList<HabitsList> habits;
+    private ArrayList<TaskList> tasks;
+    private Calendar calendar; 
+    private NotificationList notifications;
+    private ArrayList<Community> communities;
+
+
+    private Productivity dailyProductivity; 
+    private Productivity weeklyProductivity;
+   
 
     // Constructor
     public User(String email, String password) {
@@ -83,18 +91,28 @@ public class User {
 
 
 
-    public void createCommunity(String communityName, String owner) {
-        return new Community(communityName, this.name); 
+    public void createCommunity(String communityName) {
+        Community newCommunity = new Community(communityName, this.name);
+        this.communities.add(newCommunity);
     }
+
 
 
     public void createList() {
             // TBD
     }
 
-
+    /* 
+    public void updateWeeklyProductivity(ArrayList<TaskList> tasks, ArrayList<HabitList> habits){
+        int tasksCompleted = 0;
+        for(task in tasks){
+            if task.status == 'done':{
+                tasksCompleted += 1;    
+            }
+        }
+    }
 
     public Report generateProductivityReport() {
-        return new Report(productivity);
-    }
+        return new Report(this.productivity);
+    }*/
 }
