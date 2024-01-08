@@ -1,42 +1,77 @@
 package src;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import content.Event;
+
 public class Calender { 
-    private ArrayList<Event> events = new ArrayList<>();
-    //private ArrayList<Task> tasks = new ArrayList<>();
-    //private ArrayList<Habit> habits = new ArrayList<>(); //hábitos tbm não podiam aparecer no calendário?
-
-    public ArrayList<Event> getEvents(){
-        return this.events;
-    }
-
-    /*
-    public ArrayList<Task> getTasks(){
-        return this.events;
-    }
-    */
+    private ArrayList<Event> events; 
+    private ArrayList<Task> tasks;
+    private ArrayList<Schedule> schedules;
 
     public void addEvent(Event event){
         events.add(event);
-         //precisa ser booleano a saida?
+
+        //filter the event date
+        LocalDate start = event.getPeriod().getStartDate();
+        LocalDate end = event.getPeriod().getEndDate();
+        long days = event.getPeriod().countDays(start, end);
+
+        for (int i = 0; i < days; i++){
+            Schedule scheduleSearched = searchSchedule(start.plusDays(i));
+            if (scheduleSearched != null){
+                scheduleSearched.addEvent(event);
+            }
+            else{
+                Schedule schedule = new Schedule(start.plusDays(i));
+                schedule.addEvent(event);
+            }
+        }
     }
 
     public void removeEvent(Event event){
         events.remove(event);
+
+        //filter the event date
+        LocalDate start = event.getPeriod().getStartDate();
+        LocalDate end = event.getPeriod().getEndDate();
+        long days = event.getPeriod().countDays(start, end);
+
+        for (int i = 0; i < days; i++){
+            Schedule schedule = searchSchedule(start.plusDays(i));
+            if (schedule != null){
+                schedule.getEvents().remove(event);
+            }
+        }
+
     }
 
-    /* 
     public void addTask(Task task){
         tasks.add(task);
+
+        Schedule schedule = searchSchedule(task.getDeadline());
+        if (schedule != null){
+            schedule.addTask(task);
+        }
+        else {
+            Schedule schedule = new Schedule(start.plusDays(i));
+            schedule.addTask(task);
+        }
+
     }
 
     public void removeTask(Task task){
         tasks.remore(task);
-    }
-    */
 
+        Schedule schedule = searchSchedule(task.getDeadline());
+        if (schedule != null){
+            schedule.removeTask(task);
+        }
+        
+    }
+    
     public void blockCalender(){
         displayCalender(0, 0);
     }
@@ -44,16 +79,8 @@ public class Calender {
     private int calculeFirstDayMonth(int year, int month) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month-1, 1); 
+
         return calendar.get(Calendar.DAY_OF_WEEK);
-        /*
-         * 1: sunday
-         * 2: monday
-         * 3: tuesday
-         * 4: wednesday
-         * 5: thursaday
-         * 6: friday
-         * 7: saturday
-         */
     }
 
     private boolean leapYear(int year){
@@ -128,6 +155,15 @@ public class Calender {
         System.out.println();
 
     }   
+
+    public Schedule searchSchedule(LocalDate date){
+        for (Schedule schedule : schedules){
+            if(schedule.getDate().equals(date)){
+                return schedule;
+            }
+        }
+        return null;
+    }
     
     public Event searchEvent(String name){
         for (Event event : events){
@@ -138,7 +174,7 @@ public class Calender {
         return null;
     }
 
-    /*
+    
     public Task searchTask(String name){
         for (Task task : tasks){
             if(task.getName().equals(name)){
@@ -147,7 +183,7 @@ public class Calender {
         }
         return null;
     }
-    */
+    
 
     //public void selectDay(){}
 
