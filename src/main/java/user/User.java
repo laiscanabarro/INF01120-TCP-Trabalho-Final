@@ -1,4 +1,7 @@
 package user;
+import content.Community;
+import content.HabitsList;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +17,7 @@ public class User {
     private HabitsList habits;
     private Productivity productivity;
 
+    public User() {}
     // Constructor
     public User(String email, String password) {
         this.email = email;
@@ -23,6 +27,8 @@ public class User {
     }
 
     // Getters and Setters
+    public String getName() { return name; }
+
     public String getEmail() {
         return email;
     }
@@ -38,6 +44,8 @@ public class User {
     public Set<User> getPendingFriends() {
         return pendingFriends;
     }
+
+    public void setName(String name) { this.name = name; }
 
     public void setEmail(String email) {
         this.email = email;
@@ -81,18 +89,11 @@ public class User {
         }
     }
 
-
-
-    public void createCommunity(String communityName, String owner) {
-        return new Community(communityName, this.name); 
-    }
-
+    public void createCommunity(String communityName, String owner) {}
 
     public void createList() {
             // TBD
     }
-
-
 
     public Report generateProductivityReport() {
         return new Report(productivity);
