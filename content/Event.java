@@ -9,7 +9,7 @@ public class Event {
     private Location location; 
     private Period period;
     private Recurrence recurrence;
-    //private ArrayList<User> participants = new ArrayList<>();
+    private ArrayList<User> participants = new ArrayList<>();
 
     public Event(String name, Period period){
         this.name = name;
@@ -23,7 +23,6 @@ public class Event {
         this.recurrence = recurrence;
     }
 
-    /* 
     public Event(String name, Location location, Period period, Recurrence recurrence, ArrayList<User> participants){
             this.name = name;
             this.location = location;
@@ -31,7 +30,6 @@ public class Event {
             this.recurrence = recurrence;
             this.participants = participants;
         }
-    */
 
     public String getName(){
         return this.name;
@@ -49,11 +47,9 @@ public class Event {
         return this.recurrence;
     }
 
-    /* 
     public ArrayList<User> getParticipants(){
         return this.participants;
     }
-    */
     
     public void setName(String name){
         this.name = name;
@@ -71,11 +67,12 @@ public class Event {
         this.recurrence = recurrence;
     }
 
-    /* 
+
     public void setParticipants(ArrayList<User> participants){
         this.participants = participants;
     }
     
+    /*
     public void shareWhithFriend(User friend){
         Notification notification = new Notification(this.name);
         Invitation invitation = new Invitation(friend, notification); //se o convite for aceito esse amigo tem q entrar na lista de participantes
@@ -85,6 +82,5 @@ public class Event {
         Notification notification = new Notification(this.name);
         Invitation invitation = new Invitation(community, notification);
     } 
-    */
-    
+    */    
 }
