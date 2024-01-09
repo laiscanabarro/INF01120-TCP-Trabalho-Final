@@ -6,6 +6,10 @@ import java.util.List;
 
 import content.Event;
 
+/*
+ * Schedule
+ * Class that stores a day's events and tasks
+ */
 public class Schedule {
     private ArrayList<Event> events;
     private ArrayList<Task> tasks;

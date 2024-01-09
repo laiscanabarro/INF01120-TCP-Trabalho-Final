@@ -73,7 +73,8 @@ public class Calender {
     }
     
     public void blockCalender(){
-        displayCalender(0, 0);
+        LocalDate date = LocalDate.of(0, 0, 0);
+        displayCalender(date);
     }
 
     private int calculeFirstDayMonth(int year, int month) {
@@ -121,23 +122,19 @@ public class Calender {
         return daysMonth;
     }
 
-    public void displayCalender(int year, int month){
-        //first day of the year
-        int firstDay = calculeFirstDayMonth(year, month);
-        //System.out.println(firstDay);
+    public void displayCalender(LocalDate date){
+        int firstDay = calculeFirstDayMonth(date.getYear(), date.getMonthValue());
 
-        //leap year = true (29 days in february); = false (28 days in february)
-        boolean leapYear = leapYear(year);
+        boolean leapYear = leapYear(date.getYear()); //leap year = true (29 days in february); = false (28 days in february)
 
-        //number of days in the month
-        int daysMonth = calculeDaysMonth(month, leapYear);
-        //System.out.println(daysMonth);
+        int daysMonth = calculeDaysMonth(date.getMonthValue(), leapYear);
 
-        if (year == 0){ //block calender
+        //block calender
+        if (date.getYear() == 0){ 
             return;
         }
 
-        System.out.printf("        %d/%d \n", month, year);
+        System.out.printf("        %d/%d \n", date.getMonth(), date.getYear());
         System.out.println(" S  M  T  W  T  F  S");
 
         for (int i = 1; i <= (daysMonth + firstDay - 1); i++){
@@ -154,6 +151,8 @@ public class Calender {
         }
         System.out.println();
 
+        Schedule schedule = searchSchedule(date);
+        schedule.displaySchedule();
     }   
 
     public Schedule searchSchedule(LocalDate date){
@@ -174,7 +173,6 @@ public class Calender {
         return null;
     }
 
-    
     public Task searchTask(String name){
         for (Task task : tasks){
             if(task.getName().equals(name)){
@@ -184,7 +182,6 @@ public class Calender {
         return null;
     }
     
-
     //public void selectDay(){}
 
     //public void selectMonth(){}
