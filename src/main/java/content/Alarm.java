@@ -1,6 +1,7 @@
 package content;
 
 import java.time.LocalDate;
+import user.User;
 
 public class Alarm {
     private LocalDate date;
