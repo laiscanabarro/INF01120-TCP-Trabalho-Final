@@ -4,6 +4,8 @@ import java.util.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import user.User;
+
 public class Event {
     private String name;
     private Location location; 

@@ -77,7 +77,7 @@ public class Calender {
     }
 
     public void removeTask(Task task){
-        tasks.remore(task);
+        tasks.remove(task);
 
         Schedule schedule = searchSchedule(task.getDeadline());
         if (schedule != null){

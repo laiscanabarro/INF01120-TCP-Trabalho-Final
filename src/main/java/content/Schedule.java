@@ -39,10 +39,6 @@ public class Schedule {
         events.remove(event);
     }
 
-    public ArrayList<Task> getTasks(){
-        return this.tasks;
-    } 
-
     public void removeTask(Task task){
         tasks.remove(task);
     }
