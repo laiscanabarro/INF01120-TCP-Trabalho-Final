@@ -1,12 +1,10 @@
-package test;
+package content;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import content.Period;
 
 public class PeriodTest {
     LocalDate date1;

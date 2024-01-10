@@ -1,9 +1,7 @@
-package test;
+package content;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-
-import content.*;
 
 public class NotificationListTest {
     Notification notification1;

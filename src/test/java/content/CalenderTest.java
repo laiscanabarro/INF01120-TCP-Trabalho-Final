@@ -1,14 +1,9 @@
-package test;
+package content;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
-
-import content.Calender;
-import content.Event;
-import content.Period;
-import content.Schedule;
 
 public class CalenderTest {
     LocalDate date;
