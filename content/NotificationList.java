@@ -5,7 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class NotificationList {
-    private ArrayList<Notification> notifications = new ArrayList<>();
+    private ArrayList<Notification> notifications;
+
+    public NotificationList(){
+        this.notifications = new ArrayList<Notification>();
+    }
 
     public ArrayList<Notification> getNotifications(){
         return notifications;

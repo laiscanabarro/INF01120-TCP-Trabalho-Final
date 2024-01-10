@@ -29,7 +29,7 @@ public class Event {
             this.period = period;
             this.recurrence = recurrence;
             this.participants = participants;
-        }
+    }
 
     public String getName(){
         return this.name;
@@ -66,7 +66,6 @@ public class Event {
     public void setRecurrence(Recurrence recurrence){
         this.recurrence = recurrence;
     }
-
 
     public void setParticipants(ArrayList<User> participants){
         this.participants = participants;

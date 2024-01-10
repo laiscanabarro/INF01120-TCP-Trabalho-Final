@@ -37,14 +37,21 @@ public class Schedule {
         events.add(event);
     }
 
-    public void addTask(Task task){
-        tasks.add(task);
+    public void removeEvent(Event event){
+        events.remove(event);
+    }
+
+    public Array<Task> getTasks(){
+        return this.tasks;
+    } 
+
+    public void removeTask(Task task){
+        tasks.remove(task);
     }
 
     public boolean searchEvent(Event event){
         LocalDate start = event.getPeriod().getStartDate();
-        LocalDate end = event.getPeriod().getEndDate();
-        long days = event.getPeriod().countDays(start, end);
+        long days = event.getPeriod().countDays();
         System.out.println(days);
 
         for (long i = 0; i <= days; i++){
@@ -66,6 +73,7 @@ public class Schedule {
         for (int i = 0; i < numTasks; i++){
             System.out.println(tasks.get(i));
         }
+
     }
 
 

@@ -56,7 +56,7 @@ public class Period {
         this.endTime = time;
     }
 
-    public long countDays(LocalDate startDate, LocalDate endDate){
-        return ChronoUnit.DAYS.between(startDate, endDate);
+    public long countDays(){
+        return ChronoUnit.DAYS.between(this.startDate, this.endDate);
     }
 }

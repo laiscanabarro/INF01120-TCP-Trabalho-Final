@@ -11,13 +11,30 @@ public class Calender {
     private ArrayList<Task> tasks;
     private ArrayList<Schedule> schedules;
 
+    public Calender(){
+        this.events = new ArrayList<Event>();
+        this.tasks = new ArrayList<Task>();
+        this.schedules = new ArrayList<Schedule>();
+    }
+
+    public ArrayList<Event> getEvents(){
+        return this.events;
+    }
+
+    public ArrayList<Task> getTasks(){
+        return this.tasks;
+    }
+
+    public ArrayList<Schedule> getSchedules(){
+        return this.schedules;
+    }
+
     public void addEvent(Event event){
         events.add(event);
 
         //filter the event date
         LocalDate start = event.getPeriod().getStartDate();
-        LocalDate end = event.getPeriod().getEndDate();
-        long days = event.getPeriod().countDays(start, end);
+        long days = event.getPeriod().countDays();
 
         for (int i = 0; i < days; i++){
             Schedule scheduleSearched = searchSchedule(start.plusDays(i));
@@ -36,13 +53,12 @@ public class Calender {
 
         //filter the event date
         LocalDate start = event.getPeriod().getStartDate();
-        LocalDate end = event.getPeriod().getEndDate();
-        long days = event.getPeriod().countDays(start, end);
+        long days = event.getPeriod().countDays();
 
         for (int i = 0; i < days; i++){
             Schedule schedule = searchSchedule(start.plusDays(i));
             if (schedule != null){
-                schedule.getEvents().remove(event);
+                schedule.removeEvent(event);
             }
         }
 
@@ -56,7 +72,7 @@ public class Calender {
             schedule.addTask(task);
         }
         else {
-            Schedule schedule = new Schedule(start.plusDays(i));
+            Schedule schedule = new Schedule(task.getDeadline());
             schedule.addTask(task);
         }
 
@@ -70,7 +86,7 @@ public class Calender {
             schedule.removeTask(task);
         }
         
-    }
+    } 
     
     public void blockCalender(){
         LocalDate date = LocalDate.of(0, 0, 0);
