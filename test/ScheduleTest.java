@@ -3,11 +3,11 @@ package test;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import src.*;
 import java.time.LocalDate;
 
 import content.Event;
 import content.Period;
+import content.Schedule;
 
 public class ScheduleTest {
     LocalDate date;
