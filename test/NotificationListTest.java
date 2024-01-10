@@ -2,7 +2,6 @@ package test;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
 
 import content.*;
 
@@ -26,17 +25,17 @@ public class NotificationListTest {
     @Test
     public void addNotification(){
         list.addNotification(notification1);
-        ArrayList<Notification> notifications = list.getNotifications();
+        int beforeAdd = list.getNotifications().size();
         list.addNotification(notification2);
-        assertEquals(notifications, list.getNotifications());
+        assertNotEquals(beforeAdd, list.getNotifications().size());
     }
 
     @Test 
     public void removeNotification(){
         list.addNotification(notification2);
-        ArrayList<Notification> notifications = list.getNotifications();
+        int beforeRemove = list.getNotifications().size();
         list.removeNotification(notification2);
-        assertEquals(notifications, list.getNotifications());
+        assertNotEquals(beforeRemove, list.getNotifications().size());
     }
 
     @AfterAll
