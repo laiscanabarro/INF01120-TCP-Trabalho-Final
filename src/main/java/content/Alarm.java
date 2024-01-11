@@ -46,7 +46,7 @@ public class Alarm {
         LocalDate currentDate = LocalDate.now();
         
         if (currentDate.compareTo(this.date) == 0){
-            user.getNotificationList().addNotification(this.notification);
+            user.getNotifications().addNotification(this.notification);
         }
     }
 
