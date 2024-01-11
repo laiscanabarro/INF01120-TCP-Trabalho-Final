@@ -7,9 +7,7 @@ public class Productivity {
 
 
     private int goal;
-    private Date startDate;
-    private Date endDate;
-    private double currentState;
+    private int completed; 
 
     // Constructor
     public Productivity(int goal){
@@ -25,6 +23,7 @@ public class Productivity {
         this.goal = goal;
     }
 
+    /*
     public Date getStart(){
         return this.startDate;
     }
@@ -32,7 +31,6 @@ public class Productivity {
     public void setStartDate(Date startDate){
         this.startDate = startDate;
     }
-
 
     public Date getEndDate(){
         return this.endDate;
@@ -49,6 +47,7 @@ public class Productivity {
     public void setCurrentState(double currentState){
         this.currentState = currentState;
     }
+     */
 
 
     // Other methods

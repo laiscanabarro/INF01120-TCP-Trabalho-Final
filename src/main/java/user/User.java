@@ -1,11 +1,10 @@
 package user;
-import content.Community;
-import content.HabitsList;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import content.*;
 
 public class User {
 
@@ -14,10 +13,17 @@ public class User {
     private String password;
     private Set<User> friends;
     private Set<User> pendingFriends;
-    private HabitsList habits;
-    private Productivity productivity;
+    private ArrayList<HabitsList> habits;
+    private ArrayList<TaskList> tasks;
+    private Calendar calendar; 
+    private NotificationList notifications;
+    private ArrayList<Community> communities;
 
-    public User() {}
+
+    private Productivity dailyProductivity; 
+    private Productivity weeklyProductivity;
+   
+
     // Constructor
     public User(String email, String password) {
         this.email = email;
@@ -27,7 +33,9 @@ public class User {
     }
 
     // Getters and Setters
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
     public String getEmail() {
         return email;
@@ -45,7 +53,29 @@ public class User {
         return pendingFriends;
     }
 
-    public void setName(String name) { this.name = name; }
+    public ArrayList<HabitsList> getHabits() {
+        return habits;
+    }
+
+    public ArrayList<TaskList> getTasks() {
+        return tasks;
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
+    public NotificationList getNotifications() {
+        return notifications;
+    }
+
+    public Productivity getDailyProductivity() {
+        return dailyProductivity;
+    }
+
+    public Productivity getWeeklProductivity() {
+        return weeklyProductivity;
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -89,13 +119,30 @@ public class User {
         }
     }
 
-    public void createCommunity(String communityName, String owner) {}
+
+
+    public void createCommunity(String communityName) {
+        Community newCommunity = new Community(communityName, this.name);
+        this.communities.add(newCommunity);
+    }
+
+
 
     public void createList() {
             // TBD
     }
 
-    public Report generateProductivityReport() {
-        return new Report(productivity);
+    /* 
+    public void updateWeeklyProductivity(ArrayList<TaskList> tasks, ArrayList<HabitList> habits){
+        int tasksCompleted = 0;
+        for(task in tasks){
+            if task.status == 'done':{
+                tasksCompleted += 1;    
+            }
+        }
     }
+
+    public Report generateProductivityReport() {
+        return new Report(this.productivity);
+    }*/
 }
