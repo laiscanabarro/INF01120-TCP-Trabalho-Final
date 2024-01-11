@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 
-public class CalenderTest {
+public class CalendarTest {
     LocalDate date;
     Period period;
     Event event1;
