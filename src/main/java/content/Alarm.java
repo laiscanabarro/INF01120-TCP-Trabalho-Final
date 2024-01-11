@@ -42,7 +42,6 @@ public class Alarm {
         this.name = notification.getName();
     }
 
-    /*
     public void compareDate(User user){
         LocalDate currentDate = LocalDate.now();
         
@@ -50,6 +49,5 @@ public class Alarm {
             user.getNotificationList().addNotification(this.notification);
         }
     }
-     */
 
 }

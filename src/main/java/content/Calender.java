@@ -2,7 +2,6 @@ package content;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class Calender { 
     private ArrayList<Event> events; 
@@ -92,10 +91,9 @@ public class Calender {
     }
 
     private int calculeFirstDayMonth(int year, int month) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month-1, 1); 
+        LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
 
-        return calendar.get(Calendar.DAY_OF_WEEK);
+        return firstDayOfMonth.getDayOfWeek().getValue();
     }
 
     private boolean leapYear(int year){
