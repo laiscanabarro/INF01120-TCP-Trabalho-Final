@@ -35,6 +35,10 @@ public class Schedule {
         events.add(event);
     }
 
+    public void addTask(Task task){
+        tasks.add(task);
+    }
+
     public void removeEvent(Event event){
         events.remove(event);
     }
