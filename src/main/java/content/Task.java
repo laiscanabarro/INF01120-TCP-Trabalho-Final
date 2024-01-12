@@ -1,6 +1,8 @@
 package content;
 
 import utils.TasksUtils;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,7 +12,7 @@ public class Task {
     private TaskList oldList;
     private String description;
     private int importanceScale;
-    private Date deadline;
+    private LocalDate deadline;
     private boolean status;
     private ArrayList<Subtask> subtasks;
     private Date conclusionDate;
@@ -22,7 +24,7 @@ public class Task {
         reset();
     }
     public Task(String name, TaskList currentList, String description,
-                int importanceScale, Date deadline, boolean status,
+                int importanceScale, LocalDate deadline, boolean status,
                 ArrayList<Subtask> subtasks, Date conclusionDate) {
         setName(name);
         setCurrentList(currentList);
@@ -37,7 +39,7 @@ public class Task {
     public void setCurrentList(TaskList currentList){ this.currentList = currentList; }
     public void setOldList(TaskList oldList){ this.oldList = oldList; }
     public void setDescription(String description){ this.description = description; }
-    public void setDeadline(Date deadline){ this.deadline = deadline; }
+    public void setDeadline(LocalDate deadline){ this.deadline = deadline; }
     public void setImportanceScale(int importanceScale){
         if(importanceScale != TasksUtils.MIN_IMPORTANCE){
             changeList(ImportantList.getInstance());
@@ -57,7 +59,7 @@ public class Task {
     public TaskList getCurrentList(){ return currentList; }
     public TaskList getOldList(){ return oldList; }
     public String getDescription(){ return description; }
-    public Date getDeadline(){ return deadline; }
+    public LocalDate getDeadline(){ return deadline; }
     public int getImportanceScale(){ return importanceScale; }
     public boolean getStatus(){ return status; }
     public ArrayList<Subtask> getSubtasks(){ return subtasks; }

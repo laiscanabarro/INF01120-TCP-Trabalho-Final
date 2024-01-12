@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 
-public class CalenderTest {
+public class CalendarTest {
     LocalDate date;
     Period period;
     Event event1;
     Event event2;
     Schedule schedule;
-    Calender calender;
+    Calendar calender;
 
     @BeforeAll
     public static void start(){
@@ -25,7 +25,7 @@ public class CalenderTest {
         event1 = new Event("class", period);
         event2 = new Event("test", period);
         schedule = new Schedule(date);
-        calender = new Calender();
+        calender = new Calendar();
     }
 
     @Test

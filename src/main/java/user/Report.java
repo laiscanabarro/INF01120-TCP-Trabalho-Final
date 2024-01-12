@@ -27,8 +27,7 @@ public class Report {
     // Other methods
     public void displayProductivityReport (){
         System.out.println("Goal: " + productivity.getGoal());
-        System.out.println("Current State:" + productivity.getCurrentState());
+        //System.out.println("Current State:" + productivity.getCurrentState());
         // maybe: days passed, days left, etc 
     }
 }
-

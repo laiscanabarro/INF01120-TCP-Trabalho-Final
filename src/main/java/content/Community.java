@@ -1,5 +1,7 @@
 package content;
 
+import user.User;
+
 import java.util.ArrayList;
 
 public class Community {
@@ -8,14 +10,14 @@ public class Community {
     private String owner;
     private ArrayList<User> members;
     private ArrayList<TaskList> lists;
-    private ArrayList<Event> events;
+//    private ArrayList<Event> events;
     
     public Community(String name, String owner) {
         this.name = name;
         this.owner = owner;
         this.members = new ArrayList<>();
         this.lists = new ArrayList<>();
-        this.events = new ArrayList<>();
+//        this.events = new ArrayList<>();
     }
 
     public static int getMaxcap() {
@@ -54,13 +56,13 @@ public class Community {
         this.lists = lists;
     }
 
-    public ArrayList<Event> getEvents() {
-        return events;
-    }
+//    public ArrayList<Event> getEvents() {
+//        return events;
+//    }
 
-    public void setEvents(ArrayList<Event> events) {
-        this.events = events;
-    }
+//    public void setEvents(ArrayList<Event> events) {
+//        this.events = events;
+//    }
 
     public boolean addMember(User member) {
         if (searchMember(member.getName()) == null) {

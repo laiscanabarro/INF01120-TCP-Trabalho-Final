@@ -23,6 +23,7 @@ public class Productivity {
         this.goal = goal;
     }
 
+    /*
     public Date getStart(){
         return this.startDate;
     }
@@ -46,6 +47,7 @@ public class Productivity {
     public void setCurrentState(double currentState){
         this.currentState = currentState;
     }
+     */
 
 
     // Other methods

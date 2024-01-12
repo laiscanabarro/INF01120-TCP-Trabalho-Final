@@ -27,7 +27,7 @@ public class Schedule {
         return this.events;
     }
 
-    public Array<Task> getTasks(){
+    public ArrayList<Task> getTasks(){
         return this.tasks;
     } 
 
@@ -35,13 +35,13 @@ public class Schedule {
         events.add(event);
     }
 
+    public void addTask(Task task){
+        tasks.add(task);
+    }
+
     public void removeEvent(Event event){
         events.remove(event);
     }
-
-    public Array<Task> getTasks(){
-        return this.tasks;
-    } 
 
     public void removeTask(Task task){
         tasks.remove(task);

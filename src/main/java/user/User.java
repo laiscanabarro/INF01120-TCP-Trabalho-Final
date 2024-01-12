@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import content.*;
+
 public class User {
 
     private String name;
@@ -31,6 +33,10 @@ public class User {
     }
 
     // Getters and Setters
+    public String getName() {
+        return name;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -45,6 +51,30 @@ public class User {
 
     public Set<User> getPendingFriends() {
         return pendingFriends;
+    }
+
+    public ArrayList<HabitsList> getHabits() {
+        return habits;
+    }
+
+    public ArrayList<TaskList> getTasks() {
+        return tasks;
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
+    public NotificationList getNotifications() {
+        return notifications;
+    }
+
+    public Productivity getDailyProductivity() {
+        return dailyProductivity;
+    }
+
+    public Productivity getWeeklProductivity() {
+        return weeklyProductivity;
     }
 
     public void setEmail(String email) {
