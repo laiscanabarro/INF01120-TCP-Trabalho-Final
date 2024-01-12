@@ -24,6 +24,10 @@ public class User {
     private Productivity weeklyProductivity;
    
 
+    // Constructor without parameters
+    public User(){
+
+    }
     // Constructor
     public User(String email, String password) {
         this.email = email;
@@ -31,6 +35,7 @@ public class User {
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
     }
+
 
     // Getters and Setters
     public String getName() {
@@ -47,6 +52,10 @@ public class User {
 
     public Set<User> getFriends() {
         return friends;
+    }
+
+    public ArrayList<Community> getCommunities() {
+        return communities;
     }
 
     public Set<User> getPendingFriends() {

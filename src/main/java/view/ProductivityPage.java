@@ -1,19 +1,17 @@
 package view;
 
-import utils.RoundedBorder;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HomePage extends Page {
+public class ProductivityPage extends Page {
     private static JPanel contentPanel;
     private static final int dividerPosition = 190;
     private static final int buttonWidth = dividerPosition - 10;
     private static final int buttonHeight = 25;
 
-    public HomePage() {
+    public ProductivityPage() {
         super();
         setLocationRelativeTo(null);
         JPanel sideMenu = new JPanel();
@@ -36,12 +34,12 @@ public class HomePage extends Page {
         gbc.gridx--;
         gbc.gridy++;
         gbc.gridwidth++;
-        JButton bnt1 = new JButton("User");
+        JButton bnt1 = new JButton("P1");
         bnt1.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         sideMenu.add(bnt1, gbc);
 
         gbc.gridy++;
-        JButton bnt2 = new JButton("Teste 2");
+        JButton bnt2 = new JButton("P2");
         bnt2.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         sideMenu.add(bnt2, gbc);
 
@@ -56,14 +54,20 @@ public class HomePage extends Page {
         sideMenu.add(bnt4, gbc);
 
         gbc.gridy++;
-        JButton bnt5 = new JButton("Productivity");
+        JButton bnt5 = new JButton("Teste 5");
         bnt5.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         sideMenu.add(bnt5, gbc);
+
+        gbc.gridy++;
+        JButton backButton = new JButton("Back");
+        backButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+        sideMenu.add(backButton, gbc);
 
         gbc.gridy++;
         JButton bnt6 = new JButton("Exit");
         bnt6.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         sideMenu.add(bnt6, gbc);
+
 
         //Componente em branco/preenchimento
         gbc.gridx++;
@@ -92,15 +96,19 @@ public class HomePage extends Page {
                 System.out.println("clicked");
             }
         });
-
         bnt1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserInfoPage userInfoPage = new UserInfoPage();
-                changeTo(userInfoPage);
+                JPanel newPanel = new JPanel();
+                newPanel.setOpaque(true);
+                newPanel.setBackground(Color.RED);
+                splitPanel.setRightComponent(newPanel);
+                splitPanel.setDividerLocation(dividerPosition);
+//                setContentPane(newPanel);
+//                invalidate();
+//                validate();
             }
         });
-
         bnt2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -121,28 +129,33 @@ public class HomePage extends Page {
                 splitPanel.setDividerLocation(dividerPosition);
             }
         });
-
         bnt4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JPanel newPanel = new JPanel();
                 newPanel.setOpaque(true);
-                newPanel.setBackground(Color.RED);
+                newPanel.setBackground(Color.YELLOW);
                 splitPanel.setRightComponent(newPanel);
                 splitPanel.setDividerLocation(dividerPosition);
-//                setContentPane(newPanel);
-//                invalidate();
-//                validate();
             }
         });
 
         bnt5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JPanel newPanel = new JPanel();
+                newPanel.setOpaque(true);
+                newPanel.setBackground(Color.PINK);
+                splitPanel.setRightComponent(newPanel);
+                splitPanel.setDividerLocation(dividerPosition);
+            }
+        });
 
-                ProductivityPage productivityPage = new ProductivityPage();
-                changeTo(productivityPage);
-
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Back to the homePage
+                changeTo(homePage);
             }
         });
 
