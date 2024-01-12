@@ -1,260 +1,167 @@
-package view;
+package view;/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+/**
+ *
+ * @author i576263
+ */
 public class UserInfoPage extends Page {
-    private static JPanel contentPanel;
-    private static final int dividerPosition = 190;
-    private static final int buttonWidth = dividerPosition - 10;
-    private static final int buttonHeight = 25;
-    private JLabel userName;
-    private JTextField nameEditor;
 
+    /**
+     * Creates new form UserInfoPage
+     */
     public UserInfoPage() {
-        super();
-        setLocationRelativeTo(null);
-        JPanel sideMenu = new JPanel();
-        sideMenu.setOpaque(true);
-        sideMenu.setBackground(Color.WHITE);
-        sideMenu.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(4, 4, 4, 4);
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        JButton profileButton = profileButton(String.valueOf(LoginPage.currentUser.getEmail().toUpperCase().charAt(0)));
-        sideMenu.add(profileButton, gbc);
-        gbc.gridx++;
-        JLabel title = new JLabel(String.valueOf(LoginPage.currentUser.getEmail()));
-        sideMenu.add(title, gbc);
-
-        gbc.gridx--;
-        gbc.gridy++;
-        gbc.gridwidth++;
-        JButton bnt1 = new JButton("AAAAAAA");
-        bnt1.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt1, gbc);
-
-        gbc.gridy++;
-        JButton bnt2 = new JButton("BBBBBB");
-        bnt2.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt2, gbc);
-
-        gbc.gridy++;
-        JButton bnt3 = new JButton("Teste 3");
-        bnt3.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt3, gbc);
-
-        gbc.gridy++;
-        JButton bnt4 = new JButton("Teste 4");
-        bnt4.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt4, gbc);
-
-        gbc.gridy++;
-        JButton bnt5 = new JButton("Teste 5");
-        bnt5.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt5, gbc);
-
-        gbc.gridy++;
-        JButton backButton = new JButton("Back");
-        backButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(backButton, gbc);
-
-        gbc.gridy++;
-        JButton bnt6 = new JButton("Exit");
-        bnt6.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt6, gbc);
-
-        //Componente em branco/preenchimento
-        gbc.gridx++;
-        gbc.gridy++;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        sideMenu.add(new JLabel(), gbc);
-
-
-        if (contentPanel == null) {
-            contentPanel = new JPanel();
-            contentPanel.setOpaque(true);
-            contentPanel.setBackground(Color.WHITE);
-        }
-
-        JLabel userLabel = new JLabel("User");
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 10;
-        contentPanel.add(userLabel, gbc);
-
-
-        // Display Email
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        JLabel emailLabel = new JLabel("Email: " + LoginPage.currentUser.getEmail());
-        contentPanel.add(emailLabel, gbc);
-
-        // Display Name
-        gbc.gridy++;
-        JLabel nameLabel = new JLabel("Name: " + LoginPage.currentUser.getName());
-        contentPanel.add(nameLabel, gbc);
-
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 10;
-        contentPanel.add(userName, gbc);
-
-
-        JTextField nameEditor = new JTextField();
-        nameEditor.setText("");
-        contentPanel.add(nameEditor);
-
-        JSplitPane splitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                sideMenu, contentPanel);
-        splitPanel.setOneTouchExpandable(true);
-        splitPanel.setDividerLocation(dividerPosition);
-        splitPanel.setDividerSize(1);
-
-        add(splitPanel, BorderLayout.CENTER);
-
-
-        profileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("clicked");
-            }
-        });
-        bnt1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JPanel newPanel = new JPanel();
-                newPanel.setOpaque(true);
-                newPanel.setBackground(Color.RED);
-                splitPanel.setRightComponent(newPanel);
-                splitPanel.setDividerLocation(dividerPosition);
-//                setContentPane(newPanel);
-//                invalidate();
-//                validate();
-            }
-        });
-        bnt2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JPanel newPanel = new JPanel();
-                newPanel.setOpaque(true);
-                newPanel.setBackground(Color.GREEN);
-                splitPanel.setRightComponent(newPanel);
-                splitPanel.setDividerLocation(dividerPosition);
-            }
-        });
-        bnt3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JPanel newPanel = new JPanel();
-                newPanel.setOpaque(true);
-                newPanel.setBackground(Color.ORANGE);
-                splitPanel.setRightComponent(newPanel);
-                splitPanel.setDividerLocation(dividerPosition);
-            }
-        });
-        bnt4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JPanel newPanel = new JPanel();
-                newPanel.setOpaque(true);
-                newPanel.setBackground(Color.YELLOW);
-                splitPanel.setRightComponent(newPanel);
-                splitPanel.setDividerLocation(dividerPosition);
-            }
-        });
-
-        bnt5.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JPanel newPanel = new JPanel();
-                newPanel.setOpaque(true);
-                newPanel.setBackground(Color.PINK);
-                splitPanel.setRightComponent(newPanel);
-                splitPanel.setDividerLocation(dividerPosition);
-            }
-        });
-
-        bnt6.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-
-            ;
-        });
-
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Back to the homePage
-                changeTo(homePage);
-            }
-        });
-    }
-
-    private static JButton profileButton(String label) {
-
-        int size = 50;
-        JButton button = new JButton(label);
-        button.setForeground(Color.WHITE);
-        button.setPreferredSize(new Dimension(size, size));
-//        button.setBorder(new RoundedBorder(0));
-        button.setBackground(hilightColor);
-
-        button.setVerticalTextPosition(AbstractButton.CENTER);
-        button.setHorizontalTextPosition(AbstractButton.CENTER);
-        button.setHorizontalAlignment(SwingConstants.CENTER);
-        button.setVerticalAlignment(SwingConstants.CENTER);
-
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setContentAreaFilled(false);
-        button.setOpaque(true);
-        return button;
-    }
-
-    {
-// GUI initializer generated by IntelliJ IDEA GUI Designer
-// >>> IMPORTANT!! <<<
-// DO NOT EDIT OR ADD ANY CODE HERE!
-        $$$setupUI$$$();
+        initComponents();
     }
 
     /**
-     * Method generated by IntelliJ IDEA GUI Designer
-     * >>> IMPORTANT!! <<<
-     * DO NOT edit this method OR call it in your code!
-     *
-     * @noinspection ALL
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
-    private void $$$setupUI$$$() {
-        final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridBagLayout());
-        userName = new JLabel();
-        userName.setText("Name");
-        GridBagConstraints gbc;
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        panel1.add(userName, gbc);
-        nameEditor = new JTextField();
-        nameEditor.setText("");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.NORTHWEST;
-        panel1.add(nameEditor, gbc);
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        userNameLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        enterNameField = new javax.swing.JTextField();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 36)); // NOI18N
+        jLabel1.setText("USER INFORMATION");
+
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        if(LoginPage.currentUser.getName() == null){
+            userNameLabel.setText("Name: ");
+        }else{
+            userNameLabel.setText("Name: " + LoginPage.currentUser.getName());
+        }
+
+
+        jLabel3.setText("Email: " + LoginPage.currentUser.getEmail());
+
+        enterNameField.setText("Enter Name");
+        enterNameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enterNameFieldActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(23, 23, 23)
+                                                .addComponent(jButton1)
+                                                .addGap(117, 117, 117)
+                                                .addComponent(jLabel1))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(133, 133, 133)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel3)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(44, 44, 44)
+                                                                .addComponent(enterNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(67, 67, 67)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(273, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(43, 43, 43)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jButton1))
+                                                .addGap(59, 59, 59)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(129, 129, 129)
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(userNameLabel)
+                                                        .addComponent(enterNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addContainerGap(286, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        changeTo(homePage);
+
     }
+
+    private void enterNameFieldActionPerformed(java.awt.event.ActionEvent evt) {
+        String enteredName = enterNameField.getText();
+        LoginPage.currentUser.setName(enteredName);
+        userNameLabel.setText("Name: " + LoginPage.currentUser.getName());
+        enterNameField.setText("Edit name");
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(UserInfoPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(UserInfoPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(UserInfoPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(UserInfoPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new UserInfoPage().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify
+    private javax.swing.JTextField enterNameField;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel userNameLabel;
+    // End of variables declaration
 }

@@ -43,7 +43,7 @@ public class LoginPage extends Page {
         gbc.gridx--;
         gbc.gridy++;
         gbc.gridwidth++;
-        JButton signInButton = new JButton("Sing In");
+        JButton signInButton = new JButton("Sign In");
         add(signInButton, gbc);
 
         signInButton.addActionListener(new ActionListener() {

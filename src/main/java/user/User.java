@@ -27,19 +27,21 @@ public class User {
 
     // Constructor without parameters
     public User(){
+        this.name = null;
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
         this.goal = 0;
-        this.productivity = new Productivity(0, 0);
+        this.productivity = new Productivity(0, 0, 0.0);
     }
     // Constructor
     public User(String email, String password) {
+        this.name = null;
         this.email = email;
         this.password = password;
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
         this.goal = 0;
-        this.productivity = new Productivity(0, 0);
+        this.productivity = new Productivity(0, 0, 0.0);
     }
 
 

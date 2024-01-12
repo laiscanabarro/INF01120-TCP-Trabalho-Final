@@ -1,7 +1,5 @@
 package view;
 
-import utils.RoundedBorder;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -41,17 +39,17 @@ public class HomePage extends Page {
         sideMenu.add(bnt1, gbc);
 
         gbc.gridy++;
-        JButton bnt2 = new JButton("Teste 2");
+        JButton bnt2 = new JButton("Tasks");
         bnt2.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         sideMenu.add(bnt2, gbc);
 
         gbc.gridy++;
-        JButton bnt3 = new JButton("Teste 3");
+        JButton bnt3 = new JButton("Habits");
         bnt3.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         sideMenu.add(bnt3, gbc);
 
         gbc.gridy++;
-        JButton bnt4 = new JButton("Teste 4");
+        JButton bnt4 = new JButton("Calendar");
         bnt4.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         sideMenu.add(bnt4, gbc);
 
@@ -96,7 +94,7 @@ public class HomePage extends Page {
         bnt1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame userInfoPageAt = new UserInfoPageAt();
+                JFrame userInfoPageAt = new UserInfoPage();
                 changeTo(userInfoPageAt);
             }
         });

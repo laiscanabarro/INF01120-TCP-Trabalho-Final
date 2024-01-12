@@ -7,11 +7,14 @@ public class Productivity {
 
 
     private int goal;
-    private int completed; 
+    private int completed;
+    private double progress;
 
     // Constructor
-    public Productivity(int goal, int completed){
-        this.goal = goal; 
+    public Productivity(int goal, int completed, double progress){
+        this.goal = goal;
+        this.completed = completed;
+        this.progress = progress;
     }
 
     // Getters and setters
@@ -21,9 +24,17 @@ public class Productivity {
 
     public void setGoal(int goal){
         this.goal = goal;
+        this.calculateProgress();
+    }
+
+    public void completed(int completed){
+        this.completed = completed;
+        this.calculateProgress();
     }
 
     public int getCompleted(){ return this.completed; }
+
+    public double getProgress(){ return this.progress; }
 
 
     /*
@@ -55,18 +66,21 @@ public class Productivity {
 
     // Other methods
     public boolean increaseGoal(int value){
-        this.goal = this.goal + value; 
+        this.goal = this.goal + value;
+        this.calculateProgress();
         return true;
     }
 
     public boolean increaseGoal(){
-        this.goal = this.goal++; 
+        this.setGoal(this.goal + 1);
+        this.calculateProgress();
         return true;
     }
 
     public boolean decreaseGoal(int value){
         if(this.goal > 0){
             this.goal = this.goal - value;
+            this.calculateProgress();
             return true; 
         }else{
             return false;
@@ -76,7 +90,8 @@ public class Productivity {
 
     public boolean decreaseGoal(){
         if(this.goal > 0){
-            this.goal = this.goal--; 
+            this.setGoal(this.goal--);
+            this.calculateProgress();
             return true;
         }else{
             this.goal = this.goal--; 
@@ -84,9 +99,7 @@ public class Productivity {
         }
     }
 
-    public void calculateCurrentState(){
-        // TBD 
-        // get the startDate and end date and check how many tasks were completed?
-        // = tasks done / goal 
+    public void calculateProgress(){
+        this.progress = (double) completed /goal;
     }
 }
