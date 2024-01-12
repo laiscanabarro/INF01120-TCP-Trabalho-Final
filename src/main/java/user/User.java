@@ -1,7 +1,6 @@
 package user;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import content.*;
@@ -25,6 +24,9 @@ public class User {
    
 
     // Constructor
+    
+    public User() {}
+    
     public User(String email, String password) {
         this.email = email;
         this.password = password;
@@ -33,9 +35,7 @@ public class User {
     }
 
     // Getters and Setters
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public String getEmail() {
         return email;

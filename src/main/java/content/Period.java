@@ -3,6 +3,7 @@ package content;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
 
 public class Period {
     private LocalDate startDate;
@@ -20,6 +21,13 @@ public class Period {
     public Period (LocalDate start, LocalDate end){
         this.startDate = start;
         this.endDate = end;
+        this.startTime = LocalTime.of(0, 0, 0);
+        this.endTime = LocalTime.of(0, 0, 0);
+    }
+    
+    public Period (LocalDate date){
+        this.startDate = date;
+        this.endDate = date;
         this.startTime = LocalTime.of(0, 0, 0);
         this.endTime = LocalTime.of(0, 0, 0);
     }
@@ -58,5 +66,25 @@ public class Period {
 
     public long countDays(){
         return ChronoUnit.DAYS.between(this.startDate, this.endDate);
+    }
+    
+    public String displayPeriod(){
+        String periodString;
+        DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("HH:mm");
+        
+        if (startDate.equals(endDate)){
+             periodString = startDate.format(formatterDate);
+        }
+        else if (startTime.equals(LocalTime.of(0, 0, 0))) {
+            periodString = startDate.format(formatterDate) + endDate.format(formatterDate);
+        }
+        else {
+            periodString = 
+                    startDate.format(formatterDate) + endDate.format(formatterDate)
+                    + startTime.format(formatterTime) + endTime.format(formatterTime);
+        }
+    
+        return periodString;
     }
 }
