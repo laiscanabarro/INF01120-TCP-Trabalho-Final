@@ -19,14 +19,18 @@ public class User {
     private NotificationList notifications;
     private ArrayList<Community> communities;
 
-
-    private Productivity dailyProductivity; 
+    private int goal;
+    private Productivity productivity;
     private Productivity weeklyProductivity;
+    private Productivity dailyProductivity;
    
 
     // Constructor without parameters
     public User(){
-
+        this.friends = new HashSet<>();
+        this.pendingFriends = new HashSet<>();
+        this.goal = 0;
+        this.productivity = new Productivity(0, 0);
     }
     // Constructor
     public User(String email, String password) {
@@ -34,6 +38,8 @@ public class User {
         this.password = password;
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
+        this.goal = 0;
+        this.productivity = new Productivity(0, 0);
     }
 
 
@@ -78,12 +84,21 @@ public class User {
         return notifications;
     }
 
+    public Productivity getProductivity() {
+        return productivity;
+    }
+
     public Productivity getDailyProductivity() {
         return dailyProductivity;
     }
 
     public Productivity getWeeklProductivity() {
         return weeklyProductivity;
+    }
+
+
+    public int getGoal() {
+        return this.goal;
     }
 
     public void setEmail(String email) {

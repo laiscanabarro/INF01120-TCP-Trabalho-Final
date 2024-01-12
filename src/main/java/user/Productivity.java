@@ -10,7 +10,7 @@ public class Productivity {
     private int completed; 
 
     // Constructor
-    public Productivity(int goal){
+    public Productivity(int goal, int completed){
         this.goal = goal; 
     }
 
@@ -22,6 +22,9 @@ public class Productivity {
     public void setGoal(int goal){
         this.goal = goal;
     }
+
+    public int getCompleted(){ return this.completed; }
+
 
     /*
     public Date getStart(){

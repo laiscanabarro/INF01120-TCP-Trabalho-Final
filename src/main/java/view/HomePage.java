@@ -96,8 +96,8 @@ public class HomePage extends Page {
         bnt1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserInfoPage userInfoPage = new UserInfoPage();
-                changeTo(userInfoPage);
+                JFrame userInfoPageAt = new UserInfoPageAt();
+                changeTo(userInfoPageAt);
             }
         });
 
@@ -140,8 +140,8 @@ public class HomePage extends Page {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                ReportPage reportPage = new ReportPage();
-                changeTo(reportPage);
+                ProductivityPage productivityPage = new ProductivityPage();
+                changeTo(productivityPage);
 
             }
         });

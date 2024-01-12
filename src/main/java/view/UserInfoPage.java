@@ -84,6 +84,35 @@ public class UserInfoPage extends Page {
             contentPanel.setBackground(Color.WHITE);
         }
 
+        JLabel userLabel = new JLabel("User");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 10;
+        contentPanel.add(userLabel, gbc);
+
+
+        // Display Email
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        JLabel emailLabel = new JLabel("Email: " + LoginPage.currentUser.getEmail());
+        contentPanel.add(emailLabel, gbc);
+
+        // Display Name
+        gbc.gridy++;
+        JLabel nameLabel = new JLabel("Name: " + LoginPage.currentUser.getName());
+        contentPanel.add(nameLabel, gbc);
+
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 10;
+        contentPanel.add(userName, gbc);
+
+
+        JTextField nameEditor = new JTextField();
+        nameEditor.setText("");
+        contentPanel.add(nameEditor);
+
         JSplitPane splitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                 sideMenu, contentPanel);
         splitPanel.setOneTouchExpandable(true);
