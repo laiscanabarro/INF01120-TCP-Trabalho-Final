@@ -94,9 +94,10 @@ public class User {
         this.password = password;
     }
 
-    public void editProfile() {
-        // TBD
+    public void setName(String name) {
+        this.name = name;
     }
+
 
 
     public void addFriend(User user) {

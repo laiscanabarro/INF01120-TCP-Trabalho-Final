@@ -140,8 +140,8 @@ public class HomePage extends Page {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                ProductivityPage productivityPage = new ProductivityPage();
-                changeTo(productivityPage);
+                ReportPage reportPage = new ReportPage();
+                changeTo(reportPage);
 
             }
         });
