@@ -19,22 +19,6 @@ public class Event {
         this.participants = null;
     }
 
-    public Event(String name, Location location, Period period, Recurrence recurrence){
-        this.name = name;
-        this.location = location;
-        this.period = period;
-        this.recurrence = recurrence;
-        this.participants = null;
-    }
-
-    public Event(String name, Location location, Period period, Recurrence recurrence, ArrayList<User> participants){
-            this.name = name;
-            this.location = location;
-            this.period = period;
-            this.recurrence = recurrence;
-            this.participants = participants;
-    }
-
     public String getName(){
         return this.name;
     }
