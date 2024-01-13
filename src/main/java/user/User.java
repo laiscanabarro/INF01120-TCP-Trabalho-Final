@@ -15,7 +15,7 @@ public class User {
     private Set<User> pendingFriends;
     private ArrayList<HabitsList> habits;
     private ArrayList<TaskList> tasks;
-    private Calendar calendar; 
+    private Calendar calendar;
     private NotificationList notifications;
     private ArrayList<Community> communities;
 
@@ -23,7 +23,7 @@ public class User {
     private Productivity productivity;
     private Productivity weeklyProductivity;
     private Productivity dailyProductivity;
-   
+
 
     // Constructor without parameters
     public User(){
@@ -115,8 +115,6 @@ public class User {
         this.name = name;
     }
 
-
-
     public void addFriend(User user) {
         if (!this.friends.contains(user)){
             this.friends.add(user);
@@ -141,7 +139,7 @@ public class User {
 
     public void removeFriend(User user) {
         if(this.friends.contains(user)) {
-            this.friends.remove(user); 
+            this.friends.remove(user);
             user.getFriends().remove(this); // Removes friendship from both users
         }
     }
@@ -153,23 +151,18 @@ public class User {
         this.communities.add(newCommunity);
     }
 
+    /*
+    public void updateProductivity() {
+        int completed = 0;
 
-
-    public void createList() {
-            // TBD
-    }
-
-    /* 
-    public void updateWeeklyProductivity(ArrayList<TaskList> tasks, ArrayList<HabitList> habits){
-        int tasksCompleted = 0;
-        for(task in tasks){
-            if task.status == 'done':{
-                tasksCompleted += 1;    
-            }
+        for (HabitsList list : this.habits){
+            completed = completed + list.getTotalDone();
         }
-    }
 
-    public Report generateProductivityReport() {
-        return new Report(this.productivity);
+        for (TaskList list: this.tasks){
+            completed = completed + list.getTotalDone();
+        }
+
+        this.productivity.setCompleted(completed);
     }*/
 }
