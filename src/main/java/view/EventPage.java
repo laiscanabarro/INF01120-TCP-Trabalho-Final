@@ -214,11 +214,11 @@ public class EventPage extends javax.swing.JFrame {
         panelRecurrence.add(monthlyCheckBox);
         panelRecurrence.add(annuallyCheckBox);
             
-        actionListener(dailyCheckBox, Recurrence.RecurrenceType.DAILY, recurrence);
-        actionListener(weekdayCheckBox, Recurrence.RecurrenceType.WEEKDAY, recurrence);
-        actionListener(weeklyCheckBox, Recurrence.RecurrenceType.WEEKLY, recurrence);
-        actionListener(monthlyCheckBox, Recurrence.RecurrenceType.MONTHLY, recurrence);
-        actionListener(annuallyCheckBox, Recurrence.RecurrenceType.ANNUALLY, recurrence);
+        actionListenerRecurrence(dailyCheckBox, Recurrence.RecurrenceType.DAILY, recurrence);
+        actionListenerRecurrence(weekdayCheckBox, Recurrence.RecurrenceType.WEEKDAY, recurrence);
+        actionListenerRecurrence(weeklyCheckBox, Recurrence.RecurrenceType.WEEKLY, recurrence);
+        actionListenerRecurrence(monthlyCheckBox, Recurrence.RecurrenceType.MONTHLY, recurrence);
+        actionListenerRecurrence(annuallyCheckBox, Recurrence.RecurrenceType.ANNUALLY, recurrence);
         
         int result = JOptionPane.showConfirmDialog(this, panelRecurrence, "Add recurrence",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -232,7 +232,7 @@ public class EventPage extends javax.swing.JFrame {
         
     }
     
-    private void actionListener(JRadioButton button, Recurrence.RecurrenceType recurrenceType, Recurrence recurrence) {
+    private void actionListenerRecurrence(JRadioButton button, Recurrence.RecurrenceType recurrenceType, Recurrence recurrence) {
         button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
