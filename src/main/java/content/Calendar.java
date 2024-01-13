@@ -146,8 +146,7 @@ public class Calendar {
             return "";
         }
 
-        calendarStringBuilder.append(String.format("        %d/%d \n", date.getMonthValue(), date.getYear()));
-        calendarStringBuilder.append(" S  M  T  W  T  F  S\n");
+        calendarStringBuilder.append(" S  M  T  W  T  F  S \n");
 
         for (int i = 1; i <= (daysMonth + firstDay - 1); i++) {
             if (i >= firstDay) {
