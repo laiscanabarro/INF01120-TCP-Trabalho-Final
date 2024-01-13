@@ -77,14 +77,34 @@ public class Period {
              periodString = startDate.format(formatterDate);
         }
         else if (startTime.equals(LocalTime.of(0, 0, 0))) {
-            periodString = startDate.format(formatterDate) + endDate.format(formatterDate);
+            String start = startDate.format(formatterDate);
+            String end = endDate.format(formatterDate);
+            periodString = String.join(" - ", start, end); 
         }
         else {
-            periodString = 
-                    startDate.format(formatterDate) + endDate.format(formatterDate)
-                    + startTime.format(formatterTime) + endTime.format(formatterTime);
+            String startD = startDate.format(formatterDate);
+            String endD = endDate.format(formatterDate);
+            String startT = startTime.format(formatterTime);
+            String endT = endTime.format(formatterTime);
+            
+            periodString = String.join(" - ", startD, endD) + ", " + String.join(" - ", startT, endT); 
         }
     
         return periodString;
+    }
+    
+    public LocalDate convertStringToLocalDate(String dateString){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        
+        return localDate;        
+    }
+    
+    public LocalTime convertStringToLocalTime(String timeString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime localTime = LocalTime.parse(timeString, formatter);
+
+        return localTime;
+        
     }
 }
