@@ -85,7 +85,7 @@ public class Recurrence {
         return RecurrenceType.DAILY;
     }
 
-    enum RecurrenceType {
+    public enum RecurrenceType {
         DAILY, WEEKDAY, WEEKLY, MONTHLY, ANNUALLY;
     }
 }

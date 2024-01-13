@@ -1,10 +1,9 @@
 package content;
 
-import java.util.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import user.User;
+import utils.Period;
 import utils.Recurrence;
 import utils.Location;
 

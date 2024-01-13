@@ -1,7 +1,5 @@
 package content;
 
-import utils.TasksUtils;
-
 public class Subtask {
     private String name;
     private boolean status;

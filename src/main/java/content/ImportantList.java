@@ -1,7 +1,5 @@
 package content;
 
-import utils.TasksUtils;
-
 public class ImportantList extends TaskList {
     private static final ImportantList importantList;
     public static final int MIN_IMPORTANCE = 0;
@@ -43,6 +41,6 @@ public class ImportantList extends TaskList {
         resetOrder();
     }
     private static void resetOrder(){
-        getInstance().changeOrder(listOrder);
+        getInstance().changeOrder(getInstance().getListOrder());
     }
 }

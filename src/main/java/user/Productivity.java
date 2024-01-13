@@ -1,11 +1,6 @@
 package user;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Productivity {
-
-
     private int goal;
     private int completed;
     private double progress;
