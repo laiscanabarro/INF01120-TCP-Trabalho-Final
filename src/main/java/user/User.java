@@ -151,7 +151,8 @@ public class User {
         this.communities.add(newCommunity);
     }
 
-    /*public void updateProductivity() {
+    /*
+    public void updateProductivity() {
         int completed = 0;
 
         for (HabitsList list : this.habits){

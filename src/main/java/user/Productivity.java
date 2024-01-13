@@ -36,8 +36,12 @@ public class Productivity {
 
     public void calculateProgress() {
         if(goal > 0){
-            this.progress = 100 * (double) completed /goal;
-        }else{
+            if(goal > this.completed){
+                this.progress = 100.00 * (double) this.completed / this.goal;
+            }else{
+                this.progress = 100.0;
+            }
+        } else{
             this.progress = 0.0;
         }
 

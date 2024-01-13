@@ -53,6 +53,7 @@ public class ProductivityPage extends Page {
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jLabel5.setFont(new java.awt.Font("Georgia", 0, 24)); // NOI18N
+        //LoginPage.currentUser.updateProductivity();
         jLabel5.setText("COMPLETED: " + LoginPage.currentUser.getProductivity().getCompleted());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -192,6 +193,7 @@ public class ProductivityPage extends Page {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         LoginPage.currentUser.getProductivity().increaseGoal();
         jLabel3.setText("GOAL: " + LoginPage.currentUser.getProductivity().getGoal());
+        jLabel4.setText("PROGRESS: " + LoginPage.currentUser.getProductivity().getProgress());
 
     }
 
