@@ -2,14 +2,13 @@ package content;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-public class Calender { 
+public class Calendar { 
     private ArrayList<Event> events; 
     private ArrayList<Task> tasks;
     private ArrayList<Schedule> schedules;
 
-    public Calender(){
+    public Calendar(){
         this.events = new ArrayList<Event>();
         this.tasks = new ArrayList<Task>();
         this.schedules = new ArrayList<Schedule>();
@@ -70,14 +69,14 @@ public class Calender {
             schedule.addTask(task);
         }
         else {
-            Schedule schedule = new Schedule(task.getDeadline());
-            schedule.addTask(task);
+            Schedule scheduleNew = new Schedule(task.getDeadline());
+            scheduleNew.addTask(task);
         }
 
     }
 
     public void removeTask(Task task){
-        tasks.remore(task);
+        tasks.remove(task);
 
         Schedule schedule = searchSchedule(task.getDeadline());
         if (schedule != null){
@@ -92,10 +91,9 @@ public class Calender {
     }
 
     private int calculeFirstDayMonth(int year, int month) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month-1, 1); 
+        LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
 
-        return calendar.get(Calendar.DAY_OF_WEEK);
+        return firstDayOfMonth.getDayOfWeek().getValue();
     }
 
     private boolean leapYear(int year){

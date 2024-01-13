@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import content.*;
+
 public class User {
 
     private String name;
@@ -17,20 +19,37 @@ public class User {
     private NotificationList notifications;
     private ArrayList<Community> communities;
 
-
-    private Productivity dailyProductivity; 
+    private int goal;
+    private Productivity productivity;
     private Productivity weeklyProductivity;
+    private Productivity dailyProductivity;
    
 
+    // Constructor without parameters
+    public User(){
+        this.name = null;
+        this.friends = new HashSet<>();
+        this.pendingFriends = new HashSet<>();
+        this.goal = 0;
+        this.productivity = new Productivity(0, 0, 0.0);
+    }
     // Constructor
     public User(String email, String password) {
+        this.name = null;
         this.email = email;
         this.password = password;
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
+        this.goal = 0;
+        this.productivity = new Productivity(0, 0, 0.0);
     }
 
+
     // Getters and Setters
+    public String getName() {
+        return name;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -43,8 +62,45 @@ public class User {
         return friends;
     }
 
+    public ArrayList<Community> getCommunities() {
+        return communities;
+    }
+
     public Set<User> getPendingFriends() {
         return pendingFriends;
+    }
+
+    public ArrayList<HabitsList> getHabits() {
+        return habits;
+    }
+
+    public ArrayList<TaskList> getTasks() {
+        return tasks;
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
+    public NotificationList getNotifications() {
+        return notifications;
+    }
+
+    public Productivity getProductivity() {
+        return productivity;
+    }
+
+    public Productivity getDailyProductivity() {
+        return dailyProductivity;
+    }
+
+    public Productivity getWeeklProductivity() {
+        return weeklyProductivity;
+    }
+
+
+    public int getGoal() {
+        return this.goal;
     }
 
     public void setEmail(String email) {
@@ -55,9 +111,10 @@ public class User {
         this.password = password;
     }
 
-    public void editProfile() {
-        // TBD
+    public void setName(String name) {
+        this.name = name;
     }
+
 
 
     public void addFriend(User user) {
