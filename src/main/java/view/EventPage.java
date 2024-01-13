@@ -8,7 +8,10 @@ import user.User;
 import content.*;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -48,7 +51,6 @@ public class EventPage extends javax.swing.JFrame {
         buttonRepeat = new javax.swing.JLabel();
         labelEventName = new javax.swing.JLabel();
         labelAddLocation = new javax.swing.JLabel();
-        labelAddParticipants = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -112,18 +114,6 @@ public class EventPage extends javax.swing.JFrame {
             }
         });
 
-        if (event.getParticipants() == null){
-            labelAddParticipants.setText("Add participants");
-        }
-        else {
-            labelAddParticipants.setText(event.displayParticipants());
-        }
-        labelAddParticipants.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addParticipantsMouseClicked(evt);
-            }
-        });
-
         labelDate.setText(event.getPeriod().displayPeriod());
         labelDate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -142,7 +132,6 @@ public class EventPage extends javax.swing.JFrame {
                     .addGroup(panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(labelAddLocation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(labelEventName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(labelAddParticipants)
                     .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(973, Short.MAX_VALUE))
         );
@@ -153,11 +142,9 @@ public class EventPage extends javax.swing.JFrame {
                 .addComponent(labelEventName)
                 .addGap(24, 24, 24)
                 .addComponent(labelAddLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(labelAddParticipants)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(labelDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 414, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
                 .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -176,11 +163,6 @@ public class EventPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void addParticipantsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addParticipantsMouseClicked
-        displayParticipantsDialog();
-        
-    }//GEN-LAST:event_addParticipantsMouseClicked
 
     private void addLocationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addLocationMouseClicked
         displayLocationDialog();
@@ -210,6 +192,45 @@ public class EventPage extends javax.swing.JFrame {
         JPanel panelRecurrence = new JPanel();
         panelRecurrence.setLayout(new GridLayout(5, 2));
         
+        // Cria um checkbox com um texto associado
+        JCheckBox checkBox = new JCheckBox("Aceitar os termos e condições");
+
+        // Adiciona um ouvinte de ação para o checkbox
+        checkBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Lógica a ser executada quando o estado do checkbox muda
+                boolean selected = checkBox.isSelected();
+                System.out.println("Checkbox selecionado: " + selected);
+            }
+        });
+        
+        panelRecurrence.add(checkBox);
+
+        /*
+        // Add text field for location information
+        JTextField countryTextField = new JTextField();
+        JTextField cityTextField = new JTextField();
+        JTextField stateTextField = new JTextField();
+        JTextField streetTextField = new JTextField();
+        JTextField numberTextField = new JTextField();
+
+        // Add labels and text boxes to the panel
+        panelLocation.add(new JLabel("Country:"));
+        panelLocation.add(countryTextField);
+
+        panelLocation.add(new JLabel("City:"));
+        panelLocation.add(cityTextField);
+
+        panelLocation.add(new JLabel("State:"));
+        panelLocation.add(stateTextField);
+
+        panelLocation.add(new JLabel("Street:"));
+        panelLocation.add(streetTextField);
+
+        panelLocation.add(new JLabel("Number:"));
+        panelLocation.add(numberTextField);*/
+        
     }
     
     private void displayNameDialog() {
@@ -231,9 +252,6 @@ public class EventPage extends javax.swing.JFrame {
         }
     }
         
-    private void displayParticipantsDialog() {
-        //
-    }
     
     private void displayLocationDialog() {
         Location location;
@@ -242,6 +260,7 @@ public class EventPage extends javax.swing.JFrame {
         }
         else {
            location = event.getLocation();
+           System.out.println("aaaaaa");
         }
         
         JPanel panelLocation = new JPanel();
@@ -276,38 +295,46 @@ public class EventPage extends javax.swing.JFrame {
         // If the user clicks "OK", they get the entered information
         if (result == JOptionPane.OK_OPTION) {
             String country = countryTextField.getText();
-            if (country != null) { 
+            if (location.isNonEmpty(country)) { 
                 location.setCountry(country);
             }
 
             String city = cityTextField.getText();
-            if (city != null) {
+            if (location.isNonEmpty(city)) {
                 location.setCity(city);
             }
       
             String state = stateTextField.getText();
-            if (state != null) {
+            if (location.isNonEmpty(state)) {
                 location.setState(state);
             }
 
             String street = streetTextField.getText();
-            if (street != null) {
+            if (location.isNonEmpty(street)) {
                 location.setStreet(street);
             }        
             
 
             try {
-                int number = Integer.parseInt(numberTextField.getText());
-                location.setNumber(number);
+                if (location.isNonEmpty(numberTextField.getText())) {
+                    int number = Integer.parseInt(numberTextField.getText());
+                    if (number > 0) {
+                        location.setNumber(number);
+                    }
+                }
                 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             
             if (location.verifyLocation()) {
                 event.setLocation(location);
                 labelAddLocation.setText(event.getLocation().displayLocation());
             }  
+            else {
+                JOptionPane.showMessageDialog(this, "Please enter all information.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     
@@ -418,7 +445,6 @@ public class EventPage extends javax.swing.JFrame {
     private javax.swing.JLabel buttonRepeat;
     private javax.swing.JPanel footer;
     private javax.swing.JLabel labelAddLocation;
-    private javax.swing.JLabel labelAddParticipants;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelEventName;
     private javax.swing.JPanel panelEvent;

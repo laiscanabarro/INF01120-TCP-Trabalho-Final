@@ -73,7 +73,7 @@ public class Location {
         return isNonEmpty(country) && isNonEmpty(city) && isNonEmpty(state) && isNonEmpty(street) && number > 0;
     }
 
-    private boolean isNonEmpty(String value) {
+    public boolean isNonEmpty(String value) {
         return value != null && !value.isEmpty();
     }
         

@@ -61,7 +61,6 @@
                           <Component id="labelAddLocation" alignment="0" max="32767" attributes="0"/>
                           <Component id="labelEventName" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="labelAddParticipants" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="labelDate" alignment="0" min="-2" pref="265" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="973" max="32767" attributes="0"/>
@@ -75,11 +74,9 @@
                   <Component id="labelEventName" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Component id="labelAddLocation" min="-2" pref="16" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Component id="labelAddParticipants" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="labelDate" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="414" max="32767" attributes="0"/>
+                  <EmptySpace pref="436" max="32767" attributes="0"/>
                   <Component id="footer" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -166,18 +163,6 @@
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if (event.getLocation() == null){"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelAddParticipants">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Add participants"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addParticipantsMouseClicked"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="}&#xa;else {&#xa;    labelAddParticipants.setText(event.displayParticipants());&#xa;}"/>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if (event.getParticipants() == null){"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="labelDate">
