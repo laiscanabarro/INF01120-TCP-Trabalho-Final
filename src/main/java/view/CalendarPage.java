@@ -6,6 +6,8 @@ package view;
 import content.*;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
@@ -270,17 +272,39 @@ public class CalendarPage extends javax.swing.JFrame {
         panelMonth.add(novemberCheckBox);
         panelMonth.add(decemberCheckBox);
         
+        actionListenerMonth(januaryCheckBox);
+        actionListenerMonth(februaryCheckBox);
+        actionListenerMonth(marchCheckBox);
+        actionListenerMonth(aprilCheckBox);
+        actionListenerMonth(mayCheckBox);
+        actionListenerMonth(juneCheckBox);
+        actionListenerMonth(julyCheckBox);
+        actionListenerMonth(augustCheckBox);
+        actionListenerMonth(setemberCheckBox);
+        actionListenerMonth(octoberCheckBox);
+        actionListenerMonth(novemberCheckBox);
+        actionListenerMonth(decemberCheckBox);
+        
         JTextField yearTextField = new JTextField();
         panelMonth.add(new JLabel("Year:"));
         panelMonth.add(yearTextField);
-         
-        
+                
         int resultName = JOptionPane.showConfirmDialog(this, panelMonth, "Change month",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         
         if (resultName == JOptionPane.OK_OPTION) {
             //
         }
+    }
+    
+    
+    private void actionListenerMonth(JRadioButton button) {
+        button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {                    
+                    //
+                }
+            });
     }
     
     /**
