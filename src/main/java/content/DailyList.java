@@ -12,7 +12,9 @@ public class DailyList extends TaskList {
     private static final Locale LOCALE = new Locale("pt_BR");
 
     private DailyList(){
+        super();
         changeDay();
+        super.setName("Today: " + getDayOfWeek());
     }
 
     static {
@@ -33,6 +35,5 @@ public class DailyList extends TaskList {
     public static void changeDay(){
         setCurrentDate();
         setDayOfWeek(getCurrentDate(), LOCALE);
-        getInstance().setName("Today: " + getDayOfWeek());
     }
 }

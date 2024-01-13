@@ -6,6 +6,7 @@ public class ImportantList extends TaskList {
     public static final int MAX_IMPORTANCE = 5;
 
     private ImportantList(){
+        super();
         super.setName("Important");
         super.setListOrder(ORDER_BY.IMPORTANCE_DESC);
     }
