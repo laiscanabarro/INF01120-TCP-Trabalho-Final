@@ -85,12 +85,12 @@ public class Calendar {
         
     } 
     
-    public void blockCalender(){
+    public void blockCalendar(){
         LocalDate date = LocalDate.of(0, 0, 0);
-        displayCalender(date);
+        displayCalendar(date);
     }
 
-    private int calculeFirstDayMonth(int year, int month) {
+    private int calculateFirstDayOfMonth(int year, int month) {
         LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
 
         return firstDayOfMonth.getDayOfWeek().getValue();
@@ -113,7 +113,7 @@ public class Calendar {
         return false;
     }
 
-    private int calculeDaysMonth(int month, boolean leapYear){
+    private int calculateDaysInMonth(int month, boolean leapYear){
         int daysMonth;
         int[] month31Days = {1,3,5,7,8,10,12};
         int[] month30Days = {4,6,9,11};
@@ -134,38 +134,40 @@ public class Calendar {
         return daysMonth;
     }
 
-    public void displayCalender(LocalDate date){
-        int firstDay = calculeFirstDayMonth(date.getYear(), date.getMonthValue());
+    public String displayCalendar(LocalDate date) {
+        StringBuilder calendarStringBuilder = new StringBuilder();
+        int firstDay = calculateFirstDayOfMonth(date.getYear(), date.getMonthValue());
 
         boolean leapYear = leapYear(date.getYear()); //leap year = true (29 days in february); = false (28 days in february)
+        int daysMonth = calculateDaysInMonth(date.getMonthValue(), leapYear);
 
-        int daysMonth = calculeDaysMonth(date.getMonthValue(), leapYear);
-
-        //block calender
-        if (date.getYear() == 0){ 
-            return;
+        // Block calender
+        if (date.getYear() == 0) {
+            return "";
         }
 
-        System.out.printf("        %d/%d \n", date.getMonth(), date.getYear());
-        System.out.println(" S  M  T  W  T  F  S");
+        calendarStringBuilder.append(String.format("        %d/%d \n", date.getMonthValue(), date.getYear()));
+        calendarStringBuilder.append(" S  M  T  W  T  F  S\n");
 
-        for (int i = 1; i <= (daysMonth + firstDay - 1); i++){
-            if (i >= firstDay){
-                System.out.printf("%2d ", (i - firstDay + 1));
-            } 
-            else {
-                System.out.print("   ");
+        for (int i = 1; i <= (daysMonth + firstDay - 1); i++) {
+            if (i >= firstDay) {
+                calendarStringBuilder.append(String.format("%2d ", (i - firstDay + 1)));
+            } else {
+                calendarStringBuilder.append("   ");
             }
 
-            if (i % 7 == 0){
-                System.out.println();
+            if (i % 7 == 0) {
+                calendarStringBuilder.append("\n");
             }
         }
-        System.out.println();
+        calendarStringBuilder.append("\n");
 
-        Schedule schedule = searchSchedule(date);
-        schedule.displaySchedule();
-    }   
+        //Schedule schedule = searchSchedule(date);
+        //calendarStringBuilder.append(schedule.displaySchedule());
+
+        return calendarStringBuilder.toString();
+    }
+  
 
     public Schedule searchSchedule(LocalDate date){
         for (Schedule schedule : schedules){
@@ -174,6 +176,12 @@ public class Calendar {
             }
         }
         return null;
+    }
+    
+    public String displayMonthYear(LocalDate date) {
+        String monthYear = date.getMonth() + " " + date.getYear();
+        
+        return monthYear;
     }
     
     public Event searchEvent(String name){

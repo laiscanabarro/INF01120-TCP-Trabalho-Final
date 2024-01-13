@@ -49,7 +49,7 @@ public class EventPage extends javax.swing.JFrame {
         labelEventName = new javax.swing.JLabel();
         labelAddLocation = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TaDa - Event");
@@ -120,10 +120,10 @@ public class EventPage extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                backButtonActionPerformed(evt);
             }
         });
 
@@ -143,14 +143,14 @@ public class EventPage extends javax.swing.JFrame {
                             .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelEventLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelEventLayout.setVerticalGroup(
             panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEventLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jButton1)
+                .addComponent(backButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelEventName)
                 .addGap(24, 24, 24)
@@ -193,9 +193,9 @@ public class EventPage extends javax.swing.JFrame {
         displayRecurrenceDialog();
     }//GEN-LAST:event_buttonRepeatMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_backButtonActionPerformed
      
     private void displayRecurrenceDialog() {
         Recurrence recurrence;
@@ -464,9 +464,9 @@ public class EventPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel buttonRepeat;
     private javax.swing.JPanel footer;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel labelAddLocation;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelEventName;
