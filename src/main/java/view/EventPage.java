@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,17 +23,13 @@ import javax.swing.JTextField;
  * @author laisa
  */
 public class EventPage extends javax.swing.JFrame {
-    
-    private static User user;
     private static Event event;
 
     /**
      * Creates new form EventPage
-     * @param user
      * @param event
      */
-    public EventPage(User user, Event event) {
-        EventPage.user = user;
+    public EventPage(Event event) {
         EventPage.event = event;
         initComponents();
     }
@@ -54,6 +49,7 @@ public class EventPage extends javax.swing.JFrame {
         labelEventName = new javax.swing.JLabel();
         labelAddLocation = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TaDa - Event");
@@ -63,6 +59,7 @@ public class EventPage extends javax.swing.JFrame {
         panelEvent.setPreferredSize(new java.awt.Dimension(1286, 720));
 
         footer.setBackground(new java.awt.Color(51, 51, 255));
+        footer.setPreferredSize(new java.awt.Dimension(100, 99));
 
         buttonRepeat.setBackground(new java.awt.Color(255, 255, 255));
         buttonRepeat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -89,7 +86,7 @@ public class EventPage extends javax.swing.JFrame {
             .addGroup(footerLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(buttonRepeat)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         labelEventName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -123,31 +120,45 @@ public class EventPage extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelEventLayout = new javax.swing.GroupLayout(panelEvent);
         panelEvent.setLayout(panelEventLayout);
         panelEventLayout.setHorizontalGroup(
             panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, 1286, Short.MAX_VALUE)
             .addGroup(panelEventLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
                 .addGroup(panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(labelAddLocation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelEventName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(973, Short.MAX_VALUE))
+                    .addGroup(panelEventLayout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addGroup(panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(labelAddLocation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelEventName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelEventLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelEventLayout.setVerticalGroup(
             panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEventLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(23, 23, 23)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelEventName)
                 .addGap(24, 24, 24)
                 .addComponent(labelAddLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
-                .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 455, Short.MAX_VALUE)
+                .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,7 +170,7 @@ public class EventPage extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                .addComponent(panelEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -181,6 +192,10 @@ public class EventPage extends javax.swing.JFrame {
     private void buttonRepeatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRepeatMouseClicked
         displayRecurrenceDialog();
     }//GEN-LAST:event_buttonRepeatMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
      
     private void displayRecurrenceDialog() {
         Recurrence recurrence;
@@ -441,10 +456,9 @@ public class EventPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                User user1 = new User();
                 Period period = new Period(LocalDate.now());
                 Event event1 = new Event("Presentation", period);
-                new EventPage(user1, event1).setVisible(true);
+                new EventPage(event1).setVisible(true);
             }
         });
     }
@@ -452,6 +466,7 @@ public class EventPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel buttonRepeat;
     private javax.swing.JPanel footer;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel labelAddLocation;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelEventName;
