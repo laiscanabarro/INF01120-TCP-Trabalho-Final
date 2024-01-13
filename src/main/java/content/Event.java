@@ -60,30 +60,18 @@ public class Event {
     }
     
     public String displayParticipants() {
-    StringBuilder resultBuilder = new StringBuilder();
+        StringBuilder resultBuilder = new StringBuilder();
 
-    int numParticipants = participants.size();
-    for (int i = 0; i < numParticipants; i++) {
-        resultBuilder.append(participants.get(i));
+        int numParticipants = participants.size();
+        for (int i = 0; i < numParticipants; i++) {
+            resultBuilder.append(participants.get(i));
 
-        // Add a comma only if you are not the last participant
-        if (i < numParticipants - 1) {
-            resultBuilder.append(", ");
+            // Add a comma only if you are not the last participant
+            if (i < numParticipants - 1) {
+                resultBuilder.append(", ");
+            }
         }
-    }
 
-    return resultBuilder.toString();
-}
-    
-    /*
-    public void shareWhithFriend(User friend){
-        Notification notification = new Notification(this.name);
-        Invitation invitation = new Invitation(friend, notification); //se o convite for aceito esse amigo tem q entrar na lista de participantes
-    }
-
-    public void shareWhithCommunity(Community community){
-        Notification notification = new Notification(this.name);
-        Invitation invitation = new Invitation(community, notification);
-    } 
-    */    
+        return resultBuilder.toString();
+    }   
 }
