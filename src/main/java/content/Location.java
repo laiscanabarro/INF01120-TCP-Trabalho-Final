@@ -74,7 +74,7 @@ public class Location {
     }
 
     public boolean isNonEmpty(String value) {
-        return value != null && !value.isEmpty();
+        return value != null && !value.trim().isEmpty();
     }
         
 }

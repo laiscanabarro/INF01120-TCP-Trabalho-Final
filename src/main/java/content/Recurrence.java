@@ -82,10 +82,69 @@ public class Recurrence {
             return RecurrenceType.ANNUALLY;
         }
 
-        return RecurrenceType.DAILY;
+        return RecurrenceType.UNDEFINED;
     }
 
-    enum RecurrenceType {
-        DAILY, WEEKDAY, WEEKLY, MONTHLY, ANNUALLY;
+    public enum RecurrenceType {
+        UNDEFINED, DAILY, WEEKDAY, WEEKLY, MONTHLY, ANNUALLY;
     }
+    
+    public void changeRecurrence(RecurrenceType recurrence) {
+        // Sets the selected recurrence to true and the others to false
+        switch (recurrence) {
+            case DAILY:
+                setDaily(true);
+                setOthersFalse(RecurrenceType.DAILY);
+                break;
+            case WEEKDAY:
+                setWeekday(true);
+                setOthersFalse(RecurrenceType.WEEKDAY);
+                break;
+            case WEEKLY:
+                setWeekly(true);
+                setOthersFalse(RecurrenceType.WEEKLY);
+                break;
+            case MONTHLY:
+                setMonthly(true);
+                setOthersFalse(RecurrenceType.MONTHLY);
+                break;
+            case ANNUALLY:
+                setAnnually(true);
+                setOthersFalse(RecurrenceType.ANNUALLY);
+                break;
+        }
+    }
+
+    private void setOthersFalse(RecurrenceType excludeRecurrence) {
+        // Sets all other recurrences to false
+        for (RecurrenceType recurrenceType : RecurrenceType.values()) {
+            if (recurrenceType != excludeRecurrence) {
+                changeToFalse(recurrenceType);
+            }
+        }
+    }
+
+    private void changeToFalse(RecurrenceType recurrence) {
+        switch (recurrence) {
+            case DAILY:
+                setDaily(false);
+                break;
+            case WEEKDAY:
+                setWeekday(false);
+                break;
+            case WEEKLY:
+                setWeekly(false);
+                break;
+            case MONTHLY:
+                setMonthly(false);
+                break;
+            case ANNUALLY:
+                setAnnually(false);
+                break;
+            case UNDEFINED:
+                break;
+               
+        }
+    }
+
 }

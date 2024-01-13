@@ -11,10 +11,12 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
@@ -58,7 +60,7 @@ public class EventPage extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1280, 720));
 
         panelEvent.setBackground(new java.awt.Color(255, 255, 255));
-        panelEvent.setPreferredSize(new java.awt.Dimension(1286, 690));
+        panelEvent.setPreferredSize(new java.awt.Dimension(1286, 720));
 
         footer.setBackground(new java.awt.Color(51, 51, 255));
 
@@ -145,7 +147,7 @@ public class EventPage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(labelDate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
-                .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -157,7 +159,7 @@ public class EventPage extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -192,45 +194,53 @@ public class EventPage extends javax.swing.JFrame {
         JPanel panelRecurrence = new JPanel();
         panelRecurrence.setLayout(new GridLayout(5, 2));
         
-        // Cria um checkbox com um texto associado
-        JCheckBox checkBox = new JCheckBox("Aceitar os termos e condições");
-
-        // Adiciona um ouvinte de ação para o checkbox
-        checkBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Lógica a ser executada quando o estado do checkbox muda
-                boolean selected = checkBox.isSelected();
-                System.out.println("Checkbox selecionado: " + selected);
+        // Creates a checkbox with associated text
+        JRadioButton dailyCheckBox = new JRadioButton ("Daily");
+        JRadioButton weekdayCheckBox = new JRadioButton ("Weekday");
+        JRadioButton weeklyCheckBox = new JRadioButton ("Weekly");
+        JRadioButton monthlyCheckBox = new JRadioButton ("Monthly");
+        JRadioButton annuallyCheckBox = new JRadioButton ("Annually");
+        
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(dailyCheckBox);
+        buttonGroup.add(weekdayCheckBox);
+        buttonGroup.add(weeklyCheckBox);
+        buttonGroup.add(monthlyCheckBox);
+        buttonGroup.add(annuallyCheckBox);
+        
+        panelRecurrence.add(dailyCheckBox);
+        panelRecurrence.add(weekdayCheckBox);
+        panelRecurrence.add(weeklyCheckBox);
+        panelRecurrence.add(monthlyCheckBox);
+        panelRecurrence.add(annuallyCheckBox);
+            
+        actionListener(dailyCheckBox, Recurrence.RecurrenceType.DAILY, recurrence);
+        actionListener(weekdayCheckBox, Recurrence.RecurrenceType.WEEKDAY, recurrence);
+        actionListener(weeklyCheckBox, Recurrence.RecurrenceType.WEEKLY, recurrence);
+        actionListener(monthlyCheckBox, Recurrence.RecurrenceType.MONTHLY, recurrence);
+        actionListener(annuallyCheckBox, Recurrence.RecurrenceType.ANNUALLY, recurrence);
+        
+        int result = JOptionPane.showConfirmDialog(this, panelRecurrence, "Add recurrence",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        
+        if (result == JOptionPane.OK_OPTION) {
+            Recurrence.RecurrenceType recurrenceType = recurrence.getRecurrenceType();
+            if (!(recurrenceType.equals(Recurrence.RecurrenceType.UNDEFINED))) {
+                buttonRepeat.setText(recurrenceType.toString());
             }
-        });
+        }
         
-        panelRecurrence.add(checkBox);
+    }
+    
+    private void actionListener(JRadioButton button, Recurrence.RecurrenceType recurrenceType, Recurrence recurrence) {
+        button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    recurrence.changeRecurrence(recurrenceType);
+                    System.out.println("Opção " + recurrenceType.toString());
 
-        /*
-        // Add text field for location information
-        JTextField countryTextField = new JTextField();
-        JTextField cityTextField = new JTextField();
-        JTextField stateTextField = new JTextField();
-        JTextField streetTextField = new JTextField();
-        JTextField numberTextField = new JTextField();
-
-        // Add labels and text boxes to the panel
-        panelLocation.add(new JLabel("Country:"));
-        panelLocation.add(countryTextField);
-
-        panelLocation.add(new JLabel("City:"));
-        panelLocation.add(cityTextField);
-
-        panelLocation.add(new JLabel("State:"));
-        panelLocation.add(stateTextField);
-
-        panelLocation.add(new JLabel("Street:"));
-        panelLocation.add(streetTextField);
-
-        panelLocation.add(new JLabel("Number:"));
-        panelLocation.add(numberTextField);*/
-        
+                }
+            });
     }
     
     private void displayNameDialog() {
@@ -245,14 +255,13 @@ public class EventPage extends javax.swing.JFrame {
         
         if (resultName == JOptionPane.OK_OPTION) {
             String name = nameTextField.getText();
-            if (!(name.isEmpty())) {
+            if (name != null && !name.trim().isEmpty()) { 
                 event.setName(name);
                 labelEventName.setText(name);
             }
         }
     }
         
-    
     private void displayLocationDialog() {
         Location location;
         if (event.getLocation() == null){
@@ -260,7 +269,6 @@ public class EventPage extends javax.swing.JFrame {
         }
         else {
            location = event.getLocation();
-           System.out.println("aaaaaa");
         }
         
         JPanel panelLocation = new JPanel();
