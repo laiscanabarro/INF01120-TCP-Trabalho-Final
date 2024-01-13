@@ -53,7 +53,6 @@ public class EventPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TaDa - Event");
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
 
         panelEvent.setBackground(new java.awt.Color(255, 255, 255));
@@ -66,6 +65,11 @@ public class EventPage extends javax.swing.JFrame {
         buttonRepeat.setForeground(new java.awt.Color(255, 255, 255));
         buttonRepeat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         buttonRepeat.setText("Repeat event");
+        buttonRepeat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonRepeatMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
         footer.setLayout(footerLayout);
@@ -189,7 +193,25 @@ public class EventPage extends javax.swing.JFrame {
     private void eventNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eventNameMouseClicked
         displayNameDialog();
     }//GEN-LAST:event_eventNameMouseClicked
-      
+
+    private void buttonRepeatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRepeatMouseClicked
+        displayRecurrenceDialog();
+    }//GEN-LAST:event_buttonRepeatMouseClicked
+     
+    private void displayRecurrenceDialog() {
+        Recurrence recurrence;
+        if (event.getRecurrence() == null){
+            recurrence = new Recurrence();
+        }
+        else {
+           recurrence = event.getRecurrence();
+        }
+        
+        JPanel panelRecurrence = new JPanel();
+        panelRecurrence.setLayout(new GridLayout(5, 2));
+        
+    }
+    
     private void displayNameDialog() {
         JPanel panelName = new JPanel();
         panelName.setLayout(new GridLayout(2, 4));
@@ -210,7 +232,7 @@ public class EventPage extends javax.swing.JFrame {
     }
         
     private void displayParticipantsDialog() {
-        
+        //
     }
     
     private void displayLocationDialog() {
@@ -282,9 +304,10 @@ public class EventPage extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
             }
             
-            //if ()
-            event.setLocation(location);
-            labelAddLocation.setText(event.getLocation().displayLocation());
+            if (location.verifyLocation()) {
+                event.setLocation(location);
+                labelAddLocation.setText(event.getLocation().displayLocation());
+            }  
         }
     }
     
