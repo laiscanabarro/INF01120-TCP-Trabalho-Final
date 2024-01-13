@@ -1,4 +1,4 @@
-package content;
+package utils;
 
 public class Recurrence {
     private boolean daily;

@@ -13,6 +13,7 @@ public class ImportantListTest {
     Task task1;
     Task task2;
     Task task3;
+    
     @BeforeAll
     public static void start() {
         System.out.println("Initiating ImportantList tests");
@@ -79,14 +80,14 @@ public class ImportantListTest {
         task1.setImportanceScale(2);
         task2.setImportanceScale(1);
         task3.setImportanceScale(3);
-        ImportantList.getInstance().changeOrder(TasksUtils.ORDER_IMPORTANCE_ASC);
+        ImportantList.getInstance().changeOrder(ORDER_BY.IMPORTANCE_ASC);
         ArrayList<Task> checkArray = new ArrayList<>();
         checkArray.add(task2);
         checkArray.add(task1);
         checkArray.add(task3);
         assertEquals(checkArray, ImportantList.getInstance().getTasks());
 
-        ImportantList.getInstance().changeOrder(TasksUtils.ORDER_IMPORTANCE_DESC);
+        ImportantList.getInstance().changeOrder(ORDER_BY.IMPORTANCE_DESC);
         checkArray.clear();
         checkArray.add(task3);
         checkArray.add(task1);

@@ -3,6 +3,8 @@ package content;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+import utils.Recurrence;
+
 public class Habit {
     private String name;
     private String category;

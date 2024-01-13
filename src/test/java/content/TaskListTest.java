@@ -15,6 +15,7 @@ public class TaskListTest {
     Task task1;
     Task task2;
     Task task3;
+    
     @BeforeAll
     public static void start() {
         System.out.println("Initiating TaskList tests");
@@ -69,21 +70,21 @@ public class TaskListTest {
         task3.setDeadline(d3);
         taskList.addTask(task3);
 
-        taskList.changeOrder(TasksUtils.ORDER_ALPHABET);
+        taskList.changeOrder(ORDER_BY.ALPHABET);
         ArrayList<Task> checkArray = new ArrayList<>();
         checkArray.add(task3);
         checkArray.add(task2);
         checkArray.add(task1);
         assertEquals(checkArray, taskList.getTasks());
 
-        taskList.changeOrder(TasksUtils.ORDER_END_DATE_ASC);
+        taskList.changeOrder(ORDER_BY.END_DATE_ASC);
         checkArray.clear();
         checkArray.add(task1);
         checkArray.add(task2);
         checkArray.add(task3);
         assertEquals(checkArray, taskList.getTasks());
 
-        taskList.changeOrder(TasksUtils.ORDER_END_DATE_DESC);
+        taskList.changeOrder(ORDER_BY.END_DATE_DESC);
         checkArray.clear();
         checkArray.add(task3);
         checkArray.add(task2);
