@@ -1,18 +1,17 @@
 package content;
 
-import utils.TasksUtils;
-
 public class Subtask {
     private String name;
     private boolean status;
     private Task mainTask;
+    public static final boolean COMPLETED = true;
 
     public Subtask(){
-        reset();
+        setStatus(!COMPLETED);
     }
-    public Subtask(String name, boolean status, Task mainTask){
+    public Subtask(String name, Task mainTask){
         setName(name);
-        setStatus(status);
+        setStatus(!COMPLETED);
         setMainTask(mainTask);
     }
     public void setName(String name){ this.name = name; }
@@ -21,16 +20,11 @@ public class Subtask {
     public String getName(){ return name; }
     public boolean getStatus(){ return status; }
     public Task getMainTask(){ return mainTask; }
-    public void reset(){
-        setName(null);
-        setStatus(!TasksUtils.COMPLETED);
-        setMainTask(null);
-    }
-    public Task promoteToTask(){
+    public void promoteToTask(){
         Task newTask = new Task();
         newTask.setName(name);
         mainTask.removeSubtask(this);
         mainTask.getCurrentList().addTask(newTask);
-        return newTask;
+        newTask.setImportanceScale(mainTask.getImportanceScale());
     }
 }

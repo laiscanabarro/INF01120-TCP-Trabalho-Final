@@ -1,4 +1,4 @@
-package content;
+package utils;
 
 public class Location {
     private String country;

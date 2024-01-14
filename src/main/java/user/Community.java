@@ -1,6 +1,6 @@
-package content;
+package user;
 
-import user.User;
+import content.TaskList;
 
 import java.util.ArrayList;
 

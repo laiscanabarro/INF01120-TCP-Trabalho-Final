@@ -1,6 +1,6 @@
 package content;
 
-import utils.TasksUtils;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,9 +8,13 @@ import java.util.Comparator;
 public class TaskList {
     private String name;
     private ArrayList<Task> tasks;
+    private ORDER_BY listOrder;
+    public enum ORDER_BY {
+        ALPHABET, IMPORTANCE_ASC, IMPORTANCE_DESC, END_DATE_ASC, END_DATE_DESC;
+    }
 
     public TaskList(){
-        reset();
+        setTasks(new ArrayList<>());
     }
     public TaskList(String name, ArrayList<Task> tasks){
         setName(name);
@@ -27,42 +31,49 @@ public class TaskList {
         }
 
     }
+    public void setListOrder(ORDER_BY order) { this.listOrder = order; }
     public String getName(){ return name; }
     public ArrayList<Task> getTasks(){ return tasks; }
-    private void reset(){
-        setName(null);
-        ArrayList<Task> emptyTasks = new ArrayList<>();
-        setTasks(emptyTasks);
-    }
+    public ORDER_BY getListOrder() { return listOrder; }
     public void clear(){ tasks.clear(); }
     public void addTask(Task task){
         task.setCurrentList(this);
         tasks.add(task);
+        if (task.getCurrentList().equals(DailyList.getInstance())) {
+            task.setDeadline(LocalDate.now());
+        }
     }
     public void removeTask(Task task){ tasks.remove(task); }
-    public void changeOrder(String orderBy){
+    public void changeOrder(ORDER_BY orderBy){
         switch (orderBy) {
-            case TasksUtils.ORDER_ALPHABET -> orderByLetter();
-            case TasksUtils.ORDER_END_DATE_ASC -> orderByEndDate(false);
-            case TasksUtils.ORDER_END_DATE_DESC -> orderByEndDate(true);
-            case TasksUtils.ORDER_IMPORTANCE_ASC -> orderByImportance(false);
-            case TasksUtils.ORDER_IMPORTANCE_DESC -> orderByImportance(true);
+            case ALPHABET -> orderByLetter();
+            case END_DATE_ASC -> orderByEndDate(false);
+            case END_DATE_DESC -> orderByEndDate(true);
+            case IMPORTANCE_ASC -> orderByImportance(false);
+            case IMPORTANCE_DESC -> orderByImportance(true);
             default -> setTasks(tasks);
         }
     }
     private void orderByLetter(){
         tasks.sort(Comparator.comparing(Task::getName));
+        setListOrder(ORDER_BY.ALPHABET);
     }
     private void orderByEndDate(boolean isDesc){
         tasks.sort(Comparator.comparing(Task::getDeadline));
         if (isDesc){
             Collections.reverse(tasks);
+            setListOrder(ORDER_BY.END_DATE_DESC);
+        } else {
+            setListOrder(ORDER_BY.END_DATE_ASC);
         }
     }
     private void orderByImportance(boolean isDesc){
         tasks.sort(Comparator.comparingInt(Task::getImportanceScale));
         if (isDesc){
             Collections.reverse(tasks);
+            setListOrder(ORDER_BY.IMPORTANCE_DESC);
+        } else {
+            setListOrder(ORDER_BY.IMPORTANCE_ASC);
         }
     }
 }

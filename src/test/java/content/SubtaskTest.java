@@ -10,6 +10,7 @@ public class SubtaskTest {
     TaskList taskList;
     Task task;
     Subtask subtask;
+    
     @BeforeAll
     public static void start() {
         System.out.println("Initiating Subtask tests");

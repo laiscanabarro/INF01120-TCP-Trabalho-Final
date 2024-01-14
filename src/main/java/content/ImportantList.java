@@ -1,13 +1,14 @@
 package content;
 
-import utils.TasksUtils;
-
 public class ImportantList extends TaskList {
-    private static String listOrder;
     private static final ImportantList importantList;
+    public static final int MIN_IMPORTANCE = 0;
+    public static final int MAX_IMPORTANCE = 5;
+
     private ImportantList(){
+        super();
         super.setName("Important");
-        setListOrder(TasksUtils.ORDER_IMPORTANCE_DESC);
+        super.setListOrder(ORDER_BY.IMPORTANCE_DESC);
     }
 
     static {
@@ -16,26 +17,24 @@ public class ImportantList extends TaskList {
     public static ImportantList getInstance() {
         return importantList;
     }
-    public static void setListOrder(String newOrder){ listOrder = newOrder; }
-    public static String getListOrder(){ return listOrder; }
     public static void removeImportance(Task task){
-        task.setImportanceScale(TasksUtils.MIN_IMPORTANCE);
+        task.setImportanceScale(MIN_IMPORTANCE);
         if (task.getCurrentList().equals(getInstance())) {
             task.changeList(task.getOldList());
         }
     }
     public static void increasePriority(Task task){
         int newPriorityValue = task.getImportanceScale() + 1;
-        if (newPriorityValue < TasksUtils.MAX_IMPORTANCE) {
+        if (newPriorityValue < MAX_IMPORTANCE) {
             task.setImportanceScale(newPriorityValue);
         } else {
-            task.setImportanceScale(TasksUtils.MAX_IMPORTANCE);
+            task.setImportanceScale(MAX_IMPORTANCE);
         }
         resetOrder();
     }
     public static void decreasePriority(Task task){
         int newPriorityValue = task.getImportanceScale() - 1;
-        if (newPriorityValue > TasksUtils.MIN_IMPORTANCE) {
+        if (newPriorityValue > MIN_IMPORTANCE) {
             task.setImportanceScale(newPriorityValue);
         } else {
             removeImportance(task);
@@ -43,6 +42,6 @@ public class ImportantList extends TaskList {
         resetOrder();
     }
     private static void resetOrder(){
-        getInstance().changeOrder(getListOrder());
+        getInstance().changeOrder(getInstance().getListOrder());
     }
 }

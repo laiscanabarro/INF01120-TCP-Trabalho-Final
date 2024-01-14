@@ -3,6 +3,8 @@ package content;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+import utils.Recurrence;
+
 public class Habit {
     private String name;
     private String category;
@@ -12,13 +14,14 @@ public class Habit {
     private boolean complete;
     private LocalDate lastCompletionDate;
     private LocalDate prevLastCompletionDate;
+    public static final boolean COMPLETED = true;
 
     public Habit(String name, String category, Recurrence recurrence, int goal) {
         this.name = name;
         this.category = category;
         this.recurrence = recurrence;
         this.goal = goal;
-        this.complete = false;
+        this.complete = !COMPLETED;
         this.lastCompletionDate = null;
         this.prevLastCompletionDate = null;
         this.completionCount = 0;
@@ -64,18 +67,14 @@ public class Habit {
         return complete;
     }
 
-    public void markComplete() {
+    public void changeStatus() {
         if(!complete){
-            complete = true;
+            complete = COMPLETED;
             prevLastCompletionDate = lastCompletionDate;
             lastCompletionDate = LocalDate.now();
             completionCount++;
-        }
-    }
-
-    public void markIncomplete() {
-        if(complete){
-            complete = false;
+        } else {
+            complete = !COMPLETED;
             lastCompletionDate = prevLastCompletionDate;
             if(completionCount > 0){
                 completionCount--;

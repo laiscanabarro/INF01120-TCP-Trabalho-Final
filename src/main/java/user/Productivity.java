@@ -1,8 +1,6 @@
 package user;
 
 public class Productivity {
-
-
     private int goal;
     private int completed;
     private double progress;
