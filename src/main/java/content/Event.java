@@ -13,9 +13,9 @@ public class Event {
     private Recurrence recurrence;
     private ArrayList<User> participants = new ArrayList<>();
 
-    public Event(String name, Period period){
+    public Event(String name, LocalDate date){
         this.name = name;
-        this.period = period;
+        this.period = new Period(date);
         this.participants = null;
     }
 

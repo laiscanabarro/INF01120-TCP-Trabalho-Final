@@ -209,7 +209,7 @@ public class EventPage extends javax.swing.JFrame {
         JPanel panelRecurrence = new JPanel();
         panelRecurrence.setLayout(new GridLayout(5, 2));
         
-        // Creates a checkbox with associated text
+        // Creates a RadioButton with associated text
         JRadioButton dailyCheckBox = new JRadioButton ("Daily");
         JRadioButton weekdayCheckBox = new JRadioButton ("Weekday");
         JRadioButton weeklyCheckBox = new JRadioButton ("Weekly");
@@ -456,8 +456,8 @@ public class EventPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Period period = new Period(LocalDate.now());
-                Event event1 = new Event("Presentation", period);
+                LocalDate date = LocalDate.now();
+                Event event1 = new Event("Presentation", date);
                 new EventPage(event1).setVisible(true);
             }
         });

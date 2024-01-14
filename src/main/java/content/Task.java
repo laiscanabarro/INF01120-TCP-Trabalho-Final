@@ -23,6 +23,10 @@ public class Task {
     public Task() {
         reset();
     }
+    public Task(String name, LocalDate deadline) {
+        this.name = name;
+        this.deadline = deadline;
+    }
     public Task(String name, TaskList currentList, String description,
                 int importanceScale, LocalDate deadline, boolean status,
                 ArrayList<Subtask> subtasks, Date conclusionDate) {

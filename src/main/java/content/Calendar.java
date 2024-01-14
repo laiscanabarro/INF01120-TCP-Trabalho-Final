@@ -25,6 +25,10 @@ public class Calendar {
     public ArrayList<Schedule> getSchedules(){
         return this.schedules;
     }
+    
+    public void addSchecule(Schedule schedule){
+        schedules.add(schedule);
+    }
 
     public void addEvent(Event event){
         events.add(event);
@@ -33,15 +37,9 @@ public class Calendar {
         LocalDate start = event.getPeriod().getStartDate();
         long days = event.getPeriod().countDays();
 
-        for (int i = 0; i < days; i++){
+        for (int i = 0; i <= days; i++){
             Schedule scheduleSearched = searchSchedule(start.plusDays(i));
-            if (scheduleSearched != null){
-                scheduleSearched.addEvent(event);
-            }
-            else{
-                Schedule schedule = new Schedule(start.plusDays(i));
-                schedule.addEvent(event);
-            }
+            scheduleSearched.addEvent(event);
         }
     }
 
@@ -65,14 +63,7 @@ public class Calendar {
         tasks.add(task);
 
         Schedule schedule = searchSchedule(task.getDeadline());
-        if (schedule != null){
-            schedule.addTask(task);
-        }
-        else {
-            Schedule scheduleNew = new Schedule(task.getDeadline());
-            scheduleNew.addTask(task);
-        }
-
+        schedule.addTask(task);
     }
 
     public void removeTask(Task task){
@@ -136,7 +127,6 @@ public class Calendar {
 
     public Object displayCalendar(LocalDate date) {
         int firstDay = calculateFirstDayOfMonth(date.getYear(), date.getMonthValue());
-        System.out.println(firstDay);
 
         boolean leapYear = leapYear(date.getYear()); //leap year = true (29 days in february); = false (28 days in february)
         int daysMonth = calculateDaysInMonth(date.getMonthValue(), leapYear);
@@ -176,7 +166,23 @@ public class Calendar {
 
         return calendarData;
     }
-  
+    
+    public int displayDay(int col, int row, Object[][] calendar){
+        int numRows = calendar.length;
+        int numCols = calendar[0].length;
+
+        if (row >= 0 && row < numRows && col >= 0 && col < numCols) {
+            Object value = calendar[row][col];
+
+            if (value instanceof Integer integer) {
+                return integer;
+            }
+                
+        }  
+        
+        return -1;
+        
+    }  
 
     public Schedule searchSchedule(LocalDate date){
         for (Schedule schedule : schedules){
@@ -184,7 +190,9 @@ public class Calendar {
                 return schedule;
             }
         }
-        return null;
+        Schedule newSchedule = new Schedule(date);
+        addSchecule(newSchedule);
+        return newSchedule;
     }
     
     public String displayMonthYear(LocalDate date) {
