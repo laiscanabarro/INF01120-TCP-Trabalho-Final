@@ -12,7 +12,7 @@ public class User {
     private String password;
     private Set<User> friends;
     private Set<User> pendingFriends;
-    private ArrayList<HabitsList> habits;
+    private ArrayList<HabitsList> habitLists;
     private ArrayList<TaskList> taskLists;
     private Calendar calendar;
     private NotificationList notifications;
@@ -25,7 +25,7 @@ public class User {
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
         this.productivity = new Productivity();
-        this.habits = new ArrayList<>();
+        this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
 
     }
@@ -37,7 +37,7 @@ public class User {
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
         this.productivity = new Productivity();
-        this.habits = new ArrayList<>();
+        this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
     }
 
@@ -67,8 +67,8 @@ public class User {
         return this.pendingFriends;
     }
 
-    public ArrayList<HabitsList> getHabits() {
-        return this.habits;
+    public ArrayList<HabitsList> getHabitLists() {
+        return this.habitLists;
     }
 
     public ArrayList<TaskList> getTaskLists() {
@@ -149,13 +149,21 @@ public class User {
         taskLists.remove(list);
     }
 
+    public void addHabitList(HabitsList habitList) {
+        habitLists.add(habitList);
+    }
+
+    public void removeHabitList(HabitsList habitList) {
+        habitLists.remove(habitList);
+    }
+
     public void updateProductivity() {
         //int completedTasks = 0;
         int tasksCompletedToday = 0;
         int habitsCompletedToday = 0;
 
-        if(this.habits != null && !this.habits.isEmpty()){
-            for (HabitsList habitList : this.habits){
+        if(this.habitLists != null && !this.habitLists.isEmpty()){
+            for (HabitsList habitList : this.habitLists){
                 //completedHabits = completedHabits + habitList.getCompletedCount();
                 habitsCompletedToday = habitsCompletedToday + habitList.getCompletedTodayCount();
             }

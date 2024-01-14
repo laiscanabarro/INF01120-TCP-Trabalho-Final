@@ -1,10 +1,11 @@
 package content;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class HabitsList {
+public class HabitsList implements Serializable{
     private ArrayList<Habit> habits;
     private String category;
 
@@ -29,20 +30,9 @@ public class HabitsList {
         this.category = category;
     }
 
-    public int getCompletedCount() {
-        int completedCount = 0;
-        for (Habit habit : habits) {
-            if (habit.isComplete()) {
-                completedCount++;
-            }
-        }
-        return completedCount;
-    }
-
     public int getCompletedTodayCount() {
         int completedTodayCount = 0;
         LocalDate today = LocalDate.now();
-
         for (Habit habit : habits) {
             if (habit.isComplete() && habit.getLastCompletionDate().equals(today)) {
                 completedTodayCount++;
@@ -57,12 +47,6 @@ public class HabitsList {
             return true;
         } catch (Exception e) {
             return false;
-        }
-    }
-
-    public void displayHabits() {
-        for(Habit habit : habits) {
-            // display habits info
         }
     }
 
@@ -93,10 +77,6 @@ public class HabitsList {
             return true;
         }
         return false;
-    }
-
-    public void selectHabit(Habit habit) {
-
     }
 
     private void habitOrderByLetter(){

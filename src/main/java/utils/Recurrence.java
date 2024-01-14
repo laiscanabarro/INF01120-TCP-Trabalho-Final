@@ -1,6 +1,8 @@
 package utils;
 
-public class Recurrence {
+import java.io.Serializable;
+
+public class Recurrence implements Serializable{
     private boolean daily;
     private boolean weekday;
     private boolean weekly;
@@ -15,6 +17,27 @@ public class Recurrence {
         this.monthly = false;
         this.annually = false;
         this.custom = false;
+    }
+
+    public Recurrence(RecurrenceType recurrenceType) {
+        this();
+        switch (recurrenceType) {
+            case DAILY:
+                setDaily(true);
+                break;
+            case WEEKDAY:
+                setWeekday(true);
+                break;
+            case WEEKLY:
+                setWeekly(true);
+                break;
+            case MONTHLY:
+                setMonthly(true);
+                break;
+            case ANNUALLY:
+                setAnnually(true);
+                break;
+        }
     }
 
     public boolean getDaily(){
@@ -87,5 +110,21 @@ public class Recurrence {
 
     public enum RecurrenceType {
         DAILY, WEEKDAY, WEEKLY, MONTHLY, ANNUALLY;
+    }
+
+    public String toString() {
+        if (getDaily()) {
+            return "Daily";
+        } else if (getWeekday()) {
+            return "Weekday";
+        } else if (getWeekly()) {
+            return "Weekly";
+        } else if (getMonthly()) {
+            return "Monthly";
+        } else if (getAnnualy()) {
+            return "Annually";
+        } else {
+            return "Custom";
+        }
     }
 }

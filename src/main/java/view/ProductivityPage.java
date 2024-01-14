@@ -165,12 +165,12 @@ public class ProductivityPage extends Page {
         );
 
         compHabitsLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        // LoginPage.currentUser.updateProductivity();
-        compHabitsLabel.setText(Page.currentUser.getProductivity().getHabitsCompletedToday() + " completed habits");
+        currentUser.updateProductivity();
+        compHabitsLabel.setText(currentUser.getProductivity().getHabitsCompletedToday() + " completed habits");
 
         compTasksLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        // LoginPage.currentUser.updateProductivity();
-        compTasksLabel.setText(Page.currentUser.getProductivity().getTasksCompletedToday() + " completed tasks");
+        currentUser.updateProductivity();
+        compTasksLabel.setText(currentUser.getProductivity().getTasksCompletedToday() + " completed tasks");
 
         jLabel8.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel8.setText("Daily goal");
