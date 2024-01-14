@@ -50,7 +50,6 @@ public class ProductivityPage extends Page {
         setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
 
         Page.currentUser.updateProductivity();
-        System.out.println(Page.currentUser.getProductivity().getTasksCompletedToday());
 
         jLabel1.setFont(new java.awt.Font("Geeza Pro", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -258,7 +257,19 @@ public class ProductivityPage extends Page {
     }
 
     private void jSlider1CaretPositionChanged(java.awt.event.InputMethodEvent evt) {
-        // TODO add your handling code here:
+        int sliderValue = jSlider1.getValue();
+
+        String emotionalState;
+        if (sliderValue < 33) {
+            emotionalState = "Feeling low";
+        } else if (sliderValue < 67) {
+            emotionalState = "Feeling neutral";
+        } else {
+            emotionalState = "Feeling great";
+        }
+
+
+        System.out.println("How are you feeling today? " + emotionalState);
     }
 
     private void increaseTaskGoalBtnActionPerformed(java.awt.event.ActionEvent evt) {
