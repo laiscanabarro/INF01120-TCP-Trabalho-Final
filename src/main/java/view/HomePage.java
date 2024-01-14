@@ -106,7 +106,7 @@ public class HomePage extends Page {
         habitsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	JFrame habitPage = new HabitPage(currentUser.getEmail());
+            	JFrame habitPage = new HabitPage();
                 changeTo(habitPage);
             }
         });

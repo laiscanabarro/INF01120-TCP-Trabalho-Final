@@ -15,19 +15,17 @@ import java.util.ArrayList;
 
 public class HabitPage extends Page {
 
-    private static final String DATA_FILE = "habits_data_";
+    private static final String DATA_FILE = "habits_data_" + currentUser.getEmail() + ".ser";
 
     private ArrayList<HabitsList> habitsLists;
     private DefaultListModel<String> habitsListModel;
     private JList<String> habitsList;
     private DefaultListModel<Habit> displayedHabitsModel;
     private JList<Habit> displayedHabitsList;
-    private String userEmail = currentUser.getEmail();
 
 
 
-    public HabitPage(String userEmail) {
-        this.userEmail = userEmail;
+    public HabitPage() {
         initComponents();
         loadHabitData();
         checkCompletion();
@@ -174,8 +172,7 @@ public class HabitPage extends Page {
 
     @SuppressWarnings("unchecked")
     private void loadHabitData() {
-        String dataFileName = DATA_FILE + userEmail + ".ser";
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dataFileName))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATA_FILE))) {
             habitsLists = (ArrayList<HabitsList>) ois.readObject();
             updateHabitsListModel();
         } catch (IOException | ClassNotFoundException e) {
@@ -184,8 +181,7 @@ public class HabitPage extends Page {
     }
 
     private void saveHabitData() {
-        String dataFileName = DATA_FILE + userEmail + ".ser";
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(dataFileName))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
             oos.writeObject(habitsLists);
         } catch (IOException e) {
             e.printStackTrace();
@@ -382,7 +378,7 @@ public class HabitPage extends Page {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HabitPage(currentUser.getEmail()).setVisible(true);
+                new HabitPage().setVisible(true);
             }
         });
     }
