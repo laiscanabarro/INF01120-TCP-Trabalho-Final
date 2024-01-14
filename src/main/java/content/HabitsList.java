@@ -1,9 +1,10 @@
 package content;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class HabitsList {
+public class HabitsList implements Serializable{
     private ArrayList<Habit> habits;
     private String category;
 
@@ -37,12 +38,6 @@ public class HabitsList {
         }
     }
 
-    public void displayHabits() {
-        for(Habit habit : habits) {
-            // display habits info
-        }
-    }
-
     public Habit searchHabit(String name) {
         for(Habit habit : habits) {
             if(habit.getName().equals(name)) {
@@ -70,10 +65,6 @@ public class HabitsList {
             return true;
         }
         return false;
-    }
-
-    public void selectHabit(Habit habit) {
-
     }
 
     private void habitOrderByLetter(){
