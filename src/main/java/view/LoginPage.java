@@ -1,5 +1,6 @@
 package view;
 
+import user.Authentication;
 import user.User;
 
 import javax.swing.*;
@@ -52,9 +53,11 @@ public class LoginPage extends Page {
                 String email = emailField.getText();
                 String password = passwordField.getText();
                 if (email != null && password != null) {
-                    createUser(email, password);
-                    homePage = new HomePage();
-                    changeTo(homePage);
+                    if(Authentication.isValidEmail(email) && Authentication.isValidPassword(password)){
+                        createUser(email, password);
+                        homePage = new HomePage();
+                        changeTo(homePage);
+                    }
                 }
             }
         });
