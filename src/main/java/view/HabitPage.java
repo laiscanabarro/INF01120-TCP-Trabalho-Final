@@ -16,8 +16,6 @@ import java.util.ArrayList;
 public class HabitPage extends Page {
 
     private static final String DATA_FILE = "habits_data_" + currentUser.getEmail() + ".ser";
-
-    private ArrayList<HabitsList> habitsLists;
     private DefaultListModel<String> habitsListModel;
     private JList<String> habitsList;
     private DefaultListModel<Habit> displayedHabitsModel;
@@ -171,16 +169,16 @@ public class HabitPage extends Page {
     @SuppressWarnings("unchecked")
     private void loadHabitData() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATA_FILE))) {
-            habitsLists = (ArrayList<HabitsList>) ois.readObject();
+            currentUser.setHabitLists((ArrayList<HabitsList>) ois.readObject());
             updateHabitsListModel();
         } catch (IOException | ClassNotFoundException e) {
-            habitsLists = new ArrayList<>();
+            currentUser.setHabitLists(new ArrayList<>());
         }
     }
 
     private void saveHabitData() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
-            oos.writeObject(habitsLists);
+            oos.writeObject(currentUser.getHabitLists());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -100,6 +100,8 @@ public class User {
     }
     public void setTaskLists(ArrayList<TaskList> list) { this.taskLists = list; }
 
+    public void setHabitLists(ArrayList<HabitsList> list){ this.habitLists = list; }
+
     public void addFriend(User user) {
         if (!this.friends.contains(user)){
             this.friends.add(user);
