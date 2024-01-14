@@ -36,8 +36,8 @@ public class UserInfoPage extends Page {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Kohinoor Devanagari", 0, 36)); // NOI18N
-        jLabel1.setText("USER INFORMATION");
+        jLabel1.setFont(new java.awt.Font("Helvetica", 0, 36)); // NOI18N
+        jLabel1.setText("User Information");
 
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
