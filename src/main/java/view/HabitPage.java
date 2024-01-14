@@ -166,8 +166,6 @@ public class HabitPage extends Page {
         displayedHabitsPanel.add(habitButtonsPanel, BorderLayout.SOUTH);
 
         add(displayedHabitsPanel, BorderLayout.CENTER);
-
-        loadHabitData();
     }
 
     @SuppressWarnings("unchecked")
