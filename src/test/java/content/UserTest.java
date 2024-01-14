@@ -38,7 +38,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("test adding list to TaskList")
+    @DisplayName("test adding list to user's list of TaskLists")
     void addList(){
         user1.addList(taskList2);
         assertEquals(2, user1.getTaskLists().size());
@@ -46,7 +46,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("test removing list from Tasklist")
+    @DisplayName("test removing list from user's list of TaskLists")
     void removeList(){
         user1.removeList(taskList1);
         assertEquals(0, user1.getTaskLists().size());
@@ -54,7 +54,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("test adding list to HabitList")
+    @DisplayName("test adding list to user's list of HabitLists")
     void addHabitList(){
         user1.addHabitList(habitList2);
         assertEquals(2, user1.getHabitLists().size());
@@ -62,7 +62,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("test removing list from HabitList")
+    @DisplayName("test removing list from user's list of HabitLists")
     void removeHabitList(){
         user1.removeHabitList(habitList1);
         assertEquals(0, user1.getHabitLists().size());
