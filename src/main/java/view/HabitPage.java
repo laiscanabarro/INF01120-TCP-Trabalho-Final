@@ -237,7 +237,7 @@ public class HabitPage extends Page {
         String listCategory = JOptionPane.showInputDialog(this, "Enter the category of the new habits list:");
         if (listCategory != null && !listCategory.trim().isEmpty()) {
             HabitsList newList = new HabitsList(listCategory);
-            currentUser.getHabitLists().add(newList);
+            currentUser.addHabitList(newList);
             habitsListModel.addElement(listCategory);
         }
     }
