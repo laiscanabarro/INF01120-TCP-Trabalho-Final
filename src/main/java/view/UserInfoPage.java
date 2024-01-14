@@ -4,6 +4,7 @@ package view;/*
  */
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -64,6 +65,8 @@ public class UserInfoPage extends Page {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+        getContentPane().setBackground(Color.WHITE);
+        setOpacity(1.0f);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
