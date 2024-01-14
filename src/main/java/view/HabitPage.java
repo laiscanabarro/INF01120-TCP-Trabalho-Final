@@ -353,24 +353,19 @@ public class HabitPage extends Page {
             completionCheckBox.setEnabled(false);
 
             setBackground(isSelected ? Color.YELLOW : list.getBackground());
-            setForeground(isSelected ? Color.BLACK : list.getForeground());
 
             return this;
         }
     }
 
     private void checkCompletion() {
-        int selectedListIndex = habitsList.getSelectedIndex();
-        if (selectedListIndex >= 0 && selectedListIndex < habitsLists.size()) {
-            HabitsList selectedList = habitsLists.get(selectedListIndex);
-            ArrayList<Habit> displayedHabits = selectedList.getHabits();
-
-            for (Habit habit : displayedHabits) {
+        for (HabitsList habitsList : habitsLists) {
+            ArrayList<Habit> allHabits = habitsList.getHabits();
+            for (Habit habit : allHabits) {
                 habit.checkCompletion();
             }
-
-            updateDisplayedHabits();
         }
+            updateDisplayedHabits();
     }
 
     public static void main(String[] args) {
