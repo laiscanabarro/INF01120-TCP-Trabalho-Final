@@ -106,10 +106,8 @@ public class HomePage extends Page {
         habitsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JPanel newPanel = new JPanel();
-                newPanel.setOpaque(true);
-                newPanel.setBackground(Color.ORANGE);
-                updateRightPanel(newPanel);
+            	JFrame habitPage = new HabitPage(currentUser.getEmail());
+                changeTo(habitPage);
             }
         });
 

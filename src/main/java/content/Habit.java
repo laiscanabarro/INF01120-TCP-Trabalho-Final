@@ -1,11 +1,12 @@
 package content;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 import utils.Recurrence;
 
-public class Habit {
+public class Habit implements Serializable {
     private String name;
     private String category;
     private Recurrence recurrence;
@@ -141,7 +142,13 @@ public class Habit {
 
     public double getProgress() {
         if (goal > 0) {
-            return ((double) completionCount / goal) * 100;
+            double Progress = ((double) completionCount / goal) * 100;
+            if (Progress < 100) {
+                return Progress;
+            }
+            else {
+                return 100;
+            }
         } 
         else {
             return 0;
