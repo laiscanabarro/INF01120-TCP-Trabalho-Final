@@ -31,7 +31,10 @@ public class User {
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
         this.goal = 0;
-        this.productivity = new Productivity(0, 0, 0.0);
+        this.productivity = new Productivity();
+        this.habits = new ArrayList<>();
+        this.tasks = new ArrayList<>();
+
     }
     // Constructor
     public User(String email, String password) {
@@ -41,7 +44,9 @@ public class User {
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
         this.goal = 0;
-        this.productivity = new Productivity(0, 0, 0.0);
+        this.productivity = new Productivity();
+        this.habits = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
 
@@ -151,18 +156,31 @@ public class User {
         this.communities.add(newCommunity);
     }
 
-    /*
     public void updateProductivity() {
-        int completed = 0;
+        //int completedTasks = 0;
+        int tasksCompletedToday = 0;
+        int habitsCompletedToday = 0;
 
-        for (HabitsList list : this.habits){
-            completed = completed + list.getTotalDone();
+        if(this.habits != null && !this.habits.isEmpty()){
+            for (HabitsList habitList : this.habits){
+                //completedHabits = completedHabits + habitList.getCompletedCount();
+                habitsCompletedToday = habitsCompletedToday + habitList.getCompletedTodayCount();
+            }
+            this.productivity.setHabitsCompletedToday(habitsCompletedToday);
         }
 
-        for (TaskList list: this.tasks){
-            completed = completed + list.getTotalDone();
+        if(this.tasks != null && !this.tasks.isEmpty()){
+            for (TaskList taskList: this.tasks){
+                //completedTasks = completedTasks + taskList.getCompletedCount();
+                tasksCompletedToday = tasksCompletedToday + taskList.getCompletedTodayCount();
+            }
+            this.productivity.setTasksCompletedToday(tasksCompletedToday);
         }
 
-        this.productivity.setCompleted(completed);
-    }*/
+        this.productivity.setHabitsCompletedToday(5);
+        this.productivity.setTasksCompletedToday(2);
+    }
+
+
+
 }

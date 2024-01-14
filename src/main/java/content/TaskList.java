@@ -1,6 +1,8 @@
 package content;
 
 import utils.TasksUtils;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,6 +31,27 @@ public class TaskList {
     }
     public String getName(){ return name; }
     public ArrayList<Task> getTasks(){ return tasks; }
+    public int getCompletedCount() {
+        int completedCount = 0;
+        for (Task task : tasks) {
+            if (task.getStatus() == TasksUtils.COMPLETED) {
+                completedCount++;
+            }
+        }
+        return completedCount;
+    }
+
+    public int getCompletedTodayCount() {
+        int completedTodayCount = 0;
+        LocalDate today = LocalDate.now();
+
+        for (Task task : tasks) {
+            if (task.getStatus() == TasksUtils.COMPLETED && task.getConclusionDate().equals(today)) {
+                completedTodayCount++;
+            }
+        }
+        return completedTodayCount;
+    }
     private void reset(){
         setName(null);
         ArrayList<Task> emptyTasks = new ArrayList<>();
@@ -50,6 +73,8 @@ public class TaskList {
             default -> setTasks(tasks);
         }
     }
+
+
     private void orderByLetter(){
         tasks.sort(Comparator.comparing(Task::getName));
     }
@@ -65,4 +90,5 @@ public class TaskList {
             Collections.reverse(tasks);
         }
     }
+
 }

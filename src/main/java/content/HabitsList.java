@@ -1,5 +1,8 @@
 package content;
 
+import utils.TasksUtils;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -26,6 +29,28 @@ public class HabitsList {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getCompletedCount() {
+        int completedCount = 0;
+        for (Habit habit : habits) {
+            if (habit.isComplete()) {
+                completedCount++;
+            }
+        }
+        return completedCount;
+    }
+
+    public int getCompletedTodayCount() {
+        int completedTodayCount = 0;
+        LocalDate today = LocalDate.now();
+
+        for (Habit habit : habits) {
+            if (habit.isComplete() && habit.getLastCompletionDate().equals(today)) {
+                completedTodayCount++;
+            }
+        }
+        return completedTodayCount;
     }
 
     public boolean clearList() {
