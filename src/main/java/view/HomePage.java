@@ -1,20 +1,25 @@
 package view;
 
+import content.TaskList;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HomePage extends Page {
+    public static final int dividerPosition = 190;
+    private static final JSplitPane splitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     private static JPanel contentPanel;
-    private static final int dividerPosition = 190;
+    private static final JPanel sideMenu = new JPanel();
     private static final int buttonWidth = dividerPosition - 10;
     private static final int buttonHeight = 25;
+    private static final Dimension buttonDimension = new Dimension(buttonWidth, buttonHeight);
+    private static final JFrame userInfoPageAt = new UserInfoPage();
 
     public HomePage() {
         super();
         setLocationRelativeTo(null);
-        JPanel sideMenu = new JPanel();
         sideMenu.setOpaque(true);
         sideMenu.setBackground(Color.WHITE);
         sideMenu.setLayout(new GridBagLayout());
@@ -25,49 +30,50 @@ public class HomePage extends Page {
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        JButton profileButton = profileButton(String.valueOf(LoginPage.currentUser.getEmail().toUpperCase().charAt(0)));
+        JButton profileButton = generalButton(String.valueOf(LoginPage.currentUser.getEmail().toUpperCase().charAt(0)), new Dimension(50,50), hilightColor);
         sideMenu.add(profileButton, gbc);
         gbc.gridx++;
         JLabel title = new JLabel(String.valueOf(LoginPage.currentUser.getEmail()));
         sideMenu.add(title, gbc);
 
-        gbc.gridx--;
+        gbc.gridx = 0;
         gbc.gridy++;
         gbc.gridwidth++;
-        JButton bnt1 = new JButton("User");
-        bnt1.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt1, gbc);
+        JButton listsButton = new JButton("All Lists");
+        listsButton.setPreferredSize(buttonDimension);
+        sideMenu.add(listsButton, gbc);
 
         gbc.gridy++;
-        JButton bnt2 = new JButton("Tasks");
-        bnt2.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt2, gbc);
+        JButton habitsButton = new JButton("Habits");
+        habitsButton.setPreferredSize(buttonDimension);
+        sideMenu.add(habitsButton, gbc);
 
         gbc.gridy++;
-        JButton bnt3 = new JButton("Habits");
-        bnt3.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt3, gbc);
+        JButton calendarButton = new JButton("Calendar");
+        calendarButton.setPreferredSize(buttonDimension);
+        sideMenu.add(calendarButton, gbc);
 
         gbc.gridy++;
-        JButton bnt4 = new JButton("Calendar");
-        bnt4.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt4, gbc);
+        JButton productivityButton = new JButton("Productivity");
+        productivityButton.setPreferredSize(buttonDimension);
+        sideMenu.add(productivityButton, gbc);
 
+        gbc.gridx = 0;
         gbc.gridy++;
-        JButton bnt5 = new JButton("Productivity");
-        bnt5.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt5, gbc);
-
-        gbc.gridy++;
-        JButton bnt6 = new JButton("Exit");
-        bnt6.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
-        sideMenu.add(bnt6, gbc);
+        gbc.gridwidth = 1;
+        JButton addListButton = new JButton("+");
+        addListButton.setPreferredSize(new Dimension(50,buttonHeight));
+        sideMenu.add(addListButton, gbc);
+        gbc.gridx++;
+        JLabel addListLabel = new JLabel("New List");
+        sideMenu.add(addListLabel, gbc);
 
         //Componente em branco/preenchimento
-        gbc.gridx++;
+        gbc.gridx = 0;
         gbc.gridy++;
         gbc.weightx = 1;
         gbc.weighty = 1;
+        gbc.gridwidth = 2;
         sideMenu.add(new JLabel(), gbc);
 
         if (contentPanel == null) {
@@ -76,90 +82,76 @@ public class HomePage extends Page {
             contentPanel.setBackground(Color.WHITE);
         }
 
-        JSplitPane splitPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                sideMenu, contentPanel);
-        splitPanel.setOneTouchExpandable(true);
-        splitPanel.setDividerLocation(dividerPosition);
+        splitPanel.setLeftComponent(sideMenu);
+        splitPanel.setOneTouchExpandable(false);
         splitPanel.setDividerSize(1);
+        updateRightPanel(contentPanel);
 
         add(splitPanel, BorderLayout.CENTER);
 
         profileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("clicked");
-            }
-        });
-
-        bnt1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame userInfoPageAt = new UserInfoPage();
                 changeTo(userInfoPageAt);
             }
         });
 
-        bnt2.addActionListener(new ActionListener() {
+        listsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JPanel newPanel = new JPanel();
-                newPanel.setOpaque(true);
-                newPanel.setBackground(Color.GREEN);
-                splitPanel.setRightComponent(newPanel);
-                splitPanel.setDividerLocation(dividerPosition);
+                updateRightPanel(ListsPage.showLists());
             }
         });
-        bnt3.addActionListener(new ActionListener() {
+
+        habitsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JPanel newPanel = new JPanel();
                 newPanel.setOpaque(true);
                 newPanel.setBackground(Color.ORANGE);
-                splitPanel.setRightComponent(newPanel);
-                splitPanel.setDividerLocation(dividerPosition);
+                updateRightPanel(newPanel);
             }
         });
 
-        bnt4.addActionListener(new ActionListener() {
+        calendarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JPanel newPanel = new JPanel();
                 newPanel.setOpaque(true);
-                newPanel.setBackground(Color.RED);
-                splitPanel.setRightComponent(newPanel);
-                splitPanel.setDividerLocation(dividerPosition);
-//                setContentPane(newPanel);
-//                invalidate();
-//                validate();
+                newPanel.setBackground(Color.ORANGE);
+                updateRightPanel(newPanel);
             }
         });
 
-        bnt5.addActionListener(new ActionListener() {
+        productivityButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 ProductivityPage productivityPage = new ProductivityPage();
                 changeTo(productivityPage);
-
             }
         });
 
-        bnt6.addActionListener(new ActionListener() {
+        addListButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            };
+                updateRightPanel(NewListPage.createList());
+            }
         });
+
+//        bnt6.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.exit(0);
+//            };
+//        });
     }
 
-    private static JButton profileButton(String label) {
-
-        int size = 50;
+    public static JButton generalButton(String label, Dimension size, Color background) {
         JButton button = new JButton(label);
         button.setForeground(Color.WHITE);
-        button.setPreferredSize(new Dimension(size, size));
+        button.setPreferredSize(size);
 //        button.setBorder(new RoundedBorder(0));
-        button.setBackground(hilightColor);
+        button.setBackground(background);
 
         button.setVerticalTextPosition(AbstractButton.CENTER);
         button.setHorizontalTextPosition(AbstractButton.CENTER);
@@ -171,5 +163,10 @@ public class HomePage extends Page {
         button.setContentAreaFilled(false);
         button.setOpaque(true);
         return button;
+    }
+
+    public static void updateRightPanel(JPanel newPanel) {
+        splitPanel.setRightComponent(newPanel);
+        splitPanel.setDividerLocation(dividerPosition);
     }
 }
