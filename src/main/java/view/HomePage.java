@@ -1,11 +1,16 @@
 package view;
 
+import content.HabitsList;
 import content.TaskList;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 public class HomePage extends Page {
     public static final int dividerPosition = 190;
@@ -16,6 +21,7 @@ public class HomePage extends Page {
     private static final int buttonHeight = 25;
     private static final Dimension buttonDimension = new Dimension(buttonWidth, buttonHeight);
     private static final JFrame userInfoPageAt = new UserInfoPage();
+    private static final String DATA_FILE = "habits_data_" + currentUser.getEmail() + ".ser";
 
     public HomePage() {
         super();
@@ -25,6 +31,8 @@ public class HomePage extends Page {
         sideMenu.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(4, 4, 4, 4);
+
+        loadHabitData();
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -166,5 +174,14 @@ public class HomePage extends Page {
     public static void updateRightPanel(JPanel newPanel) {
         splitPanel.setRightComponent(newPanel);
         splitPanel.setDividerLocation(dividerPosition);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void loadHabitData() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATA_FILE))) {
+            currentUser.setHabits((ArrayList<HabitsList>) ois.readObject());
+        } catch (IOException | ClassNotFoundException e) {
+            currentUser.setHabits(new ArrayList<>());
+        }
     }
 }

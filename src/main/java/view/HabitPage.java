@@ -17,18 +17,15 @@ public class HabitPage extends Page {
 
     private static final String DATA_FILE = "habits_data_" + currentUser.getEmail() + ".ser";
 
-    private ArrayList<HabitsList> habitsLists;
     private DefaultListModel<String> habitsListModel;
     private JList<String> habitsList;
     private DefaultListModel<Habit> displayedHabitsModel;
     private JList<Habit> displayedHabitsList;
 
-
-
     public HabitPage() {
         initComponents();
-        loadHabitData();
         checkCompletion();
+        updateHabitsListModel();
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -58,8 +55,6 @@ public class HabitPage extends Page {
 
         JPanel habitsListsPanel = new JPanel(new BorderLayout());
         habitsListsPanel.setBorder(BorderFactory.createTitledBorder("Habits Lists"));
-
-        habitsLists = new ArrayList<>();
 
         habitsListModel = new DefaultListModel<>();
         habitsList = new JList<>(habitsListModel);
@@ -168,19 +163,9 @@ public class HabitPage extends Page {
         add(displayedHabitsPanel, BorderLayout.CENTER);
     }
 
-    @SuppressWarnings("unchecked")
-    private void loadHabitData() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATA_FILE))) {
-            habitsLists = (ArrayList<HabitsList>) ois.readObject();
-            updateHabitsListModel();
-        } catch (IOException | ClassNotFoundException e) {
-            habitsLists = new ArrayList<>();
-        }
-    }
-
     private void saveHabitData() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
-            oos.writeObject(habitsLists);
+            oos.writeObject(currentUser.getHabits());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -188,7 +173,7 @@ public class HabitPage extends Page {
 
     private void updateHabitsListModel() {
         habitsListModel.removeAllElements();
-        for (HabitsList habitsList : habitsLists) {
+        for (HabitsList habitsList : currentUser.getHabits()) {
             habitsListModel.addElement(habitsList.getCategory());
         }
     }
@@ -200,8 +185,8 @@ public class HabitPage extends Page {
 
         if (selectedOption != null) {
             int selectedListIndex = habitsList.getSelectedIndex();
-            if (selectedListIndex >= 0 && selectedListIndex < habitsLists.size()) {
-                HabitsList selectedList = habitsLists.get(selectedListIndex);
+            if (selectedListIndex >= 0 && selectedListIndex < currentUser.getHabits().size()) {
+                HabitsList selectedList = currentUser.getHabits().get(selectedListIndex);
                 selectedList.habitChangeOrder(getOrderByOption(selectedOption));
 
                 updateDisplayedHabits();
@@ -226,8 +211,8 @@ public class HabitPage extends Page {
 
     private void clearHabitsList() {
         int selectedListIndex = habitsList.getSelectedIndex();
-        if (selectedListIndex >= 0 && selectedListIndex < habitsLists.size()) {
-            HabitsList selectedList = habitsLists.get(selectedListIndex);
+        if (selectedListIndex >= 0 && selectedListIndex < currentUser.getHabits().size()) {
+            HabitsList selectedList = currentUser.getHabits().get(selectedListIndex);
 
             if (selectedList.clearList()) {
                 displayedHabitsModel.removeAllElements();
@@ -239,15 +224,15 @@ public class HabitPage extends Page {
         String listCategory = JOptionPane.showInputDialog(this, "Enter the category of the new habits list:");
         if (listCategory != null && !listCategory.trim().isEmpty()) {
             HabitsList newList = new HabitsList(listCategory);
-            habitsLists.add(newList);
+            currentUser.getHabits().add(newList);
             habitsListModel.addElement(listCategory);
         }
     }
 
     private void removeSelectedHabitsList() {
         int selectedIndex = habitsList.getSelectedIndex();
-        if (selectedIndex >= 0 && selectedIndex < habitsLists.size()) {
-            habitsLists.remove(selectedIndex);
+        if (selectedIndex >= 0 && selectedIndex < currentUser.getHabits().size()) {
+            currentUser.getHabits().remove(selectedIndex);
             habitsListModel.remove(selectedIndex);
 
             displayedHabitsModel.removeAllElements();
@@ -257,8 +242,8 @@ public class HabitPage extends Page {
 
     private void addNewHabit() {
         int selectedListIndex = habitsList.getSelectedIndex();
-        if (selectedListIndex >= 0 && selectedListIndex < habitsLists.size()) {
-            HabitsList selectedList = habitsLists.get(selectedListIndex);
+        if (selectedListIndex >= 0 && selectedListIndex < currentUser.getHabits().size()) {
+            HabitsList selectedList = currentUser.getHabits().get(selectedListIndex);
             String habitName = JOptionPane.showInputDialog(this, "Enter the name of the new habit:");
             if (habitName != null && !habitName.trim().isEmpty()) {
 
@@ -293,8 +278,8 @@ public class HabitPage extends Page {
             displayedHabitsModel.remove(selectedIndex);
 
             int selectedListIndex = habitsList.getSelectedIndex();
-            if (selectedListIndex >= 0 && selectedListIndex < habitsLists.size()) {
-                HabitsList selectedList = habitsLists.get(selectedListIndex);
+            if (selectedListIndex >= 0 && selectedListIndex < currentUser.getHabits().size()) {
+                HabitsList selectedList = currentUser.getHabits().get(selectedListIndex);
 
                 selectedList.removeHabit(habitToRemove.getName());
             }
@@ -312,8 +297,8 @@ public class HabitPage extends Page {
 
     private void updateDisplayedHabits() {
         int selectedListIndex = habitsList.getSelectedIndex();
-        if (selectedListIndex >= 0 && selectedListIndex < habitsLists.size()) {
-            HabitsList selectedList = habitsLists.get(selectedListIndex);
+        if (selectedListIndex >= 0 && selectedListIndex < currentUser.getHabits().size()) {
+            HabitsList selectedList = currentUser.getHabits().get(selectedListIndex);
 
             displayedHabitsModel.removeAllElements();
             displayedHabitsModel.addAll(selectedList.getHabits());
@@ -359,7 +344,7 @@ public class HabitPage extends Page {
     }
 
     private void checkCompletion() {
-        for (HabitsList habitsList : habitsLists) {
+        for (HabitsList habitsList : currentUser.getHabits()) {
             ArrayList<Habit> allHabits = habitsList.getHabits();
             for (Habit habit : allHabits) {
                 habit.checkCompletion();

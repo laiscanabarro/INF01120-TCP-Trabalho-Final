@@ -156,6 +156,10 @@ public class User {
         taskLists.remove(list);
     }
 
+    public void setHabits(ArrayList<HabitsList> habits) {
+        this.habits = habits;
+    }
+
     /*
     public void updateProductivity() {
         int completed = 0;
