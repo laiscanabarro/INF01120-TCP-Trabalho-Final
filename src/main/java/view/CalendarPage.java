@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.Month;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JLabel;
@@ -132,19 +133,12 @@ public class CalendarPage extends javax.swing.JFrame {
         tableCalendar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tableCalendar.setForeground(new java.awt.Color(51, 51, 51));
         tableCalendar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
+            (Object[][]) calendar.displayCalendar(today),
             new String [] {
                 "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
             }
         ));
         tableCalendar.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tableCalendar.setCellSelectionEnabled(false);
         tableCalendar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tableCalendar.setFillsViewportHeight(true);
         tableCalendar.setRowHeight(36);
@@ -183,14 +177,14 @@ public class CalendarPage extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(labelMonthYear)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(textFieldTask, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(textFieldEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(LabelTaskEventList)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,39 +266,81 @@ public class CalendarPage extends javax.swing.JFrame {
         panelMonth.add(novemberCheckBox);
         panelMonth.add(decemberCheckBox);
         
-        actionListenerMonth(januaryCheckBox);
-        actionListenerMonth(februaryCheckBox);
-        actionListenerMonth(marchCheckBox);
-        actionListenerMonth(aprilCheckBox);
-        actionListenerMonth(mayCheckBox);
-        actionListenerMonth(juneCheckBox);
-        actionListenerMonth(julyCheckBox);
-        actionListenerMonth(augustCheckBox);
-        actionListenerMonth(setemberCheckBox);
-        actionListenerMonth(octoberCheckBox);
-        actionListenerMonth(novemberCheckBox);
-        actionListenerMonth(decemberCheckBox);
-        
         JTextField yearTextField = new JTextField();
         panelMonth.add(new JLabel("Year:"));
         panelMonth.add(yearTextField);
+        
+        actionListenerMonth(januaryCheckBox, 1, panelMonth);
+        actionListenerMonth(februaryCheckBox, 2, panelMonth);
+        actionListenerMonth(marchCheckBox, 3, panelMonth);
+        actionListenerMonth(aprilCheckBox, 4, panelMonth);
+        actionListenerMonth(mayCheckBox, 5, panelMonth);
+        actionListenerMonth(juneCheckBox, 6, panelMonth);
+        actionListenerMonth(julyCheckBox, 7, panelMonth);
+        actionListenerMonth(augustCheckBox, 8, panelMonth);
+        actionListenerMonth(setemberCheckBox, 9, panelMonth);
+        actionListenerMonth(octoberCheckBox, 10, panelMonth);
+        actionListenerMonth(novemberCheckBox, 11, panelMonth);
+        actionListenerMonth(decemberCheckBox, 12, panelMonth);
                 
         int resultName = JOptionPane.showConfirmDialog(this, panelMonth, "Change month",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         
         if (resultName == JOptionPane.OK_OPTION) {
-            //
+            String selectedMonth = getSelectedMonth(panelMonth);
+            String yearText = yearTextField.getText();
+
+            try {
+                int year = Integer.parseInt(yearText);
+                if (year > 0) {
+                    Month month = Month.valueOf(selectedMonth.toUpperCase());
+                    LocalDate selectedDate = LocalDate.of(year, month.getValue(), 1);
+                    labelMonthYear.setText(calendar.displayMonthYear(selectedDate));
+                    setTabeleCalendar(selectedDate);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please enter a valid year.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid year.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } 
+    
+    private static void actionListenerMonth(JRadioButton button, int month, JPanel panel) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearMonthSelection(panel);
+                button.setSelected(true);
+            }
+        });
+    }
+
+    private static void clearMonthSelection(JPanel panel) {
+        for (Component component : panel.getComponents()) {
+            if (component instanceof JRadioButton) {
+                ((JRadioButton) component).setSelected(false);
+            }
         }
     }
-    
-    
-    private void actionListenerMonth(JRadioButton button) {
-        button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {                    
-                    //
-                }
-            });
+
+    private static String getSelectedMonth(JPanel panel) {
+        for (Component component : panel.getComponents()) {
+            if (((JRadioButton) component).isSelected()) {
+                return ((JRadioButton) component).getText();
+            }
+        }
+        
+        return null; 
+    }
+
+    private void setTabeleCalendar(LocalDate date) {
+        tableCalendar.setModel(new javax.swing.table.DefaultTableModel(
+            (Object[][]) calendar.displayCalendar(date),
+            new String [] {
+                "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+            }
+        ));
     }
     
     /**

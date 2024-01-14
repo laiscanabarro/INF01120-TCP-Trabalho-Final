@@ -134,37 +134,47 @@ public class Calendar {
         return daysMonth;
     }
 
-    public String displayCalendar(LocalDate date) {
-        StringBuilder calendarStringBuilder = new StringBuilder();
+    public Object displayCalendar(LocalDate date) {
         int firstDay = calculateFirstDayOfMonth(date.getYear(), date.getMonthValue());
+        System.out.println(firstDay);
 
         boolean leapYear = leapYear(date.getYear()); //leap year = true (29 days in february); = false (28 days in february)
         int daysMonth = calculateDaysInMonth(date.getMonthValue(), leapYear);
+        
+        int numRows = 6;
+        int numCols = 7;
+
+        Object[][] calendarData = new Object[numRows][numCols];
 
         // Block calender
         if (date.getYear() == 0) {
-            return "";
+            for (int i = 0; i < numRows; i++) {
+                for (int j = 0; j < numCols; j++) {
+                    calendarData[i][j] = null;
+                }
+            }
+            return calendarData;
         }
+        
+        int row = 0;
+        int col = 0;
 
-        calendarStringBuilder.append(" S  M  T  W  T  F  S \n");
+        for (int i = 1; i <= (daysMonth + firstDay); i++) {
 
-        for (int i = 1; i <= (daysMonth + firstDay - 1); i++) {
-            if (i >= firstDay) {
-                calendarStringBuilder.append(String.format("%2d ", (i - firstDay + 1)));
+            if (i >= firstDay + 1) {
+                calendarData[row][col] = (i - firstDay);
             } else {
-                calendarStringBuilder.append("   ");
+                calendarData[row][col] = null;
             }
-
+            col++;
+            
             if (i % 7 == 0) {
-                calendarStringBuilder.append("\n");
+                col = 0;
+                row++;
             }
         }
-        calendarStringBuilder.append("\n");
 
-        //Schedule schedule = searchSchedule(date);
-        //calendarStringBuilder.append(schedule.displaySchedule());
-
-        return calendarStringBuilder.toString();
+        return calendarData;
     }
   
 
