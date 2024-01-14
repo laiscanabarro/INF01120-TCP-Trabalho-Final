@@ -16,17 +16,16 @@ import java.util.ArrayList;
 public class HabitPage extends Page {
 
     private static final String DATA_FILE = "habits_data_" + currentUser.getEmail() + ".ser";
+
     private DefaultListModel<String> habitsListModel;
     private JList<String> habitsList;
     private DefaultListModel<Habit> displayedHabitsModel;
     private JList<Habit> displayedHabitsList;
 
-
-
     public HabitPage() {
         initComponents();
-        loadHabitData();
         checkCompletion();
+        updateHabitsListModel();
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -56,8 +55,6 @@ public class HabitPage extends Page {
 
         JPanel habitsListsPanel = new JPanel(new BorderLayout());
         habitsListsPanel.setBorder(BorderFactory.createTitledBorder("Habits Lists"));
-
-        // habitsLists = new ArrayList<>();
 
         habitsListModel = new DefaultListModel<>();
         habitsList = new JList<>(habitsListModel);
@@ -164,16 +161,6 @@ public class HabitPage extends Page {
         displayedHabitsPanel.add(habitButtonsPanel, BorderLayout.SOUTH);
 
         add(displayedHabitsPanel, BorderLayout.CENTER);
-    }
-
-    @SuppressWarnings("unchecked")
-    private void loadHabitData() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATA_FILE))) {
-            currentUser.setHabitLists((ArrayList<HabitsList>) ois.readObject());
-            updateHabitsListModel();
-        } catch (IOException | ClassNotFoundException e) {
-            currentUser.setHabitLists(new ArrayList<>());
-        }
     }
 
     private void saveHabitData() {
