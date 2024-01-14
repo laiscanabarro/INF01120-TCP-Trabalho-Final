@@ -1,5 +1,6 @@
 package content;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,6 +39,9 @@ public class TaskList {
     public void addTask(Task task){
         task.setCurrentList(this);
         tasks.add(task);
+        if (task.getCurrentList().equals(DailyList.getInstance())) {
+            task.setDeadline(LocalDate.now());
+        }
     }
     public void removeTask(Task task){ tasks.remove(task); }
     public void changeOrder(ORDER_BY orderBy){

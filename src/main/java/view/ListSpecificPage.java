@@ -34,9 +34,45 @@ public class ListSpecificPage extends JPanel {
         panel.add(backButton, gbc);
 
         gbc.gridx++;
+        gbc.gridwidth = 3;
         JLabel title = new JLabel(list.getName());
         title.setFont(new Font("Arial", Font.BOLD, 20));
         panel.add(title, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.gridwidth = 1;
+        JButton orderAlpha = new JButton("A");
+        panel.add(orderAlpha, gbc);
+        orderAlpha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                list.changeOrder(TaskList.ORDER_BY.ALPHABET);
+                updateRightPanel(ListSpecificPage.showSpecificList(list));
+            }
+        });
+
+        gbc.gridx++;
+        JButton orderDateAsc = new JButton("^D");
+        panel.add(orderDateAsc, gbc);
+        orderDateAsc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                list.changeOrder(TaskList.ORDER_BY.END_DATE_ASC);
+                updateRightPanel(ListSpecificPage.showSpecificList(list));
+            }
+        });
+
+        gbc.gridx++;
+        JButton orderDateDesc = new JButton("vD");
+        panel.add(orderDateDesc, gbc);
+        orderDateDesc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                list.changeOrder(TaskList.ORDER_BY.END_DATE_DESC);
+                updateRightPanel(ListSpecificPage.showSpecificList(list));
+            }
+        });
 
         for (Task task : list.getTasks()) {
             gbc.gridy++;
@@ -53,6 +89,7 @@ public class ListSpecificPage extends JPanel {
             });
 
             gbc.gridx = 1;
+            gbc.gridwidth = 3;
             gbc.anchor = GridBagConstraints.WEST;
             JButton button = new JButton(task.getName());
             button.setPreferredSize(buttonDimension);
@@ -64,7 +101,8 @@ public class ListSpecificPage extends JPanel {
                 }
             });
 
-            gbc.gridx = 2;
+            gbc.gridx = 4;
+            gbc.gridwidth = 1;
             JButton delete = new JButton("-");
             delete.setPreferredSize(new Dimension(41, buttonHeight));
             panel.add(delete, gbc);
@@ -83,9 +121,11 @@ public class ListSpecificPage extends JPanel {
         JLabel addTaskLabel = new JLabel("New Task:");
         panel.add(addTaskLabel, gbc);
         gbc.gridx++;
+        gbc.gridwidth = 3;
         JTextField nameField = new JTextField(26);
         panel.add(nameField, gbc);
-        gbc.gridx++;
+        gbc.gridx = 4;
+        gbc.gridwidth = 1;
         JButton addTaskButton = new JButton("+");
         panel.add(addTaskButton, gbc);
 
@@ -93,7 +133,7 @@ public class ListSpecificPage extends JPanel {
         gbc.gridy++;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 5;
         panel.add(new JLabel(), gbc);
 
         backButton.addActionListener(new ActionListener() {
