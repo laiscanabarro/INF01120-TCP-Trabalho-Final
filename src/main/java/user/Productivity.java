@@ -49,7 +49,7 @@ public class Productivity {
 
     public void setHabitsCompletedToday(int habitsCompletedToday){
         this.habitsCompletedToday = habitsCompletedToday;
-        this.calculateDailyTaskProgress();
+        this.calculateDailyHabitProgress();
     }
     public void setDailyTaskProgress(double dailyTaskProgress){this.dailyTaskProgress = dailyTaskProgress;}
     public void setDailyHabitProgress(double dailyHabitProgress){this.dailyHabitProgress = dailyHabitProgress;}

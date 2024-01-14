@@ -44,47 +44,47 @@ public class User {
 
     // Getters and Setters
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public Set<User> getFriends() {
-        return friends;
+        return this.friends;
     }
 
     public ArrayList<Community> getCommunities() {
-        return communities;
+        return this.communities;
     }
 
     public Set<User> getPendingFriends() {
-        return pendingFriends;
+        return this.pendingFriends;
     }
 
     public ArrayList<HabitsList> getHabits() {
-        return habits;
+        return this.habits;
     }
 
     public ArrayList<TaskList> getTaskLists() {
-        return taskLists;
+        return this.taskLists;
     }
 
     public Calendar getCalendar() {
-        return calendar;
+        return this.calendar;
     }
 
     public NotificationList getNotifications() {
-        return notifications;
+        return this.notifications;
     }
 
     public Productivity getProductivity() {
-        return productivity;
+        return this.productivity;
     }
 
     public void setEmail(String email) {
@@ -111,6 +111,7 @@ public class User {
             return false;
         }
         this.pendingFriends.add(user);
+        user.pendingFriends.add(this);
         return true;
     }
 
@@ -129,7 +130,11 @@ public class User {
         }
     }
 
-
+    public void rejectFriendRequest(User user) {
+        if(this.pendingFriends.contains(user)) {
+            this.pendingFriends.remove(user);
+        }
+    }
 
     public void createCommunity(String communityName) {
         Community newCommunity = new Community(communityName, this.name);
@@ -166,7 +171,7 @@ public class User {
 
         tasksCompletedToday = tasksCompletedToday + ImportantList.getInstance().getCompletedTodayCount() + DailyList.getInstance().getCompletedTodayCount();
         this.productivity.setTasksCompletedToday(tasksCompletedToday);
-        this.productivity.setHabitsCompletedToday(5);
+        //this.productivity.setHabitsCompletedToday(5);
     }
 
 
