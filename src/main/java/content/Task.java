@@ -41,7 +41,7 @@ public class Task {
     public void setDescription(String description){ this.description = description; }
     public void setDeadline(LocalDate deadline){ this.deadline = deadline; }
     public void setImportanceScale(int importanceScale){
-        if(importanceScale != ImportantList.MIN_IMPORTANCE){
+        if(importanceScale != ImportantList.MIN_IMPORTANCE && !getCurrentList().equals(ImportantList.getInstance())){
             changeList(ImportantList.getInstance());
         }
         this.importanceScale = importanceScale;
@@ -50,6 +50,8 @@ public class Task {
         if(status == COMPLETED) {
             Date date = new Date();
             setConclusionDate(date);
+        } else {
+            setConclusionDate(null);
         }
         this.status = status;
     }

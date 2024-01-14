@@ -20,11 +20,11 @@ public class Subtask {
     public String getName(){ return name; }
     public boolean getStatus(){ return status; }
     public Task getMainTask(){ return mainTask; }
-    public Task promoteToTask(){
+    public void promoteToTask(){
         Task newTask = new Task();
         newTask.setName(name);
         mainTask.removeSubtask(this);
         mainTask.getCurrentList().addTask(newTask);
-        return newTask;
+        newTask.setImportanceScale(mainTask.getImportanceScale());
     }
 }
