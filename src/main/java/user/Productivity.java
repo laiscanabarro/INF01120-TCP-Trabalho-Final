@@ -1,59 +1,98 @@
 package user;
 
 public class Productivity {
-    private int goal;
-    private int completed;
-    private double progress;
+    private int dailyTaskGoal;
+    private int dailyHabitGoal;
+    private double dailyHabitProgress;
+    private double dailyTaskProgress;
+    private int tasksCompletedToday;
+    private int habitsCompletedToday;
 
     // Constructor
-    public Productivity(int goal, int completed, double progress){
-        this.goal = goal;
-        this.completed = completed;
-        this.progress = progress;
+    public Productivity(){
+        this.dailyTaskGoal = 0;
+        this.dailyHabitGoal = 0;
+        this.tasksCompletedToday = 0;
+        this.habitsCompletedToday = 0;
+        this.dailyTaskProgress = 0.0;
+        this.dailyHabitProgress = 0.0;
     }
 
     // Getters and setters
-    public int getGoal(){
-        return this.goal;
+    public int getDailyTaskGoal(){
+        return this.dailyTaskGoal;
     }
 
-    public int getCompleted(){ return this.completed; }
+    public int getDailyHabitGoal(){ return this.dailyHabitGoal; }
 
-    public double getProgress(){ return this.progress; }
-
-    public void setGoal(int goal){
-        this.goal = goal;
-    }
-    public void setCompleted(int completed){
-        this.completed = completed;
+    public int getTasksCompletedToday(){
+        return this.tasksCompletedToday;
     }
 
-    public void setProgress(double progress){
-        this.progress = progress;
+    public int getHabitsCompletedToday(){ return this.habitsCompletedToday; }
+
+    public double getDailyTaskProgress(){ return this.dailyTaskProgress; }
+
+    public double getDailyHabitProgress(){ return this.dailyHabitProgress; }
+
+    public void setDailyTaskGoal(int goal){
+        this.dailyTaskGoal = goal;
+    }
+    public void setDailyHabitGoal(int goal){
+        this.dailyHabitGoal = goal;
     }
 
-    public void calculateProgress() {
-        if(goal > 0){
-            if(goal > this.completed){
-                this.progress = 100.00 * (double) this.completed / this.goal;
-            }else{
-                this.progress = 100.0;
-            }
-        } else{
-            this.progress = 0.0;
+    public void setTasksCompletedToday(int tasksCompletedToday){
+        this.tasksCompletedToday = tasksCompletedToday;
+        this.calculateDailyTaskProgress();
+    }
+
+    public void setHabitsCompletedToday(int habitsCompletedToday){
+        this.habitsCompletedToday = habitsCompletedToday;
+        this.calculateDailyHabitProgress();
+    }
+    public void setDailyTaskProgress(double dailyTaskProgress){this.dailyTaskProgress = dailyTaskProgress;}
+    public void setDailyHabitProgress(double dailyHabitProgress){this.dailyHabitProgress = dailyHabitProgress;}
+
+
+    public void calculateDailyTaskProgress() {
+        if(this.dailyTaskGoal > 0){
+            this.setDailyTaskProgress(100.00 * (double) this.tasksCompletedToday / this.dailyTaskGoal);
+        } else {
+            this.setDailyTaskProgress(100.00);
         }
-
     }
 
-    public void increaseGoal(){
-        this.setGoal(this.goal + 1);
-        this.calculateProgress();
-    }
-
-    public void decreaseGoal(){
-        if(this.goal > 0){
-            this.setGoal(this.goal - 1);
-            this.calculateProgress();
+    public void calculateDailyHabitProgress() {
+        if(this.dailyHabitGoal > 0){
+            this.setDailyHabitProgress(100.00 * (double) this.habitsCompletedToday / this.dailyHabitGoal);
+        } else {
+            this.setDailyHabitProgress(100.00);
         }
+    }
 
-    }}
+    public void increaseDailyTaskGoal(){
+        this.setDailyTaskGoal(this.dailyTaskGoal + 1);
+        this.calculateDailyTaskProgress();
+    }
+
+    public void decreaseDailyTaskGoal(){
+        if(this.dailyTaskGoal > 0){
+            this.setDailyTaskGoal(this.dailyTaskGoal - 1);
+            this.calculateDailyTaskProgress();
+        }
+    }
+
+    public void increaseDailyHabitGoal(){
+        this.setDailyHabitGoal(this.dailyHabitGoal + 1);
+        this.calculateDailyHabitProgress();
+    }
+
+    public void decreaseDailyHabitGoal(){
+        if(this.dailyHabitGoal > 0){
+            this.setDailyHabitGoal(this.dailyHabitGoal - 1);
+            this.calculateDailyHabitProgress();
+        }
+    }
+
+}

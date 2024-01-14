@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static content.Task.COMPLETED;
+
 public class TaskList {
     private String name;
     private ArrayList<Task> tasks;
@@ -35,6 +37,23 @@ public class TaskList {
     public String getName(){ return name; }
     public ArrayList<Task> getTasks(){ return tasks; }
     public ORDER_BY getListOrder() { return listOrder; }
+
+    public int getCompletedTodayCount() {
+        int completedTodayCount = 0;
+        LocalDate today = LocalDate.now();
+
+        for (Task task : tasks) {
+            if (task.getStatus() == COMPLETED && task.getConclusionDate().equals(today)) {
+                completedTodayCount++;
+            }
+        }
+        return completedTodayCount;
+    }
+    private void reset(){
+        setName(null);
+        ArrayList<Task> emptyTasks = new ArrayList<>();
+        setTasks(emptyTasks);
+    }
     public void clear(){ tasks.clear(); }
     public void addTask(Task task){
         task.setCurrentList(this);
@@ -54,6 +73,8 @@ public class TaskList {
             default -> setTasks(tasks);
         }
     }
+
+
     private void orderByLetter(){
         tasks.sort(Comparator.comparing(Task::getName));
         setListOrder(ORDER_BY.ALPHABET);
@@ -76,4 +97,5 @@ public class TaskList {
             setListOrder(ORDER_BY.IMPORTANCE_ASC);
         }
     }
+
 }

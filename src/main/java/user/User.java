@@ -12,26 +12,22 @@ public class User {
     private String password;
     private Set<User> friends;
     private Set<User> pendingFriends;
-    private ArrayList<HabitsList> habits;
+    private ArrayList<HabitsList> habitLists;
+    private ArrayList<TaskList> taskLists;
     private Calendar calendar;
     private NotificationList notifications;
     private ArrayList<Community> communities;
-    private ArrayList<TaskList> taskLists;
-
-    private int goal;
     private Productivity productivity;
-    private Productivity weeklyProductivity;
-    private Productivity dailyProductivity;
-
 
     // Constructor without parameters
     public User(){
         this.name = null;
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
-        this.goal = 0;
-        this.productivity = new Productivity(0, 0, 0.0);
+        this.productivity = new Productivity();
+        this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
+
     }
     // Constructor
     public User(String email, String password) {
@@ -40,79 +36,71 @@ public class User {
         this.password = password;
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
-        this.goal = 0;
-        this.productivity = new Productivity(0, 0, 0.0);
+        this.productivity = new Productivity();
+        this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
     }
 
 
     // Getters and Setters
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public Set<User> getFriends() {
-        return friends;
+        return this.friends;
     }
 
     public ArrayList<Community> getCommunities() {
-        return communities;
+        return this.communities;
     }
 
     public Set<User> getPendingFriends() {
-        return pendingFriends;
+        return this.pendingFriends;
     }
 
-    public ArrayList<HabitsList> getHabits() {
-        return habits;
+    public ArrayList<HabitsList> getHabitLists() {
+        return this.habitLists;
     }
 
     public ArrayList<TaskList> getTaskLists() {
-        return taskLists;
+        return this.taskLists;
     }
 
     public Calendar getCalendar() {
-        return calendar;
+        return this.calendar;
     }
 
     public NotificationList getNotifications() {
-        return notifications;
+        return this.notifications;
     }
 
     public Productivity getProductivity() {
-        return productivity;
+        return this.productivity;
     }
 
-    public Productivity getDailyProductivity() {
-        return dailyProductivity;
-    }
-
-    public Productivity getWeeklProductivity() {
-        return weeklyProductivity;
-    }
-
-
-    public int getGoal() {
-        return this.goal;
-    }
     public void setEmail(String email) {
         this.email = email;
     }
+
     public void setPassword(String password){
         this.password = password;
     }
+
     public void setName(String name) {
         this.name = name;
     }
     public void setTaskLists(ArrayList<TaskList> list) { this.taskLists = list; }
+
+    public void setHabitLists(ArrayList<HabitsList> list){ this.habitLists = list; }
 
     public void addFriend(User user) {
         if (!this.friends.contains(user)){
@@ -125,6 +113,7 @@ public class User {
             return false;
         }
         this.pendingFriends.add(user);
+        user.pendingFriends.add(this);
         return true;
     }
 
@@ -143,6 +132,12 @@ public class User {
         }
     }
 
+    public void rejectFriendRequest(User user) {
+        if(this.pendingFriends.contains(user)) {
+            this.pendingFriends.remove(user);
+        }
+    }
+
     public void createCommunity(String communityName) {
         Community newCommunity = new Community(communityName, this.name);
         this.communities.add(newCommunity);
@@ -156,18 +151,39 @@ public class User {
         taskLists.remove(list);
     }
 
-    /*
+    public void addHabitList(HabitsList habitList) {
+        habitLists.add(habitList);
+    }
+
+    public void removeHabitList(HabitsList habitList) {
+        habitLists.remove(habitList);
+    }
+
     public void updateProductivity() {
-        int completed = 0;
+        //int completedTasks = 0;
+        int tasksCompletedToday = 0;
+        int habitsCompletedToday = 0;
 
-        for (HabitsList list : this.habits){
-            completed = completed + list.getTotalDone();
+        if(this.habitLists != null && !this.habitLists.isEmpty()){
+            for (HabitsList habitList : this.habitLists){
+                //completedHabits = completedHabits + habitList.getCompletedCount();
+                habitsCompletedToday = habitsCompletedToday + habitList.getCompletedTodayCount();
+            }
+            this.productivity.setHabitsCompletedToday(habitsCompletedToday);
         }
 
-        for (TaskList list: this.tasks){
-            completed = completed + list.getTotalDone();
+        if(this.taskLists != null && !this.taskLists.isEmpty()){
+            for (TaskList taskList: this.taskLists) {
+                //completedTasks = completedTasks + taskList.getCompletedCount();
+                tasksCompletedToday = tasksCompletedToday + taskList.getCompletedTodayCount();
+            }
         }
 
-        this.productivity.setCompleted(completed);
-    }*/
+        tasksCompletedToday = tasksCompletedToday + ImportantList.getInstance().getCompletedTodayCount() + DailyList.getInstance().getCompletedTodayCount();
+        this.productivity.setTasksCompletedToday(tasksCompletedToday);
+        //this.productivity.setHabitsCompletedToday(5);
+    }
+
+
+
 }

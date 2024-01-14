@@ -5,7 +5,6 @@ import org.junit.jupiter.api.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,7 +14,7 @@ public class TaskListTest {
     Task task1;
     Task task2;
     Task task3;
-    
+
     @BeforeAll
     public static void start() {
         System.out.println("Initiating TaskList tests");

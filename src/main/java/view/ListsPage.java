@@ -16,6 +16,7 @@ public class ListsPage extends JPanel {
     private static final int buttonHeight = 25;
     private static final Dimension buttonDimension = new Dimension(buttonWidth, buttonHeight);
     public static JPanel showLists() {
+
         JPanel panel = new JPanel();
         panel.setOpaque(true);
         panel.setBackground(Color.WHITE);

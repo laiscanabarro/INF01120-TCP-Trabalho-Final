@@ -1,6 +1,7 @@
 package content;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -27,6 +28,17 @@ public class HabitsList implements Serializable{
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getCompletedTodayCount() {
+        int completedTodayCount = 0;
+        LocalDate today = LocalDate.now();
+        for (Habit habit : habits) {
+            if (habit.isComplete() && habit.getLastCompletionDate().equals(today)) {
+                completedTodayCount++;
+            }
+        }
+        return completedTodayCount;
     }
 
     public boolean clearList() {

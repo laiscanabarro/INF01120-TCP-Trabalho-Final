@@ -13,8 +13,9 @@ public class Task {
     private LocalDate deadline;
     private boolean status;
     private ArrayList<Subtask> subtasks;
-    private Date conclusionDate;
+    private LocalDate conclusionDate;
     public static final boolean COMPLETED = true;
+
 
 //    Deixar comentado até existir um alarm
 //    private Alarm alarm;
@@ -25,7 +26,7 @@ public class Task {
         setSubtasks(new ArrayList<>());
     }
     public Task(String name, TaskList currentList, String description,
-                int importanceScale, LocalDate deadline, Date conclusionDate) {
+                int importanceScale, LocalDate deadline, LocalDate conclusionDate) {
         setName(name);
         setCurrentList(currentList);
         setDescription(description);
@@ -48,7 +49,7 @@ public class Task {
     }
     public void setStatus(boolean status){
         if(status == COMPLETED) {
-            Date date = new Date();
+            LocalDate date = LocalDate.now();
             setConclusionDate(date);
         } else {
             setConclusionDate(null);
@@ -56,7 +57,7 @@ public class Task {
         this.status = status;
     }
     public void setSubtasks(ArrayList<Subtask> subtasks){ this.subtasks = subtasks; }
-    public void setConclusionDate(Date conclusionDate){ this.conclusionDate = conclusionDate; }
+    public void setConclusionDate(LocalDate conclusionDate){ this.conclusionDate = conclusionDate; }
     public String getName(){ return name; }
     public TaskList getCurrentList(){ return currentList; }
     public TaskList getOldList(){ return oldList; }
@@ -65,7 +66,7 @@ public class Task {
     public int getImportanceScale(){ return importanceScale; }
     public boolean getStatus(){ return status; }
     public ArrayList<Subtask> getSubtasks(){ return subtasks; }
-    public Date getConclusionDate(){ return conclusionDate; }
+    public LocalDate getConclusionDate(){ return conclusionDate; }
     public void addSubtask(Subtask subtask) {
         subtask.setMainTask(this);
         subtasks.add(subtask);
