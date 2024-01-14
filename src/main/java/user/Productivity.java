@@ -17,84 +17,43 @@ public class Productivity {
         return this.goal;
     }
 
-    public void setGoal(int goal){
-        this.goal = goal;
-        this.calculateProgress();
-    }
-
-    public void completed(int completed){
-        this.completed = completed;
-        this.calculateProgress();
-    }
-
     public int getCompleted(){ return this.completed; }
 
     public double getProgress(){ return this.progress; }
 
-
-    /*
-    public Date getStart(){
-        return this.startDate;
+    public void setGoal(int goal){
+        this.goal = goal;
+    }
+    public void setCompleted(int completed){
+        this.completed = completed;
     }
 
-    public void setStartDate(Date startDate){
-        this.startDate = startDate;
+    public void setProgress(double progress){
+        this.progress = progress;
     }
 
-    public Date getEndDate(){
-        return this.endDate;
+    public void calculateProgress() {
+        if(goal > 0){
+            if(goal > this.completed){
+                this.progress = 100.00 * (double) this.completed / this.goal;
+            }else{
+                this.progress = 100.0;
+            }
+        } else{
+            this.progress = 0.0;
+        }
+
     }
 
-    public void setEndDate(Date endDate){
-        this.endDate = endDate;
-    }
-
-    public double getCurrentState(){
-        return this.currentState;
-    }
-
-    public void setCurrentState(double currentState){
-        this.currentState = currentState;
-    }
-     */
-
-
-    // Other methods
-    public boolean increaseGoal(int value){
-        this.goal = this.goal + value;
-        this.calculateProgress();
-        return true;
-    }
-
-    public boolean increaseGoal(){
+    public void increaseGoal(){
         this.setGoal(this.goal + 1);
         this.calculateProgress();
-        return true;
     }
 
-    public boolean decreaseGoal(int value){
+    public void decreaseGoal(){
         if(this.goal > 0){
-            this.goal = this.goal - value;
+            this.setGoal(this.goal - 1);
             this.calculateProgress();
-            return true; 
-        }else{
-            return false;
         }
-        
-    }
 
-    public boolean decreaseGoal(){
-        if(this.goal > 0){
-            this.setGoal(this.goal--);
-            this.calculateProgress();
-            return true;
-        }else{
-            this.goal = this.goal--; 
-            return false;
-        }
-    }
-
-    public void calculateProgress(){
-        this.progress = (double) completed /goal;
-    }
-}
+    }}

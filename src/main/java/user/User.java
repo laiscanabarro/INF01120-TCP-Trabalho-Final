@@ -22,7 +22,7 @@ public class User {
     private Productivity productivity;
     private Productivity weeklyProductivity;
     private Productivity dailyProductivity;
-   
+
 
     // Constructor without parameters
     public User(){
@@ -138,7 +138,7 @@ public class User {
 
     public void removeFriend(User user) {
         if(this.friends.contains(user)) {
-            this.friends.remove(user); 
+            this.friends.remove(user);
             user.getFriends().remove(this); // Removes friendship from both users
         }
     }
@@ -156,17 +156,18 @@ public class User {
         taskLists.remove(list);
     }
 
-    /* 
-    public void updateWeeklyProductivity(ArrayList<TaskList> tasks, ArrayList<HabitList> habits){
-        int tasksCompleted = 0;
-        for(task in tasks){
-            if task.status == 'done':{
-                tasksCompleted += 1;    
-            }
-        }
-    }
+    /*
+    public void updateProductivity() {
+        int completed = 0;
 
-    public Report generateProductivityReport() {
-        return new Report(this.productivity);
+        for (HabitsList list : this.habits){
+            completed = completed + list.getTotalDone();
+        }
+
+        for (TaskList list: this.tasks){
+            completed = completed + list.getTotalDone();
+        }
+
+        this.productivity.setCompleted(completed);
     }*/
 }
