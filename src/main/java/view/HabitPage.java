@@ -12,13 +12,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 
 public class HabitPage extends Page {
 
     private static final String DATA_FILE = "habits_data_";
 
-    private List<HabitsList> habitsLists;
+    private ArrayList<HabitsList> habitsLists;
     private DefaultListModel<String> habitsListModel;
     private JList<String> habitsList;
     private DefaultListModel<Habit> displayedHabitsModel;
@@ -177,7 +177,7 @@ public class HabitPage extends Page {
     private void loadHabitData() {
         String dataFileName = DATA_FILE + userEmail + ".ser";
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(dataFileName))) {
-            habitsLists = (List<HabitsList>) ois.readObject();
+            habitsLists = (ArrayList<HabitsList>) ois.readObject();
             updateHabitsListModel();
         } catch (IOException | ClassNotFoundException e) {
             habitsLists = new ArrayList<>();
@@ -370,7 +370,7 @@ public class HabitPage extends Page {
         int selectedListIndex = habitsList.getSelectedIndex();
         if (selectedListIndex >= 0 && selectedListIndex < habitsLists.size()) {
             HabitsList selectedList = habitsLists.get(selectedListIndex);
-            List<Habit> displayedHabits = selectedList.getHabits();
+            ArrayList<Habit> displayedHabits = selectedList.getHabits();
 
             for (Habit habit : displayedHabits) {
                 habit.checkCompletion();
