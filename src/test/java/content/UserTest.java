@@ -15,6 +15,8 @@ public class UserTest {
     Task task;
     TaskList taskList1;
     TaskList taskList2;
+    HabitsList habitList1;
+    HabitsList habitList2;
 
     @BeforeAll
     public static void start() {
@@ -27,10 +29,12 @@ public class UserTest {
         user2 = new User("email2@email.com", "password2");
         taskList1 = new TaskList();
         taskList2 = new TaskList();
+        habitList1 = new HabitsList("Exercise");
+        habitList2 = new HabitsList("Sleep");
         task = new Task();
         taskList1.addTask(task);
         user1.addList(taskList1);
-
+        user1.addHabitList(habitList1);
     }
 
     @Test
@@ -38,13 +42,31 @@ public class UserTest {
     void addList(){
         user1.addList(taskList2);
         assertEquals(2, user1.getTaskLists().size());
+        assertTrue(user1.getTaskLists().contains(taskList2));
     }
 
     @Test
-    @DisplayName("test removing habitList from habits")
+    @DisplayName("test removing list from Tasklist")
     void removeList(){
         user1.removeList(taskList1);
-        assertEquals(user1.getTaskLists().size(), 0);
+        assertEquals(0, user1.getTaskLists().size());
+        assertFalse(user1.getTaskLists().contains(taskList1));
+    }
+
+    @Test
+    @DisplayName("test adding list to HabitList")
+    void addHabitList(){
+        user1.addHabitList(habitList2);
+        assertEquals(2, user1.getHabitLists().size());
+        assertTrue(user1.getHabitLists().contains(habitList2));
+    }
+
+    @Test
+    @DisplayName("test removing list from HabitList")
+    void removeHabitList(){
+        user1.removeHabitList(habitList1);
+        assertEquals(0, user1.getHabitLists().size());
+        assertFalse(user1.getHabitLists().contains(habitList1));
     }
 
     @Test
