@@ -1,7 +1,6 @@
 package content;
 
 import org.junit.jupiter.api.*;
-import utils.TasksUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ public class TaskListTest {
     Task task1;
     Task task2;
     Task task3;
+
     @BeforeAll
     public static void start() {
         System.out.println("Initiating TaskList tests");
@@ -59,31 +59,31 @@ public class TaskListTest {
     @DisplayName("test changing order of list")
     void changeOrder() {
         task1.setName("C");
-        LocalDate d1 = LocalDate.of(123, Calendar.DECEMBER, 25);
+        LocalDate d1 = LocalDate.of(2023, Calendar.DECEMBER, 25);
         task1.setDeadline(d1);
         task2.setName("B");
-        LocalDate d2 = LocalDate.of(123, Calendar.DECEMBER, 28);
+        LocalDate d2 = LocalDate.of(2023, Calendar.DECEMBER, 28);
         task2.setDeadline(d2);
         task3.setName("A");
-        LocalDate d3 = LocalDate.of(123, Calendar.DECEMBER, 29);
+        LocalDate d3 = LocalDate.of(2023, Calendar.DECEMBER, 29);
         task3.setDeadline(d3);
         taskList.addTask(task3);
 
-        taskList.changeOrder(TasksUtils.ORDER_ALPHABET);
+        taskList.changeOrder(TaskList.ORDER_BY.ALPHABET);
         ArrayList<Task> checkArray = new ArrayList<>();
         checkArray.add(task3);
         checkArray.add(task2);
         checkArray.add(task1);
         assertEquals(checkArray, taskList.getTasks());
 
-        taskList.changeOrder(TasksUtils.ORDER_END_DATE_ASC);
+        taskList.changeOrder(TaskList.ORDER_BY.END_DATE_ASC);
         checkArray.clear();
         checkArray.add(task1);
         checkArray.add(task2);
         checkArray.add(task3);
         assertEquals(checkArray, taskList.getTasks());
 
-        taskList.changeOrder(TasksUtils.ORDER_END_DATE_DESC);
+        taskList.changeOrder(TaskList.ORDER_BY.END_DATE_DESC);
         checkArray.clear();
         checkArray.add(task3);
         checkArray.add(task2);

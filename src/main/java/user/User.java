@@ -1,7 +1,6 @@
 package user;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import content.*;
@@ -14,26 +13,20 @@ public class User {
     private Set<User> friends;
     private Set<User> pendingFriends;
     private ArrayList<HabitsList> habits;
-    private ArrayList<TaskList> tasks;
+    private ArrayList<TaskList> taskLists;
     private Calendar calendar;
     private NotificationList notifications;
     private ArrayList<Community> communities;
-
-    private int goal;
     private Productivity productivity;
-    private Productivity weeklyProductivity;
-    private Productivity dailyProductivity;
-
 
     // Constructor without parameters
     public User(){
         this.name = null;
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
-        this.goal = 0;
         this.productivity = new Productivity();
         this.habits = new ArrayList<>();
-        this.tasks = new ArrayList<>();
+        this.taskLists = new ArrayList<>();
 
     }
     // Constructor
@@ -43,10 +36,9 @@ public class User {
         this.password = password;
         this.friends = new HashSet<>();
         this.pendingFriends = new HashSet<>();
-        this.goal = 0;
         this.productivity = new Productivity();
         this.habits = new ArrayList<>();
-        this.tasks = new ArrayList<>();
+        this.taskLists = new ArrayList<>();
     }
 
 
@@ -79,8 +71,8 @@ public class User {
         return habits;
     }
 
-    public ArrayList<TaskList> getTasks() {
-        return tasks;
+    public ArrayList<TaskList> getTaskLists() {
+        return taskLists;
     }
 
     public Calendar getCalendar() {
@@ -95,19 +87,6 @@ public class User {
         return productivity;
     }
 
-    public Productivity getDailyProductivity() {
-        return dailyProductivity;
-    }
-
-    public Productivity getWeeklProductivity() {
-        return weeklyProductivity;
-    }
-
-
-    public int getGoal() {
-        return this.goal;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -119,6 +98,7 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+    public void setTaskLists(ArrayList<TaskList> list) { this.taskLists = list; }
 
     public void addFriend(User user) {
         if (!this.friends.contains(user)){
@@ -156,6 +136,14 @@ public class User {
         this.communities.add(newCommunity);
     }
 
+    public void addList(TaskList list) {
+        taskLists.add(list);
+    }
+
+    public void removeList(TaskList list) {
+        taskLists.remove(list);
+    }
+
     public void updateProductivity() {
         //int completedTasks = 0;
         int tasksCompletedToday = 0;
@@ -169,16 +157,16 @@ public class User {
             this.productivity.setHabitsCompletedToday(habitsCompletedToday);
         }
 
-        if(this.tasks != null && !this.tasks.isEmpty()){
-            for (TaskList taskList: this.tasks){
+        if(this.taskLists != null && !this.taskLists.isEmpty()){
+            for (TaskList taskList: this.taskLists) {
                 //completedTasks = completedTasks + taskList.getCompletedCount();
                 tasksCompletedToday = tasksCompletedToday + taskList.getCompletedTodayCount();
             }
-            this.productivity.setTasksCompletedToday(tasksCompletedToday);
         }
 
+        tasksCompletedToday = tasksCompletedToday + ImportantList.getInstance().getCompletedTodayCount() + DailyList.getInstance().getCompletedTodayCount();
+        this.productivity.setTasksCompletedToday(tasksCompletedToday);
         this.productivity.setHabitsCompletedToday(5);
-        this.productivity.setTasksCompletedToday(2);
     }
 
 

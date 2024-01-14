@@ -4,14 +4,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import utils.TasksUtils;
 
 public class DailyList extends TaskList {
     private static final DailyList dailyList;
     private static String dayOfWeek;
     private static Date currentDate;
+    private static final Locale LOCALE = new Locale("pt_BR");
+
     private DailyList(){
+        super();
         changeDay();
+        super.setName("Today: " + getDayOfWeek());
     }
 
     static {
@@ -31,7 +34,6 @@ public class DailyList extends TaskList {
     public static Date getCurrentDate() { return currentDate; }
     public static void changeDay(){
         setCurrentDate();
-        setDayOfWeek(getCurrentDate(), TasksUtils.LOCALE);
-        getInstance().setName("Today: " + getDayOfWeek());
+        setDayOfWeek(getCurrentDate(), LOCALE);
     }
 }

@@ -111,7 +111,6 @@ public class UserInfoPage extends Page {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         changeTo(homePage);
-
     }
 
     private void enterNameFieldActionPerformed(java.awt.event.ActionEvent evt) {

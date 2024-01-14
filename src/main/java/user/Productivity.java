@@ -44,10 +44,12 @@ public class Productivity {
 
     public void setTasksCompletedToday(int tasksCompletedToday){
         this.tasksCompletedToday = tasksCompletedToday;
+        this.calculateDailyTaskProgress();
     }
 
     public void setHabitsCompletedToday(int habitsCompletedToday){
         this.habitsCompletedToday = habitsCompletedToday;
+        this.calculateDailyTaskProgress();
     }
     public void setDailyTaskProgress(double dailyTaskProgress){this.dailyTaskProgress = dailyTaskProgress;}
     public void setDailyHabitProgress(double dailyHabitProgress){this.dailyHabitProgress = dailyHabitProgress;}
@@ -55,25 +57,17 @@ public class Productivity {
 
     public void calculateDailyTaskProgress() {
         if(this.dailyTaskGoal > 0){
-            if(this.dailyTaskGoal > this.tasksCompletedToday){
-                this.setDailyTaskProgress(100.00 * (double) this.tasksCompletedToday / this.dailyTaskGoal);
-            }else{
-                this.setDailyTaskProgress(100.0);
-            }
-        } else{
-            this.setDailyTaskProgress(0.0);
+            this.setDailyTaskProgress(100.00 * (double) this.tasksCompletedToday / this.dailyTaskGoal);
+        } else {
+            this.setDailyTaskProgress(100.00);
         }
     }
 
     public void calculateDailyHabitProgress() {
         if(this.dailyHabitGoal > 0){
-            if(this.dailyHabitGoal > this.habitsCompletedToday){
-                this.setDailyHabitProgress(100.00 * (double) this.habitsCompletedToday / this.dailyHabitGoal);
-            }else{
-                this.setDailyHabitProgress(100.0);
-            }
-        } else{
-            this.setDailyHabitProgress(0.0);
+            this.setDailyHabitProgress(100.00 * (double) this.habitsCompletedToday / this.dailyHabitGoal);
+        } else {
+            this.setDailyHabitProgress(100.00);
         }
     }
 

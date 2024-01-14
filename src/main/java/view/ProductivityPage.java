@@ -49,7 +49,8 @@ public class ProductivityPage extends Page {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
 
-        LoginPage.currentUser.updateProductivity();
+        Page.currentUser.updateProductivity();
+        System.out.println(Page.currentUser.getProductivity().getTasksCompletedToday());
 
         jLabel1.setFont(new java.awt.Font("Geeza Pro", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -63,7 +64,7 @@ public class ProductivityPage extends Page {
         });
 
         taskGoalLabel.setFont(new java.awt.Font("Helvetica", 0, 18)); // NOI18N
-        taskGoalLabel.setText(LoginPage.currentUser.getProductivity().getDailyTaskGoal() + " tasks");
+        taskGoalLabel.setText(Page.currentUser.getProductivity().getDailyTaskGoal() + " tasks");
 
         increaseTaskGoalBtn.setText("+");
         increaseTaskGoalBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +81,7 @@ public class ProductivityPage extends Page {
         });
 
         habitGoalLabel.setFont(new java.awt.Font("Helvetica", 0, 18)); // NOI18N
-        habitGoalLabel.setText(LoginPage.currentUser.getProductivity().getDailyHabitGoal() + " habits"
+        habitGoalLabel.setText(Page.currentUser.getProductivity().getDailyHabitGoal() + " habits"
         );
 
         increaseHabitGoalBtn.setText("+");
@@ -98,12 +99,15 @@ public class ProductivityPage extends Page {
         });
 
         taskProgressLabel.setFont(new java.awt.Font("Helvetica", 0, 18)); // NOI18N
-        double taskProgress = LoginPage.currentUser.getProductivity().getDailyTaskProgress();
+        // LoginPage.currentUser.updateProductivity();
+        double taskProgress = Page.currentUser.getProductivity().getDailyTaskProgress();
         String formattedTaskProgress = String.format("%.2f", taskProgress);
         taskProgressLabel.setText(formattedTaskProgress + "%");
 
         habitProgressLabel.setFont(new java.awt.Font("Helvetica", 0, 18)); // NOI18N
-        double habitProgress = LoginPage.currentUser.getProductivity().getDailyHabitProgress();
+        // LoginPage.currentUser.updateProductivity();
+        Page.currentUser.getProductivity().calculateDailyHabitProgress();
+        double habitProgress = Page.currentUser.getProductivity().getDailyHabitProgress();
         String formattedHabitProgress = String.format("%.2f", habitProgress);
         habitProgressLabel.setText(formattedHabitProgress + "%");
 
@@ -162,10 +166,12 @@ public class ProductivityPage extends Page {
         );
 
         compHabitsLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        compHabitsLabel.setText(LoginPage.currentUser.getProductivity().getHabitsCompletedToday() + " completed habits");
+        // LoginPage.currentUser.updateProductivity();
+        compHabitsLabel.setText(Page.currentUser.getProductivity().getHabitsCompletedToday() + " completed habits");
 
         compTasksLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        compTasksLabel.setText(LoginPage.currentUser.getProductivity().getTasksCompletedToday() + " completed tasks");
+        // LoginPage.currentUser.updateProductivity();
+        compTasksLabel.setText(Page.currentUser.getProductivity().getTasksCompletedToday() + " completed tasks");
 
         jLabel8.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel8.setText("Daily goal");
@@ -256,35 +262,35 @@ public class ProductivityPage extends Page {
     }
 
     private void increaseTaskGoalBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        LoginPage.currentUser.getProductivity().increaseDailyTaskGoal();
-        taskGoalLabel.setText(LoginPage.currentUser.getProductivity().getDailyTaskGoal() + " tasks");
-        LoginPage.currentUser.getProductivity().calculateDailyTaskProgress();
-        double taskProgress = LoginPage.currentUser.getProductivity().getDailyTaskProgress();
+        Page.currentUser.getProductivity().increaseDailyTaskGoal();
+        taskGoalLabel.setText(Page.currentUser.getProductivity().getDailyTaskGoal() + " tasks");
+        Page.currentUser.getProductivity().calculateDailyTaskProgress();
+        double taskProgress = Page.currentUser.getProductivity().getDailyTaskProgress();
         String formattedTaskProgress = String.format("%.2f", taskProgress);
         taskProgressLabel.setText(formattedTaskProgress + "%");
     }
 
     private void decreaseTaskGoalBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        LoginPage.currentUser.getProductivity().decreaseDailyTaskGoal();
-        taskGoalLabel.setText(LoginPage.currentUser.getProductivity().getDailyTaskGoal() + " tasks");
-        LoginPage.currentUser.getProductivity().calculateDailyTaskProgress();
-        double taskProgress = LoginPage.currentUser.getProductivity().getDailyTaskProgress();
+        Page.currentUser.getProductivity().decreaseDailyTaskGoal();
+        taskGoalLabel.setText(Page.currentUser.getProductivity().getDailyTaskGoal() + " tasks");
+        Page.currentUser.getProductivity().calculateDailyTaskProgress();
+        double taskProgress = Page.currentUser.getProductivity().getDailyTaskProgress();
         String formattedTaskProgress = String.format("%.2f", taskProgress);
         taskProgressLabel.setText(formattedTaskProgress + "%");
     }
 
     private void increaseHabitGoalBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        LoginPage.currentUser.getProductivity().increaseDailyHabitGoal();
-        habitGoalLabel.setText(LoginPage.currentUser.getProductivity().getDailyHabitGoal() + " habits");
-        double habitProgress = LoginPage.currentUser.getProductivity().getDailyHabitProgress();
+        Page.currentUser.getProductivity().increaseDailyHabitGoal();
+        habitGoalLabel.setText(Page.currentUser.getProductivity().getDailyHabitGoal() + " habits");
+        double habitProgress = Page.currentUser.getProductivity().getDailyHabitProgress();
         String formattedHabitProgress = String.format("%.2f", habitProgress);
         habitProgressLabel.setText(formattedHabitProgress + "%");
     }
 
     private void decreaseHabitGoalBtnActionPerformed(java.awt.event.ActionEvent evt) {
-        LoginPage.currentUser.getProductivity().decreaseDailyHabitGoal();
-        habitGoalLabel.setText(LoginPage.currentUser.getProductivity().getDailyHabitGoal() + " habits");
-        double habitProgress = LoginPage.currentUser.getProductivity().getDailyHabitProgress();
+        Page.currentUser.getProductivity().decreaseDailyHabitGoal();
+        habitGoalLabel.setText(Page.currentUser.getProductivity().getDailyHabitGoal() + " habits");
+        double habitProgress = Page.currentUser.getProductivity().getDailyHabitProgress();
         String formattedHabitProgress = String.format("%.2f", habitProgress);
         habitProgressLabel.setText(formattedHabitProgress + "%");
     }

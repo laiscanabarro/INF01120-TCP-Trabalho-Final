@@ -2,6 +2,7 @@ package content;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utils.Recurrence;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
@@ -21,85 +22,86 @@ public class HabitTest {
     public void testCheckCompletionDaily() {
         recurrence.setDaily(true);
 
-        habit.markComplete();
+        habit.changeStatus();
         habit.setLastCompletionDate(LocalDate.now().minusDays(1));
 
         habit.checkCompletion();
-        assertEquals(false, habit.isComplete());
+        assertFalse(habit.isComplete());
 
-        habit.markComplete();
+        habit.changeStatus();
         habit.setLastCompletionDate(LocalDate.now());
 
         habit.checkCompletion();
-        assertEquals(true, habit.isComplete());
+        assertTrue(habit.isComplete());
     }
 
     @Test
     public void testCheckCompletionWeekday() {
         recurrence.setWeekday(true);
+        habit.setComplete(true);
 
-        habit.markComplete();
+        habit.changeStatus();
         habit.setLastCompletionDate(LocalDate.now().minusDays(1));
 
         habit.checkCompletion();
-        assertEquals(false, habit.isComplete());
+        assertFalse(habit.isComplete());
 
-        habit.markComplete();
+        habit.changeStatus();
         habit.setLastCompletionDate(LocalDate.now());
 
         habit.checkCompletion();
-        assertEquals(true, habit.isComplete());
+        assertTrue(habit.isComplete());
     }
 
     @Test
     public void testCheckCompletionWeekly() {
         recurrence.setWeekly(true);
 
-        habit.markComplete();
+        habit.changeStatus();
         habit.setLastCompletionDate(LocalDate.now().minusDays(7));
 
         habit.checkCompletion();
-        assertEquals(false, habit.isComplete());
+        assertFalse(habit.isComplete());
 
-        habit.markComplete();
+        habit.changeStatus();
         habit.setLastCompletionDate(LocalDate.now());
 
         habit.checkCompletion();
-        assertEquals(true, habit.isComplete());
+        assertTrue(habit.isComplete());
     }
 
     @Test
     public void testCheckCompletionMonthly() {
         recurrence.setMonthly(true);
 
-        habit.markComplete();
+        habit.changeStatus();
         habit.setLastCompletionDate(LocalDate.now().minusDays(30));
 
         habit.checkCompletion();
-        assertEquals(false, habit.isComplete());
+        assertFalse(habit.isComplete());
 
-        habit.markComplete();
+        habit.changeStatus();
         habit.setLastCompletionDate(LocalDate.now().minusDays(28));
 
         habit.checkCompletion();
-        assertEquals(true, habit.isComplete());
+        assertTrue(habit.isComplete());
     }
 
     @Test
     public void testCheckCompletionAnnually() {
         recurrence.setAnnually(true);
 
-        habit.markComplete();
+        habit.changeStatus();
         habit.setLastCompletionDate(LocalDate.now().minusDays(365));
 
         habit.checkCompletion();
-        assertEquals(false, habit.isComplete());
+        assertFalse(habit.isComplete());
 
-        habit.markComplete();
+        habit.changeStatus();
         habit.setLastCompletionDate(LocalDate.now().minusDays(300));
 
         habit.checkCompletion();
-        assertEquals(true, habit.isComplete());
+        assertTrue(habit.isComplete());
     }
 
     @Test
@@ -107,41 +109,41 @@ public class HabitTest {
         assertEquals(0.0, habit.getProgress(), 0.01);
 
         habit.setComplete(false);
-        habit.markComplete();
+        habit.changeStatus();
         assertEquals(3.33, habit.getProgress(), 0.01);
 
         habit.setComplete(false);
-        habit.markComplete();
+        habit.changeStatus();
         assertEquals(6.67, habit.getProgress(), 0.01);
 
         habit.setComplete(false);
-        habit.markComplete();
+        habit.changeStatus();
         assertEquals(10.0, habit.getProgress(), 0.01);
 
-        habit.markIncomplete();
+        habit.changeStatus();
         assertEquals(6.67, habit.getProgress(), 0.01);
     } 
 
     @Test
     public void testMarkCompleteAndIncomplete() {
-        habit.markComplete();
+        habit.changeStatus();
 
-        assertEquals(null, habit.getPrevLastCompletionDate());
+        assertNull(habit.getPrevLastCompletionDate());
         assertEquals(LocalDate.now(), habit.getLastCompletionDate());
 
-        habit.markIncomplete();
+        habit.changeStatus();
 
-        assertEquals(null, habit.getPrevLastCompletionDate());
-        assertEquals(null, habit.getLastCompletionDate());
+        assertNull(habit.getPrevLastCompletionDate());
+        assertNull(habit.getLastCompletionDate());
 
         habit.setLastCompletionDate(LocalDate.now().minusDays(300));
 
-        habit.markComplete();
+        habit.changeStatus();
 
         assertEquals(LocalDate.now().minusDays(300), habit.getPrevLastCompletionDate());
         assertEquals(LocalDate.now(), habit.getLastCompletionDate());
 
-        habit.markIncomplete();
+        habit.changeStatus();
 
         assertEquals(LocalDate.now().minusDays(300), habit.getPrevLastCompletionDate());
         assertEquals(LocalDate.now().minusDays(300), habit.getLastCompletionDate());
