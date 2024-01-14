@@ -4,13 +4,12 @@ import java.util.regex.Pattern;
 
 public class Authentication {
 
+    private static final int PASSWORD_LENGTH = 6;
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     public static boolean isValidEmail(String email) {
 
-        // Regular expression
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-
         // Create pattern
-        Pattern pattern = Pattern.compile(emailRegex);
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
 
         // Create matcher
         Matcher matcher = pattern.matcher(email);
@@ -20,6 +19,7 @@ public class Authentication {
     }
 
     public static boolean isValidPassword(String password) {
-        return password.length() >= 6;
+        return password.length() >= PASSWORD_LENGTH;
     }
+
 }
