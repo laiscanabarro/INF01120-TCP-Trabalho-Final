@@ -59,7 +59,7 @@ public class Schedule {
             }
         }
         return false;
-    }
+    } 
 
     public Object[][] displaySchedule(){
         int numEvents = events.size();
@@ -85,19 +85,4 @@ public class Schedule {
         return scheduleArray;
     }
     
-    public String displaySelected(int col, int row, Object[][] schedule){
-        int numRows = schedule.length;
-        int numCols = 2;
-
-        if (row >= 0 && row < numRows && col >= 0 && col < numCols) {
-            Object value = schedule[row][col];
-
-            if (value != null) {
-                return value.toString();
-            }
-        }
-
-        return null;
-        
-    }
 }

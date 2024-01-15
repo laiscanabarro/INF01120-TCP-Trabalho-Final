@@ -154,8 +154,10 @@ public class CalendarPage extends javax.swing.JFrame {
         tableCalendar.setCellSelectionEnabled(true);
         tableCalendar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tableCalendar.setFillsViewportHeight(true);
+        tableCalendar.setName(""); // NOI18N
         tableCalendar.setRowHeight(36);
-        tableCalendar.setSelectionForeground(new java.awt.Color(51, 51, 51));
+        tableCalendar.setSelectionBackground(new java.awt.Color(0, 51, 255));
+        tableCalendar.setSelectionForeground(new java.awt.Color(255, 255, 255));
         tableCalendar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableCalendar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableCalendar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -174,6 +176,9 @@ public class CalendarPage extends javax.swing.JFrame {
             }
         ));
         tableSchedule.setCellSelectionEnabled(true);
+        tableSchedule.setSelectionBackground(new java.awt.Color(0, 51, 255));
+        tableSchedule.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tableSchedule.setShowVerticalLines(true);
         tableSchedule.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableScheduleMouseClicked(evt);
@@ -256,55 +261,62 @@ public class CalendarPage extends javax.swing.JFrame {
     }//GEN-LAST:event_textFieldEventMouseClicked
 
     private void textFieldTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldTaskActionPerformed
-        String text = textFieldTask.getText();
-        Task newTask = new Task(text, date);
-        System.out.println(date);
-        calendar.addTask(newTask);
-        setTableSchedule(date);
+        int day = showDate();
         
+        if (day != -1) {
+            String text = textFieldTask.getText();
+            if (text != null && !text.trim().isEmpty()) {
+                Task newTask = new Task(text, date);
+                calendar.addTask(newTask);
+                setTableSchedule(date, true);
+            }
+        }
+
         textFieldTask.setText("New Task");
     }//GEN-LAST:event_textFieldTaskActionPerformed
 
     private void textFieldEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldEventActionPerformed
-        String text = textFieldEvent.getText();
-        Event newEvent = new Event(text, date);
-        calendar.addEvent(newEvent);
-        setTableSchedule(date);
+        int day = showDate();
+        
+        if (day != -1) {
+           String text = textFieldEvent.getText();
+            if (text != null && !text.trim().isEmpty()) {
+                Event newEvent = new Event(text, date);
+                calendar.addEvent(newEvent);
+                setTableSchedule(date, true);
+            } 
+        }
         
         textFieldEvent.setText("New Event");
     }//GEN-LAST:event_textFieldEventActionPerformed
 
     private void tableCalendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCalendarMouseClicked
-        int col = tableCalendar.getSelectedColumn();
-        int row = tableCalendar.getSelectedRow();
-        int day = calendar.displayDay(col, row, (Object[][]) calendar.displayCalendar(CalendarPage.date));
+        int day = showDate();
+        int month = CalendarPage.date.getMonthValue();
+        int year = CalendarPage.date.getYear();
         
-        if (day != 1) {
-            int month = CalendarPage.date.getMonthValue();
-            int year = CalendarPage.date.getYear();
+        if (day != -1) {
             LocalDate selectedDay = LocalDate.of(year, month, day);
-            CalendarPage.date = selectedDay;
-            System.out.println(selectedDay);
+            CalendarPage.date = selectedDay;           
+            setTableSchedule(date, true); 
             
-            setTableSchedule(date);
-            
+        }
+        else {
+            setTableSchedule(date, false);
         }
 
     }//GEN-LAST:event_tableCalendarMouseClicked
 
     private void tableScheduleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableScheduleMouseClicked
         int col = tableSchedule.getSelectedColumn();
-        int row = tableSchedule.getSelectedRow();
-        String selected = displaySelected(col, row, calendar.searchSchedule(date).displaySchedule());
-        System.out.println(calendar.searchSchedule(date).getEvents().size());
-        //System.out.println(selected);
+        int row = tableSchedule.getSelectedRow();        
+        String selected = calendar.searchSchedule(date).displaySchedule()[row][col].toString();
+        
         if (selected != null && col == 0) {
             Task task = calendar.searchTask(selected);
         }
         else if (selected != null && col == 1) {
-            //System.out.println("ola");
             Event event = calendar.searchEvent(selected);
-            //System.out.println("ola");
             System.out.println(event.getName());
             System.out.println(event.getPeriod().getStartDate());
             EventPage page = new EventPage(event);
@@ -313,6 +325,14 @@ public class CalendarPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tableScheduleMouseClicked
 
+    private int showDate(){
+        int col = tableCalendar.getSelectedColumn();
+        int row = tableCalendar.getSelectedRow();
+        int day = calendar.displayDay(col, row, (Object[][]) calendar.displayCalendar(date));
+        
+        return day;
+    }
+    
     private void displayMonthYear() {
         JPanel panelMonth = new JPanel();
         panelMonth.setLayout(new GridLayout(4, 4));   
@@ -362,18 +382,18 @@ public class CalendarPage extends javax.swing.JFrame {
         panelMonth.add(new JLabel("Year:"));
         panelMonth.add(yearTextField);
         
-        actionListenerMonth(januaryCheckBox, 1, panelMonth);
-        actionListenerMonth(februaryCheckBox, 2, panelMonth);
-        actionListenerMonth(marchCheckBox, 3, panelMonth);
-        actionListenerMonth(aprilCheckBox, 4, panelMonth);
-        actionListenerMonth(mayCheckBox, 5, panelMonth);
-        actionListenerMonth(juneCheckBox, 6, panelMonth);
-        actionListenerMonth(julyCheckBox, 7, panelMonth);
-        actionListenerMonth(augustCheckBox, 8, panelMonth);
-        actionListenerMonth(setemberCheckBox, 9, panelMonth);
-        actionListenerMonth(octoberCheckBox, 10, panelMonth);
-        actionListenerMonth(novemberCheckBox, 11, panelMonth);
-        actionListenerMonth(decemberCheckBox, 12, panelMonth);
+        actionListenerMonth(januaryCheckBox, panelMonth);
+        actionListenerMonth(februaryCheckBox, panelMonth);
+        actionListenerMonth(marchCheckBox, panelMonth);
+        actionListenerMonth(aprilCheckBox, panelMonth);
+        actionListenerMonth(mayCheckBox, panelMonth);
+        actionListenerMonth(juneCheckBox, panelMonth);
+        actionListenerMonth(julyCheckBox, panelMonth);
+        actionListenerMonth(augustCheckBox, panelMonth);
+        actionListenerMonth(setemberCheckBox, panelMonth);
+        actionListenerMonth(octoberCheckBox, panelMonth);
+        actionListenerMonth(novemberCheckBox, panelMonth);
+        actionListenerMonth(decemberCheckBox, panelMonth);
                 
         int resultName = JOptionPane.showConfirmDialog(this, panelMonth, "Change month",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -399,7 +419,7 @@ public class CalendarPage extends javax.swing.JFrame {
         }
     } 
     
-    private static void actionListenerMonth(JRadioButton button, int month, JPanel panel) {
+    private static void actionListenerMonth(JRadioButton button, JPanel panel) {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -436,13 +456,21 @@ public class CalendarPage extends javax.swing.JFrame {
         ));
     }
     
-    private void setTableSchedule(LocalDate date) {
-        tableSchedule.setModel(new javax.swing.table.DefaultTableModel(
-            (Object[][]) calendar.searchSchedule(date).displaySchedule(),
-            new String [] {
-                "Tasks", "Events"
-            }
-        ));
+    private void setTableSchedule(LocalDate date, boolean value) {
+        String[] column = {"Tasks", "Events"};
+        if (value == true) {
+            tableSchedule.setModel(new javax.swing.table.DefaultTableModel(
+                (Object[][]) calendar.searchSchedule(date).displaySchedule(),
+                column));
+        }
+        else {
+            LocalDate invalidDate = LocalDate.of(0,1,1);
+            Schedule schedule = new Schedule(invalidDate);
+            
+            tableSchedule.setModel(new javax.swing.table.DefaultTableModel(
+                (Object[][]) schedule.displaySchedule(),
+                column));
+        }
     }
     
     /**
