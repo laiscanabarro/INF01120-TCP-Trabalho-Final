@@ -8,10 +8,14 @@ import user.User;
 import content.*;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import utils.Location;
 import utils.Period;
@@ -21,18 +25,17 @@ import utils.Period;
  * @author laisa
  */
 public class EventPage extends javax.swing.JFrame {
-    
-    private static User user;
     private static Event event;
+    private static Calendar calendar;
 
     /**
      * Creates new form EventPage
-     * @param user
      * @param event
+     * @param calendar
      */
-    public EventPage(User user, Event event) {
-        EventPage.user = user;
+    public EventPage(Event event, Calendar calendar) {
         EventPage.event = event;
+        EventPage.calendar = calendar;
         initComponents();
     }
 
@@ -50,24 +53,29 @@ public class EventPage extends javax.swing.JFrame {
         buttonRepeat = new javax.swing.JLabel();
         labelEventName = new javax.swing.JLabel();
         labelAddLocation = new javax.swing.JLabel();
-        labelAddParticipants = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TaDa - Event");
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
 
         panelEvent.setBackground(new java.awt.Color(255, 255, 255));
-        panelEvent.setPreferredSize(new java.awt.Dimension(1286, 690));
+        panelEvent.setPreferredSize(new java.awt.Dimension(1286, 720));
 
         footer.setBackground(new java.awt.Color(51, 51, 255));
+        footer.setPreferredSize(new java.awt.Dimension(100, 99));
 
         buttonRepeat.setBackground(new java.awt.Color(255, 255, 255));
         buttonRepeat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         buttonRepeat.setForeground(new java.awt.Color(255, 255, 255));
         buttonRepeat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         buttonRepeat.setText("Repeat event");
+        buttonRepeat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonRepeatMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
         footer.setLayout(footerLayout);
@@ -83,7 +91,7 @@ public class EventPage extends javax.swing.JFrame {
             .addGroup(footerLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(buttonRepeat)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         labelEventName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -110,18 +118,6 @@ public class EventPage extends javax.swing.JFrame {
             }
         });
 
-        if (event.getParticipants() == null){
-            labelAddParticipants.setText("Add participants");
-        }
-        else {
-            labelAddParticipants.setText(event.displayParticipants());
-        }
-        labelAddParticipants.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addParticipantsMouseClicked(evt);
-            }
-        });
-
         labelDate.setText(event.getPeriod().displayPeriod());
         labelDate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -129,34 +125,45 @@ public class EventPage extends javax.swing.JFrame {
             }
         });
 
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelEventLayout = new javax.swing.GroupLayout(panelEvent);
         panelEvent.setLayout(panelEventLayout);
         panelEventLayout.setHorizontalGroup(
             panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, 1286, Short.MAX_VALUE)
             .addGroup(panelEventLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
                 .addGroup(panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(labelAddLocation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelEventName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(labelAddParticipants)
-                    .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(973, Short.MAX_VALUE))
+                    .addGroup(panelEventLayout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addGroup(panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(labelAddLocation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelEventName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelEventLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelEventLayout.setVerticalGroup(
             panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEventLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(23, 23, 23)
+                .addComponent(backButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelEventName)
                 .addGap(24, 24, 24)
                 .addComponent(labelAddLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(labelAddParticipants)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(labelDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 414, Short.MAX_VALUE)
-                .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 455, Short.MAX_VALUE)
+                .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,11 +182,6 @@ public class EventPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addParticipantsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addParticipantsMouseClicked
-        displayParticipantsDialog();
-        
-    }//GEN-LAST:event_addParticipantsMouseClicked
-
     private void addLocationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addLocationMouseClicked
         displayLocationDialog();
     }//GEN-LAST:event_addLocationMouseClicked
@@ -191,7 +193,79 @@ public class EventPage extends javax.swing.JFrame {
     private void eventNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eventNameMouseClicked
         displayNameDialog();
     }//GEN-LAST:event_eventNameMouseClicked
-      
+
+    private void buttonRepeatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRepeatMouseClicked
+        displayRecurrenceDialog();
+    }//GEN-LAST:event_buttonRepeatMouseClicked
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        LocalDate date = event.getPeriod().getStartDate();
+        CalendarPage page = new CalendarPage(calendar, date);
+        this.dispose();
+        page.setVisible(true);
+    }//GEN-LAST:event_backButtonActionPerformed
+     
+    private void displayRecurrenceDialog() {
+        Recurrence recurrence;
+        if (event.getRecurrence() == null){
+            recurrence = new Recurrence();
+        }
+        else {
+           recurrence = event.getRecurrence();
+        }
+        
+        JPanel panelRecurrence = new JPanel();
+        panelRecurrence.setLayout(new GridLayout(5, 2));
+        
+        // Creates a RadioButton with associated text
+        JRadioButton dailyCheckBox = new JRadioButton ("Daily");
+        JRadioButton weekdayCheckBox = new JRadioButton ("Weekday");
+        JRadioButton weeklyCheckBox = new JRadioButton ("Weekly");
+        JRadioButton monthlyCheckBox = new JRadioButton ("Monthly");
+        JRadioButton annuallyCheckBox = new JRadioButton ("Annually");
+        
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(dailyCheckBox);
+        buttonGroup.add(weekdayCheckBox);
+        buttonGroup.add(weeklyCheckBox);
+        buttonGroup.add(monthlyCheckBox);
+        buttonGroup.add(annuallyCheckBox);
+        
+        panelRecurrence.add(dailyCheckBox);
+        panelRecurrence.add(weekdayCheckBox);
+        panelRecurrence.add(weeklyCheckBox);
+        panelRecurrence.add(monthlyCheckBox);
+        panelRecurrence.add(annuallyCheckBox);
+            
+        actionListenerRecurrence(dailyCheckBox, Recurrence.RecurrenceType.DAILY, recurrence);
+        actionListenerRecurrence(weekdayCheckBox, Recurrence.RecurrenceType.WEEKDAY, recurrence);
+        actionListenerRecurrence(weeklyCheckBox, Recurrence.RecurrenceType.WEEKLY, recurrence);
+        actionListenerRecurrence(monthlyCheckBox, Recurrence.RecurrenceType.MONTHLY, recurrence);
+        actionListenerRecurrence(annuallyCheckBox, Recurrence.RecurrenceType.ANNUALLY, recurrence);
+        
+        int result = JOptionPane.showConfirmDialog(this, panelRecurrence, "Add recurrence",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        
+        if (result == JOptionPane.OK_OPTION) {
+            Recurrence.RecurrenceType recurrenceType = recurrence.getRecurrenceType();
+            if (!(recurrenceType.equals(Recurrence.RecurrenceType.UNDEFINED))) {
+                buttonRepeat.setText(recurrenceType.toString());
+            }
+        }
+        
+    }
+    
+    private void actionListenerRecurrence(JRadioButton button, Recurrence.RecurrenceType recurrenceType, Recurrence recurrence) {
+        button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    recurrence.changeRecurrence(recurrenceType);
+                    System.out.println("Opção " + recurrenceType.toString());
+
+                }
+            });
+    }
+    
     private void displayNameDialog() {
         JPanel panelName = new JPanel();
         panelName.setLayout(new GridLayout(2, 4));
@@ -204,17 +278,13 @@ public class EventPage extends javax.swing.JFrame {
         
         if (resultName == JOptionPane.OK_OPTION) {
             String name = nameTextField.getText();
-            if (!(name.isEmpty())) {
+            if (name != null && !name.trim().isEmpty()) { 
                 event.setName(name);
                 labelEventName.setText(name);
             }
         }
     }
         
-    private void displayParticipantsDialog() {
-        
-    }
-    
     private void displayLocationDialog() {
         Location location;
         if (event.getLocation() == null){
@@ -256,37 +326,46 @@ public class EventPage extends javax.swing.JFrame {
         // If the user clicks "OK", they get the entered information
         if (result == JOptionPane.OK_OPTION) {
             String country = countryTextField.getText();
-            if (country != null) { 
+            if (location.isNonEmpty(country)) { 
                 location.setCountry(country);
             }
 
             String city = cityTextField.getText();
-            if (city != null) {
+            if (location.isNonEmpty(city)) {
                 location.setCity(city);
             }
       
             String state = stateTextField.getText();
-            if (state != null) {
+            if (location.isNonEmpty(state)) {
                 location.setState(state);
             }
 
             String street = streetTextField.getText();
-            if (street != null) {
+            if (location.isNonEmpty(street)) {
                 location.setStreet(street);
             }        
             
 
             try {
-                int number = Integer.parseInt(numberTextField.getText());
-                location.setNumber(number);
+                if (location.isNonEmpty(numberTextField.getText())) {
+                    int number = Integer.parseInt(numberTextField.getText());
+                    if (number > 0) {
+                        location.setNumber(number);
+                    }
+                }
                 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             
-            //if ()
-            event.setLocation(location);
-            labelAddLocation.setText(event.getLocation().displayLocation());
+            if (location.verifyLocation()) {
+                event.setLocation(location);
+                labelAddLocation.setText(event.getLocation().displayLocation());
+            }  
+            else {
+                JOptionPane.showMessageDialog(this, "Please enter all information.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     
@@ -354,50 +433,12 @@ public class EventPage extends javax.swing.JFrame {
         }
     }
 
-            
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EventPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EventPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EventPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EventPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                User user1 = new User();
-                Period period = new Period(LocalDate.now());
-                Event event1 = new Event("Presentation", period);
-                new EventPage(user1, event1).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel buttonRepeat;
     private javax.swing.JPanel footer;
     private javax.swing.JLabel labelAddLocation;
-    private javax.swing.JLabel labelAddParticipants;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelEventName;
     private javax.swing.JPanel panelEvent;

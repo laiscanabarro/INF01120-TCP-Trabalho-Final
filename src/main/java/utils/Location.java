@@ -69,25 +69,12 @@ public class Location {
     return locationString;
     }
     
-    public boolean verifyLocation(){
-        if (country == null) {
-            return false;
-        }
-        else if (city == null) {
-            return false;
-        }
-        else if (state == null) {
-            return false;
-        }
-        else if (street == null) {
-            return false;
-        }
-        else if (number == 0) {
-            return false;
-        }
-        else {
-            return true;
-        }
+    public boolean verifyLocation() {
+        return isNonEmpty(country) && isNonEmpty(city) && isNonEmpty(state) && isNonEmpty(street) && number > 0;
+    }
+
+    public boolean isNonEmpty(String value) {
+        return value != null && !value.trim().isEmpty();
     }
         
 }

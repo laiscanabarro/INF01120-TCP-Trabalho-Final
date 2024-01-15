@@ -15,7 +15,7 @@ public class Schedule {
 
     public Schedule (LocalDate date){
         this.date = date;
-        this. events = new ArrayList<Event>();
+        this.events = new ArrayList<Event>();
         this.tasks = new ArrayList<Task>();
     }
 
@@ -59,30 +59,30 @@ public class Schedule {
             }
         }
         return false;
-    }
+    } 
 
-    public void displaySchedule(){
+    public Object[][] displaySchedule(){
         int numEvents = events.size();
-        for (int i = 0; i < numEvents; i++){
-            System.out.println(events.get(i));
-        }
-
         int numTasks = tasks.size();
-        for (int i = 0; i < numTasks; i++){
-            System.out.println(tasks.get(i));
+        int numRows = Math.max(numEvents, numTasks);
+
+        Object[][] scheduleArray = new Object[numRows][2];
+
+        for (int i = 0; i < numRows; i++) {
+            if (i < numTasks) {
+                scheduleArray[i][0] = tasks.get(i).getName();
+            } else {
+                scheduleArray[i][0] = null;  // Fill with null if there is no task
+            }
+
+            if (i < numEvents) {
+                scheduleArray[i][1] = events.get(i).getName();
+            } else {
+                scheduleArray[i][1] = null;  // Fill with null if there is no event
+            }
         }
 
+        return scheduleArray;
     }
-
-
     
-    
-
-
-
-
-
-    
-
-
 }
