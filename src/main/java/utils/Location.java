@@ -62,4 +62,33 @@ public class Location {
     public void setNumber(int number){
         this.number = number;
     }
+    
+    public String displayLocation(){
+        String locationString = String.join(", ", country, city, state, street) + ", " + String.valueOf(number);
+
+    return locationString;
+    }
+    
+    public boolean verifyLocation(){
+        if (country == null) {
+            return false;
+        }
+        else if (city == null) {
+            return false;
+        }
+        else if (state == null) {
+            return false;
+        }
+        else if (street == null) {
+            return false;
+        }
+        else if (number == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+        
 }
+    

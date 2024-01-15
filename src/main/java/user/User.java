@@ -30,6 +30,9 @@ public class User {
 
     }
     // Constructor
+    
+    public User() {}
+    
     public User(String email, String password) {
         this.name = null;
         this.email = email;

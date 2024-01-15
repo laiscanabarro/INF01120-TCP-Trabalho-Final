@@ -5,6 +5,8 @@ import org.junit.jupiter.api.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -59,13 +61,13 @@ public class TaskListTest {
     @DisplayName("test changing order of list")
     void changeOrder() {
         task1.setName("C");
-        LocalDate d1 = LocalDate.of(2023, Calendar.DECEMBER, 25);
+        LocalDate d1 = LocalDate.of(123, Month.DECEMBER, 25);
         task1.setDeadline(d1);
         task2.setName("B");
-        LocalDate d2 = LocalDate.of(2023, Calendar.DECEMBER, 28);
+        LocalDate d2 = LocalDate.of(123, Month.DECEMBER, 28);
         task2.setDeadline(d2);
         task3.setName("A");
-        LocalDate d3 = LocalDate.of(2023, Calendar.DECEMBER, 29);
+        LocalDate d3 = LocalDate.of(123, Month.DECEMBER, 29);
         task3.setDeadline(d3);
         taskList.addTask(task3);
 
