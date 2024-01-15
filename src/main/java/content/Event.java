@@ -74,4 +74,8 @@ public class Event {
 
         return resultBuilder.toString();
     }   
+    
+    public void changeRecurrence(Recurrence recurrence) {
+        //
+    }
 }

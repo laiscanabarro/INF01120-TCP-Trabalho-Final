@@ -28,15 +28,16 @@ import javax.swing.table.TableCellEditor;
  * @author laisa
  */
 public class CalendarPage extends javax.swing.JFrame {
-    private static Calendar calendar;
+    private static Calendar calendar = new Calendar();
     private static LocalDate date = LocalDate.now();
     
     /**
      * Creates new form CalenderPage
      * @param calendar
      */
-    public CalendarPage(Calendar calendar) {
+    public CalendarPage(Calendar calendar, LocalDate date) {
         CalendarPage.calendar = calendar;
+        CalendarPage.date = date;
         initComponents();
     }
 
@@ -58,7 +59,7 @@ public class CalendarPage extends javax.swing.JFrame {
         textFieldTask = new javax.swing.JTextField();
         textFieldEvent = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableCalendar = new javax.swing.JTable();
+        tableCalendar =  new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableSchedule = new javax.swing.JTable();
 
@@ -153,7 +154,6 @@ public class CalendarPage extends javax.swing.JFrame {
         tableCalendar.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tableCalendar.setCellSelectionEnabled(true);
         tableCalendar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tableCalendar.setFillsViewportHeight(true);
         tableCalendar.setName(""); // NOI18N
         tableCalendar.setRowHeight(36);
         tableCalendar.setSelectionBackground(new java.awt.Color(0, 51, 255));
@@ -176,6 +176,7 @@ public class CalendarPage extends javax.swing.JFrame {
             }
         ));
         tableSchedule.setCellSelectionEnabled(true);
+        tableSchedule.setRowHeight(30);
         tableSchedule.setSelectionBackground(new java.awt.Color(0, 51, 255));
         tableSchedule.setSelectionForeground(new java.awt.Color(255, 255, 255));
         tableSchedule.setShowVerticalLines(true);
@@ -262,6 +263,7 @@ public class CalendarPage extends javax.swing.JFrame {
 
     private void textFieldTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldTaskActionPerformed
         int day = showDate();
+        System.out.println(day);
         
         if (day != -1) {
             String text = textFieldTask.getText();
@@ -294,7 +296,8 @@ public class CalendarPage extends javax.swing.JFrame {
         int day = showDate();
         int month = CalendarPage.date.getMonthValue();
         int year = CalendarPage.date.getYear();
-        
+
+                
         if (day != -1) {
             LocalDate selectedDay = LocalDate.of(year, month, day);
             CalendarPage.date = selectedDay;           
@@ -317,9 +320,7 @@ public class CalendarPage extends javax.swing.JFrame {
         }
         else if (selected != null && col == 1) {
             Event event = calendar.searchEvent(selected);
-            System.out.println(event.getName());
-            System.out.println(event.getPeriod().getStartDate());
-            EventPage page = new EventPage(event);
+            EventPage page = new EventPage(event, calendar);
             this.dispose();
             page.setVisible(true);
         }
@@ -473,6 +474,7 @@ public class CalendarPage extends javax.swing.JFrame {
         }
     }
     
+    
     /**
      * @param args the command line arguments
      */
@@ -506,8 +508,7 @@ public class CalendarPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Calendar calendar = new Calendar();
-                new CalendarPage(calendar).setVisible(true);
+                new CalendarPage(calendar, date).setVisible(true);
             }
         });
     }

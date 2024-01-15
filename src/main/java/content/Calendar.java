@@ -183,6 +183,24 @@ public class Calendar {
         return -1;
         
     }  
+    
+    public int[] displaySelected(int day, Object[][] calendar) {
+        int numRows = calendar.length;
+        int numCols = calendar[0].length;
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                Object value = calendar[i][j];
+
+                if (value instanceof Integer && (Integer) value == day) {
+                    // Day value was found, return position (i, j)
+                    return new int[]{i, j};
+                }
+            }
+        }
+
+        return null;
+    }
 
     public Schedule searchSchedule(LocalDate date){
         for (Schedule schedule : schedules){
