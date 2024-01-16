@@ -132,12 +132,15 @@ public class ListSpecificPage extends JPanel {
         JButton addTaskButton = new JButton("+");
         addTaskButton.setPreferredSize(smallButtonDimension);
         panel.add(addTaskButton, gbc);
+        gbc.gridx++;
+        JButton clearListButton = new JButton("Clear List");
+        panel.add(clearListButton, gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.gridwidth = 5;
+        gbc.gridwidth = 6;
         panel.add(new JLabel(), gbc);
 
         backButton.addActionListener(new ActionListener() {
@@ -157,6 +160,14 @@ public class ListSpecificPage extends JPanel {
                     list.addTask(newTask);
                     updateRightPanel(ListSpecificPage.showSpecificList(list));
                 }
+            }
+        });
+
+        clearListButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                list.clear();
+                updateRightPanel(ListSpecificPage.showSpecificList(list));
             }
         });
 

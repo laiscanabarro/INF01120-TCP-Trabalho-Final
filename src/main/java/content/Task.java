@@ -15,10 +15,6 @@ public class Task {
     private LocalDate conclusionDate;
     public static final boolean COMPLETED = true;
 
-
-//    Deixar comentado até existir um alarm
-//    private Alarm alarm;
-
     public Task() {
         setImportanceScale(ImportantList.MIN_IMPORTANCE);
         setStatus(!COMPLETED);
