@@ -19,6 +19,7 @@ public class Event {
         this.name = name;
         this.period = new Period(date);
         this.participants = null;
+        this.recurrence = new Recurrence();
     }
 
     public String getName(){
@@ -53,10 +54,6 @@ public class Event {
         this.period = period;
     }
 
-    public void setRecurrence(Recurrence recurrence){
-        this.recurrence = recurrence;
-    }
-
     public void setParticipants(ArrayList<User> participants){
         this.participants = participants;
     }
@@ -76,50 +73,5 @@ public class Event {
 
         return resultBuilder.toString();
     }   
-    
-    
-    public void changeRecurrence(Recurrence recurrence, Period period) {
-        switch(recurrence.toString()) {
-            case "daily":
-                dailyRecurrence(period);
-                break;
-            case "Weekday":
-                weekdayRecurrence(period);
-                break;
-            case "Weekly":
-                weeklyRecurrence(period);
-                break;
-            case "Monthly":
-                monthlyRecurrence(period);
-                break;
-            case "Annually":
-                annuallyRecurrence(period);
-                break;
-
-        }
-    }
-    
-    private void dailyRecurrence(Period period) {
-        long days = period.countDays();
-        Schedule schedule;
-        //só é possivel com eventos com duração 0
-    }
-    
-    private void weekdayRecurrence(Period period) {
-        Schedule schedule;
-        //só é possivel com eventos com duração 0
-    }
-    
-    private void weeklyRecurrence(Period period) {
-        Schedule schedule;
-    }
-    
-    private void monthlyRecurrence(Period period) {
-        Schedule schedule;
-    }
-    
-    private void annuallyRecurrence(Period period) {
-        Schedule schedule;
-    }
     
 }

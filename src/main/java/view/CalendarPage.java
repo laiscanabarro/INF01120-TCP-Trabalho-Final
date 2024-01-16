@@ -59,6 +59,7 @@ public class CalendarPage extends Page {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        setSize(WIDTH, HEIGHT);
         panelCalendar = new javax.swing.JPanel();
         labelTitle = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
@@ -162,7 +163,7 @@ public class CalendarPage extends Page {
         tableCalendar.setCellSelectionEnabled(true);
         tableCalendar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tableCalendar.setName(""); // NOI18N
-        tableCalendar.setRowHeight(36);
+        tableCalendar.setRowHeight(37);
         tableCalendar.setSelectionBackground(new java.awt.Color(0, 51, 255));
         tableCalendar.setSelectionForeground(new java.awt.Color(255, 255, 255));
         tableCalendar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -224,14 +225,14 @@ public class CalendarPage extends Page {
                 .addGap(36, 36, 36)
                 .addComponent(labelMonthYear)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(textFieldTask, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(textFieldEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -246,8 +247,6 @@ public class CalendarPage extends Page {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        panelCalendar.getAccessibleContext().setAccessibleParent(panelCalendar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -68,10 +68,10 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Component id="backButton" min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="backButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="925" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -135,12 +135,15 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="horizontalAlignment" type="int" value="0" postCode="if (!(event.getRecurrence().verifyRecurrence())) {"/>
                 <Property name="text" type="java.lang.String" value="Repeat event"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonRepeatMouseClicked"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="}&#xa;else {&#xa;    buttonRepeat.setText(event.getRecurrence().getRecurrenceType().toString());&#xa;}"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Class that stores a day's events and tasks
  */
 public class Schedule {
-    private ArrayList<Event> events;
+    private ArrayList<Event> events;  
     private ArrayList<Task> tasks;
     private final LocalDate date;
 
@@ -53,19 +53,24 @@ public class Schedule {
         tasks.remove(task);
     }
 
-    public boolean searchEvent(Event event){
-        LocalDate start = event.getPeriod().getStartDate();
-        long days = event.getPeriod().countDays();
-        System.out.println(days);
-
-        for (long i = 0; i <= days; i++){
-             System.out.println(start.plusDays(i) + " " + this.date);
-             if (start.plusDays(i).compareTo(this.date) == 0){
+    public boolean searchEvent(Event eventSearched){
+        for (Event event : events){
+            if(eventSearched.equals(event)){
                 return true;
             }
         }
         return false;
     } 
+    
+    public boolean searchTask(Task taskSearched){
+        for (Task task : tasks){
+            if(taskSearched.equals(task)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
 
     public Object[][] displaySchedule(){
         int numEvents = events.size();

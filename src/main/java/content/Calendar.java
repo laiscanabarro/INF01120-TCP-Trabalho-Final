@@ -2,18 +2,22 @@ package content;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import utils.Recurrence;
+import utils.RecurrenceList;
 
 public class Calendar { 
-    private ArrayList<Event> events; 
+    private ArrayList<Event> events;  
     private ArrayList<Task> tasks;
     private ArrayList<TaskList> taskLists;
     private ArrayList<Schedule> schedules;
+    private RecurrenceList recurrenceList;
 
     public Calendar(ArrayList<TaskList> taskLists){
-        this.events = new ArrayList<>();
+        this.events = new ArrayList<>();  
         this.taskLists = taskLists;
         this.schedules = new ArrayList<>();
         this.tasks = getTasks();
+        this.recurrenceList = new RecurrenceList();
     }
 
     public ArrayList<Event> getEvents(){
@@ -36,7 +40,10 @@ public class Calendar {
     public ArrayList<Schedule> getSchedules(){
         return this.schedules;
     }
-    
+
+    public RecurrenceList getRecurrenceList() {
+        return this.recurrenceList;
+    }
     
     public void addSchecule(Schedule schedule){
         schedules.add(schedule);
@@ -217,10 +224,12 @@ public class Calendar {
     public Schedule searchSchedule(LocalDate date){
         for (Schedule schedule : schedules){
             if(schedule.getDate().equals(date)){
+                recurrenceList.dailyList(schedule);
                 return schedule;
             }
         }
         Schedule newSchedule = new Schedule(date);
+        recurrenceList.dailyList(newSchedule);
         addSchecule(newSchedule);
         return newSchedule;
     }

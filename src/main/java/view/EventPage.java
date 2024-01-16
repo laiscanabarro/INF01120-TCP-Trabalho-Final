@@ -25,7 +25,7 @@ import utils.Recurrence;
  *
  * @author laisa
  */
-public class EventPage extends javax.swing.JFrame {
+public class EventPage extends Page {
     private static Event event;
     private static Calendar calendar;
 
@@ -71,7 +71,12 @@ public class EventPage extends javax.swing.JFrame {
         buttonRepeat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         buttonRepeat.setForeground(new java.awt.Color(255, 255, 255));
         buttonRepeat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        buttonRepeat.setText("Repeat event");
+        if (!(event.getRecurrence().verifyRecurrence())) {
+            buttonRepeat.setText("Repeat event");
+        }
+        else {
+            buttonRepeat.setText(event.getRecurrence().getRecurrenceType().toString());
+        }
         buttonRepeat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 buttonRepeatMouseClicked(evt);
@@ -149,8 +154,8 @@ public class EventPage extends javax.swing.JFrame {
                             .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelEventLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(backButton)))
+                .addContainerGap(925, Short.MAX_VALUE))
         );
         panelEventLayout.setVerticalGroup(
             panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,14 +201,13 @@ public class EventPage extends javax.swing.JFrame {
     }//GEN-LAST:event_eventNameMouseClicked
 
     private void buttonRepeatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRepeatMouseClicked
-        //displayRecurrenceDialog();
+        displayRecurrenceDialog();
     }//GEN-LAST:event_buttonRepeatMouseClicked
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         LocalDate date = event.getPeriod().getStartDate();
-        CalendarPage page = new CalendarPage(calendar, date);
-        this.dispose();
-        page.setVisible(true);
+        CalendarPage calendaPage = new CalendarPage(calendar, date);
+        changeTo(calendaPage);
     }//GEN-LAST:event_backButtonActionPerformed
      
     private void displayRecurrenceDialog() {
@@ -260,9 +264,7 @@ public class EventPage extends javax.swing.JFrame {
         button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    recurrence.changeRecurrence(recurrenceType);
-                    System.out.println("Opção " + recurrenceType.toString());
-
+                    recurrence.changeRecurrence(recurrenceType, calendar, event);
                 }
             });
     }
@@ -424,7 +426,15 @@ public class EventPage extends javax.swing.JFrame {
                 String endTime = endTimeTextField.getText();
                 if (!(endTime.isEmpty())) {
                     period.setEndTime(period.convertStringToLocalTime(endTime));
-                }                
+                }   
+                
+                long days = period.countDays();
+                Schedule schedule;
+                LocalDate start = period.getStartDate();
+                for (int i = 1; i <= days; i++) {
+                    schedule = calendar.searchSchedule(start.plusDays(i));
+                    schedule.addEvent(event);
+                }
                 
                 labelDate.setText(event.getPeriod().displayPeriod());
             } catch (NumberFormatException e) {

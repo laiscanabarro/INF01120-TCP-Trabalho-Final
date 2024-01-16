@@ -1,6 +1,10 @@
 package utils;
 
+import content.Calendar;
+import content.Event;
+import content.Schedule;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Recurrence implements Serializable{
     private boolean daily;
@@ -105,7 +109,7 @@ public class Recurrence implements Serializable{
             return RecurrenceType.ANNUALLY;
         }
 
-        return RecurrenceType.UNDEFINED;
+        return RecurrenceType.DAILY;
     }
     
     public boolean verifyRecurrence() {
@@ -116,7 +120,7 @@ public class Recurrence implements Serializable{
     }
 
     public enum RecurrenceType {
-        UNDEFINED, DAILY, WEEKDAY, WEEKLY, MONTHLY, ANNUALLY;
+        DAILY, WEEKDAY, WEEKLY, MONTHLY, ANNUALLY;
     }
 
     public String toString() {
@@ -135,61 +139,100 @@ public class Recurrence implements Serializable{
         }
     }
     
-    public void changeRecurrence(RecurrenceType recurrence) {
+    public void changeRecurrence(RecurrenceType recurrence, Calendar calendar, Event event) {
         // Sets the selected recurrence to true and the others to false
         switch (recurrence) {
             case DAILY:
-                setDaily(true);
-                setOthersFalse(RecurrenceType.DAILY);
+                setDaily(true); 
+                calendar.getRecurrenceList().addDaily(event);
+                setOthersFalse(RecurrenceType.DAILY, calendar, event);
                 break;
             case WEEKDAY:
                 setWeekday(true);
-                setOthersFalse(RecurrenceType.WEEKDAY);
+                calendar.getRecurrenceList().addWeekday(event);
+                setOthersFalse(RecurrenceType.WEEKDAY, calendar, event);
                 break;
             case WEEKLY:
                 setWeekly(true);
-                setOthersFalse(RecurrenceType.WEEKLY);
+                calendar.getRecurrenceList().addWeekly(event);
+                setOthersFalse(RecurrenceType.WEEKLY, calendar, event);
                 break;
             case MONTHLY:
                 setMonthly(true);
-                setOthersFalse(RecurrenceType.MONTHLY);
+                calendar.getRecurrenceList().addMonthly(event);
+                setOthersFalse(RecurrenceType.MONTHLY, calendar, event);
                 break;
             case ANNUALLY:
                 setAnnually(true);
-                setOthersFalse(RecurrenceType.ANNUALLY);
+                calendar.getRecurrenceList().addAnnually(event);
+                setOthersFalse(RecurrenceType.ANNUALLY, calendar, event);
                 break;
         }
     }
 
-    private void setOthersFalse(RecurrenceType excludeRecurrence) {
+    private void setOthersFalse(RecurrenceType excludeRecurrence, Calendar calendar, Event event) {
         // Sets all other recurrences to false
         for (RecurrenceType recurrenceType : RecurrenceType.values()) {
             if (recurrenceType != excludeRecurrence) {
-                changeToFalse(recurrenceType);
+                changeToFalse(recurrenceType, calendar, event);
             }
         }
     }
 
-    private void changeToFalse(RecurrenceType recurrence) {
+    private void changeToFalse(RecurrenceType recurrence, Calendar calendar, Event event) {
         switch (recurrence) {
             case DAILY:
                 setDaily(false);
+                calendar.getRecurrenceList().removeDaily(event);
                 break;
             case WEEKDAY:
                 setWeekday(false);
+                calendar.getRecurrenceList().removeWeekday(event);
                 break;
             case WEEKLY:
                 setWeekly(false);
+                calendar.getRecurrenceList().removeWeekly(event);
                 break;
             case MONTHLY:
                 setMonthly(false);
+                calendar.getRecurrenceList().removeMonthly(event);
                 break;
             case ANNUALLY:
                 setAnnually(false);
-                break;
-            case UNDEFINED:
+                calendar.getRecurrenceList().removeAnnually(event);
                 break;
                
         }
     }
+    
+    public void dailyRecurrence(Calendar calendar, LocalDate date) {
+        
+    }
+    
+    public void updateSchedule(RecurrenceType recurrence, Calendar calendar, Event event) {
+        switch (recurrence) {
+            case DAILY:
+                setDaily(false);
+                calendar.getRecurrenceList().removeDaily(event);
+                break;
+            case WEEKDAY:
+                setWeekday(false);
+                calendar.getRecurrenceList().removeWeekday(event);
+                break;
+            case WEEKLY:
+                setWeekly(false);
+                calendar.getRecurrenceList().removeWeekly(event);
+                break;
+            case MONTHLY:
+                setMonthly(false);
+                calendar.getRecurrenceList().removeMonthly(event);
+                break;
+            case ANNUALLY:
+                setAnnually(false);
+                calendar.getRecurrenceList().removeAnnually(event);
+                break;
+        }
+    }
+    
+    
 }
