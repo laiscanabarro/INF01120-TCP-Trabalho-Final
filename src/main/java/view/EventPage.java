@@ -19,6 +19,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import utils.Location;
 import utils.Period;
+import utils.Recurrence;
 
 /**
  *
@@ -195,7 +196,7 @@ public class EventPage extends javax.swing.JFrame {
     }//GEN-LAST:event_eventNameMouseClicked
 
     private void buttonRepeatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRepeatMouseClicked
-        displayRecurrenceDialog();
+        //displayRecurrenceDialog();
     }//GEN-LAST:event_buttonRepeatMouseClicked
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -248,7 +249,7 @@ public class EventPage extends javax.swing.JFrame {
         
         if (result == JOptionPane.OK_OPTION) {
             Recurrence.RecurrenceType recurrenceType = recurrence.getRecurrenceType();
-            if (!(recurrenceType.equals(Recurrence.RecurrenceType.UNDEFINED))) {
+            if (recurrence.verifyRecurrence()) {
                 buttonRepeat.setText(recurrenceType.toString());
             }
         }

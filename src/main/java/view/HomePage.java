@@ -122,10 +122,8 @@ public class HomePage extends Page {
         calendarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JPanel newPanel = new JPanel();
-                newPanel.setOpaque(true);
-                newPanel.setBackground(Color.ORANGE);
-                updateRightPanel(newPanel);
+                CalendarPage calendarPage = new CalendarPage(Page.currentUser.getCalendar());
+                changeTo(calendarPage);
             }
         });
 

@@ -31,7 +31,7 @@ public class User {
         this.productivity = new Productivity();
         this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
-
+        this.calendar = new Calendar(this.taskLists);
     }
     
     // Constructor
@@ -46,6 +46,7 @@ public class User {
         this.productivity = new Productivity();
         this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
+        this.calendar = new Calendar(this.taskLists);
     }
 
 

@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JLabel;
@@ -22,22 +20,31 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
+import utils.PageUtils;
+import static view.Page.homePage;
 
 /**
  *
  * @author laisa
  */
-public class CalendarPage extends javax.swing.JFrame {
-    private static Calendar calendar = new Calendar();
-    private static LocalDate date = LocalDate.now();
+public class CalendarPage extends Page {
+    private static Calendar calendar;
+    private static LocalDate date;
     
     /**
      * Creates new form CalenderPage
      * @param calendar
+     * @param date
      */
     public CalendarPage(Calendar calendar, LocalDate date) {
         CalendarPage.calendar = calendar;
         CalendarPage.date = date;
+        initComponents();
+    }
+    
+    public CalendarPage(Calendar calendar) {
+        CalendarPage.calendar = calendar;
+        CalendarPage.date = LocalDate.now();
         initComponents();
     }
 
@@ -193,8 +200,8 @@ public class CalendarPage extends javax.swing.JFrame {
             panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCalendarLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addComponent(backButton)
+                .addGap(36, 36, 36)
                 .addGroup(panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelCalendarLayout.createSequentialGroup()
@@ -246,11 +253,11 @@ public class CalendarPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        // TODO add your handling code here:
+        changeTo(homePage);
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void labelMonthYearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMonthYearMouseClicked
-        displayMonthYear();
+        displayMonth();
     }//GEN-LAST:event_labelMonthYearMouseClicked
 
     private void textFieldTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textFieldTaskMouseClicked
@@ -269,7 +276,8 @@ public class CalendarPage extends javax.swing.JFrame {
             String text = textFieldTask.getText();
             if (text != null && !text.trim().isEmpty()) {
                 Task newTask = new Task(text, date);
-                calendar.addTask(newTask);
+                TaskList tasklist = new TaskList(); //arrumar isso, vai para uma list de allTask
+                calendar.addTask(newTask, tasklist);
                 setTableSchedule(date, true);
             }
         }
@@ -317,12 +325,12 @@ public class CalendarPage extends javax.swing.JFrame {
         
         if (selected != null && col == 0) {
             Task task = calendar.searchTask(selected);
+            TaskPage.showTask(task);
         }
         else if (selected != null && col == 1) {
             Event event = calendar.searchEvent(selected);
-            EventPage page = new EventPage(event, calendar);
-            this.dispose();
-            page.setVisible(true);
+            EventPage eventPage = new EventPage(event, calendar);
+            changeTo(eventPage);
         }
     }//GEN-LAST:event_tableScheduleMouseClicked
 
@@ -334,7 +342,7 @@ public class CalendarPage extends javax.swing.JFrame {
         return day;
     }
     
-    private void displayMonthYear() {
+    private void displayMonth() {
         JPanel panelMonth = new JPanel();
         panelMonth.setLayout(new GridLayout(4, 4));   
         
@@ -474,44 +482,6 @@ public class CalendarPage extends javax.swing.JFrame {
         }
     }
     
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CalendarPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CalendarPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CalendarPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CalendarPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CalendarPage(calendar, date).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
@@ -528,7 +498,6 @@ public class CalendarPage extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldTask;
     // End of variables declaration//GEN-END:variables
 
-    private String displaySelected(int col, int row, Object displaySchedule) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+  // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
 }

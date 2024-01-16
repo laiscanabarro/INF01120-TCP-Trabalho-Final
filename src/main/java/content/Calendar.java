@@ -6,12 +6,14 @@ import java.util.ArrayList;
 public class Calendar { 
     private ArrayList<Event> events; 
     private ArrayList<Task> tasks;
+    private ArrayList<TaskList> taskLists;
     private ArrayList<Schedule> schedules;
 
-    public Calendar(){
-        this.events = new ArrayList<Event>();
-        this.tasks = new ArrayList<Task>();
-        this.schedules = new ArrayList<Schedule>();
+    public Calendar(ArrayList<TaskList> taskLists){
+        this.events = new ArrayList<>();
+        this.taskLists = taskLists;
+        this.schedules = new ArrayList<>();
+        this.tasks = getTasks();
     }
 
     public ArrayList<Event> getEvents(){
@@ -19,12 +21,22 @@ public class Calendar {
     }
 
     public ArrayList<Task> getTasks(){
-        return this.tasks;
+        ArrayList allTasks = new ArrayList<>();
+        int numLists = this.taskLists.size();
+        for (int i = 0; i < numLists; i++){
+            ArrayList<Task> newTasks = taskLists.get(i).getTasks();
+            int numTasks = newTasks.size();
+            for (int j = 0; j < numTasks; j++){
+                allTasks.add(j);
+            }
+        }
+        return allTasks;
     }
 
     public ArrayList<Schedule> getSchedules(){
         return this.schedules;
     }
+    
     
     public void addSchecule(Schedule schedule){
         schedules.add(schedule);
@@ -59,8 +71,8 @@ public class Calendar {
 
     }
 
-    public void addTask(Task task){
-        tasks.add(task);
+    public void addTask(Task task, TaskList tasklist){
+        tasklist.addTask(task);
 
         Schedule schedule = searchSchedule(task.getDeadline());
         schedule.addTask(task);
@@ -125,7 +137,7 @@ public class Calendar {
         return daysMonth;
     }
 
-    public Object displayCalendar(LocalDate date) {
+    public Object[][] displayCalendar(LocalDate date) {
         int firstDay = calculateFirstDayOfMonth(date.getYear(), date.getMonthValue());
 
         boolean leapYear = leapYear(date.getYear()); //leap year = true (29 days in february); = false (28 days in february)
@@ -236,13 +248,5 @@ public class Calendar {
         }
         return null;
     }
-    
-    //public void selectDay(){}
-
-    //public void selectMonth(){}
-
-    //public void selectEvent(Event event){}
-
-    //public void selectTask(Task task){}
 
 }

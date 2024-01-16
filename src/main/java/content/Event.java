@@ -1,5 +1,6 @@
 package content;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import user.User;
@@ -76,7 +77,49 @@ public class Event {
         return resultBuilder.toString();
     }   
     
-    public void changeRecurrence(Recurrence recurrence) {
-        //
+    
+    public void changeRecurrence(Recurrence recurrence, Period period) {
+        switch(recurrence.toString()) {
+            case "daily":
+                dailyRecurrence(period);
+                break;
+            case "Weekday":
+                weekdayRecurrence(period);
+                break;
+            case "Weekly":
+                weeklyRecurrence(period);
+                break;
+            case "Monthly":
+                monthlyRecurrence(period);
+                break;
+            case "Annually":
+                annuallyRecurrence(period);
+                break;
+
+        }
     }
+    
+    private void dailyRecurrence(Period period) {
+        long days = period.countDays();
+        Schedule schedule;
+        //só é possivel com eventos com duração 0
+    }
+    
+    private void weekdayRecurrence(Period period) {
+        Schedule schedule;
+        //só é possivel com eventos com duração 0
+    }
+    
+    private void weeklyRecurrence(Period period) {
+        Schedule schedule;
+    }
+    
+    private void monthlyRecurrence(Period period) {
+        Schedule schedule;
+    }
+    
+    private void annuallyRecurrence(Period period) {
+        Schedule schedule;
+    }
+    
 }

@@ -2,7 +2,6 @@ package content;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 /*
  * Schedule
@@ -11,12 +10,19 @@ import java.util.List;
 public class Schedule {
     private ArrayList<Event> events;
     private ArrayList<Task> tasks;
-    private LocalDate date;
+    private final LocalDate date;
 
     public Schedule (LocalDate date){
         this.date = date;
-        this.events = new ArrayList<Event>();
-        this.tasks = new ArrayList<Task>();
+        this.events = new ArrayList<>();
+        this.tasks = new ArrayList<>();
+    }
+    
+    public Schedule (LocalDate date, Event event){
+        this.date = date;
+        this.events = new ArrayList<>();
+        this.events.add(event);
+        this.tasks = new ArrayList<>();
     }
 
     public LocalDate getDate(){
@@ -54,7 +60,7 @@ public class Schedule {
 
         for (long i = 0; i <= days; i++){
              System.out.println(start.plusDays(i) + " " + this.date);
-            if (start.plusDays(i).compareTo(this.date) == 0){
+             if (start.plusDays(i).compareTo(this.date) == 0){
                 return true;
             }
         }
