@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import utils.PageUtils;
+import static view.HomePage.updateRightPanel;
 import static view.Page.homePage;
 
 /**
@@ -268,15 +269,20 @@ public class CalendarPage extends Page {
     }//GEN-LAST:event_textFieldEventMouseClicked
 
     private void textFieldTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldTaskActionPerformed
-        int day = showDate();
-        System.out.println(day);
-        
+        int day = showDate();      
+        TaskList list = calendar.getUndefinedList();
+   
+        if(Page.currentUser.getTaskLists().isEmpty()) {
+            Page.currentUser.addList(list);
+        }
+                       
         if (day != -1) {
             String text = textFieldTask.getText();
             if (text != null && !text.trim().isEmpty()) {
-                Task newTask = new Task(text, date);
-                TaskList tasklist = new TaskList(); //arrumar isso, vai para uma list de allTask
-                calendar.addTask(newTask, tasklist);
+                Task newTask = new Task();
+                newTask.setName(text);
+                newTask.setDeadline(date);
+                calendar.addTask(newTask, list);
                 setTableSchedule(date, true);
             }
         }
@@ -324,7 +330,8 @@ public class CalendarPage extends Page {
         
         if (selected != null && col == 0) {
             Task task = calendar.searchTask(selected);
-            TaskPage.showTask(task);
+            changeTo(homePage);
+            updateRightPanel(TaskPage.showTask(task));
         }
         else if (selected != null && col == 1) {
             Event event = calendar.searchEvent(selected);
