@@ -35,6 +35,7 @@ public class ListsPage extends JPanel {
         panel.add(title, gbc);
 
         for (TaskList list : Page.currentUser.getTaskLists()) {
+            gbc.gridx = 1;
             gbc.gridy++;
             JButton button = new JButton(list.getName());
             button.setPreferredSize(buttonDimension);
