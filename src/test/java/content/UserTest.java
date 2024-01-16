@@ -4,8 +4,6 @@ import org.junit.jupiter.api.*;
 
 import user.User;
 
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 

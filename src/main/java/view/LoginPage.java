@@ -1,7 +1,6 @@
 package view;
 
 import user.Authentication;
-import user.User;
 
 import javax.swing.*;
 import java.awt.*;

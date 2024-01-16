@@ -1,6 +1,5 @@
 package controller;
 
-import view.HomePage;
 import view.LoginPage;
 
 import javax.swing.*;

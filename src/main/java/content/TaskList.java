@@ -49,11 +49,6 @@ public class TaskList {
         }
         return completedTodayCount;
     }
-    private void reset(){
-        setName(null);
-        ArrayList<Task> emptyTasks = new ArrayList<>();
-        setTasks(emptyTasks);
-    }
     public void clear(){ tasks.clear(); }
     public void addTask(Task task){
         task.setCurrentList(this);
