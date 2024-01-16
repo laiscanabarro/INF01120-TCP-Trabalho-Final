@@ -36,8 +36,6 @@ public class HabitPage extends Page {
 
     private void initComponents() {
 
-        setSize(ProductivityPage.WIDTH, ProductivityPage.HEIGHT);
-
         setLayout(new BorderLayout());
 
         JButton backButton = new JButton("Back");
