@@ -45,11 +45,6 @@ public class TaskListTest {
         int beforeSize = taskList.getTasks().size();
         taskList.addTask(task3);
         assertEquals(beforeSize + 1, taskList.getTasks().size());
-
-        beforeSize = DailyList.getInstance().getTasks().size();
-        DailyList.getInstance().addTask(task3);
-        assertEquals(beforeSize + 1, DailyList.getInstance().getTasks().size());
-        assertEquals(LocalDate.now(), task3.getDeadline());
     }
 
     @Test

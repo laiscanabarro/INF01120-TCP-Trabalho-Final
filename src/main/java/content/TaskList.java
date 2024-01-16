@@ -80,7 +80,7 @@ public class TaskList {
         setListOrder(ORDER_BY.ALPHABET);
     }
     private void orderByEndDate(boolean isDesc){
-        tasks.sort(Comparator.comparing(Task::getDeadline, Comparator.nullsFirst(Comparator.naturalOrder())));
+        tasks.sort(Comparator.comparing(Task::getDeadline));
         if (isDesc){
             Collections.reverse(tasks);
             setListOrder(ORDER_BY.END_DATE_DESC);
