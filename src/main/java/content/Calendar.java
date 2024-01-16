@@ -224,12 +224,13 @@ public class Calendar {
     public Schedule searchSchedule(LocalDate date){
         for (Schedule schedule : schedules){
             if(schedule.getDate().equals(date)){
-                recurrenceList.dailyList(schedule);
+                recurrenceList.updateSchedule(schedule);
+                
                 return schedule;
             }
         }
         Schedule newSchedule = new Schedule(date);
-        recurrenceList.dailyList(newSchedule);
+        recurrenceList.updateSchedule(newSchedule);
         addSchecule(newSchedule);
         return newSchedule;
     }

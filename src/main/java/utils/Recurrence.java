@@ -205,34 +205,11 @@ public class Recurrence implements Serializable{
         }
     }
     
-    public void dailyRecurrence(Calendar calendar, LocalDate date) {
-        
-    }
-    
-    public void updateSchedule(RecurrenceType recurrence, Calendar calendar, Event event) {
-        switch (recurrence) {
-            case DAILY:
-                setDaily(false);
-                calendar.getRecurrenceList().removeDaily(event);
-                break;
-            case WEEKDAY:
-                setWeekday(false);
-                calendar.getRecurrenceList().removeWeekday(event);
-                break;
-            case WEEKLY:
-                setWeekly(false);
-                calendar.getRecurrenceList().removeWeekly(event);
-                break;
-            case MONTHLY:
-                setMonthly(false);
-                calendar.getRecurrenceList().removeMonthly(event);
-                break;
-            case ANNUALLY:
-                setAnnually(false);
-                calendar.getRecurrenceList().removeAnnually(event);
-                break;
-        }
-    }
-    
-    
+    public void clear(Calendar calendar, Event event) {
+        changeToFalse(RecurrenceType.DAILY, calendar, event);
+        changeToFalse(RecurrenceType.WEEKDAY, calendar, event);
+        changeToFalse(RecurrenceType.WEEKLY, calendar, event);
+        changeToFalse(RecurrenceType.MONTHLY, calendar, event);
+        changeToFalse(RecurrenceType.ANNUALLY, calendar, event);    
+    }   
 }

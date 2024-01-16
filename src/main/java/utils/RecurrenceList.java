@@ -6,6 +6,7 @@ package utils;
 
 import content.Event;
 import content.Schedule;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -85,8 +86,9 @@ public class RecurrenceList {
         annually.remove(event);
     }
     
-    public void dailyList(Schedule schedule) {
+    private void dailyList(Schedule schedule) {
         ArrayList<Event> eventList = getDaily();
+        LocalDate date =  schedule.getDate();
         int listSize = eventList.size();
         
         for (int i = 0; i < listSize; i++) {
@@ -94,56 +96,108 @@ public class RecurrenceList {
             if (!(schedule.searchEvent(eventList.get(i)))) {
                 // if the event occurred before
                 LocalDate endEvent = eventList.get(i).getPeriod().getEndDate();
-                if (schedule.getDate().isAfter(endEvent)) {
+                boolean isAfterEvent = date.isAfter(endEvent);
+                if (isAfterEvent) {
                     schedule.addEvent(eventList.get(i));
                 }
             }
         }
     }
     
-    public void weekdayList(Schedule schedule) {
+    private void weekdayList(Schedule schedule) {
         ArrayList<Event> eventList = getWeekday();
         LocalDate date =  schedule.getDate();
         int listSize = eventList.size();
         
         for (int i = 0; i < listSize; i++) {
-            //
+            if (!(schedule.searchEvent(eventList.get(i)))) {
+                // if the event occurred before
+                LocalDate endEvent = eventList.get(i).getPeriod().getEndDate();
+                boolean isAfterEvent = date.isAfter(endEvent);
+                DayOfWeek dayWeek = date.getDayOfWeek();
+                boolean isWeekday = !(dayWeek.equals(DayOfWeek.SATURDAY) || dayWeek.equals(DayOfWeek.SUNDAY));
+                if (isAfterEvent && isWeekday) {
+                    schedule.addEvent(eventList.get(i));
+                }
+            }
             
         }
         
     }
     
-    public void weeklyList(Schedule schedule) {
+    private void weeklyList(Schedule schedule) {
         ArrayList<Event> eventList = getWeekly();
         LocalDate date =  schedule.getDate();
         int listSize = eventList.size();
         
         for (int i = 0; i < listSize; i++) {
-            Period period = eventList.get(i).getPeriod();
-            long days = period.countDays();
-            //
-            
+            // if the event is not in the list
+            if (!(schedule.searchEvent(eventList.get(i)))) {
+                Period period = eventList.get(i).getPeriod();
+                long days = period.countDays() + 1;
+                LocalDate eventDate = period.getStartDate();
+                for (int j = 0; j < days; j++) {
+                    boolean equalDayOfWeek = date.getDayOfWeek().equals(eventDate.plusDays(j).getDayOfWeek()); 
+                    LocalDate endEvent = period.getEndDate();
+                    boolean isAfterEvent = schedule.getDate().isAfter(endEvent);
+                    if (equalDayOfWeek && isAfterEvent) {
+                        schedule.addEvent(eventList.get(i));
+                    }                   
+                }
+            }       
         }
     }
     
-    public void monthlyList(Schedule schedule) {
+    private void monthlyList(Schedule schedule) {
         ArrayList<Event> eventList = getMonthly();
         LocalDate date =  schedule.getDate();
         int listSize = eventList.size();
         
         for (int i = 0; i < listSize; i++) {
-            
+            if (!(schedule.searchEvent(eventList.get(i)))) {
+                Period period = eventList.get(i).getPeriod();
+                long days = period.countDays() + 1;
+                LocalDate eventDate = period.getStartDate();
+                for (int j = 0; j < days; j++) {
+                    boolean equalDayOfMonth = (date.getDayOfMonth() == eventDate.plusDays(j).getDayOfMonth()); 
+                    LocalDate endEvent = period.getEndDate();
+                    boolean isAfterEvent = schedule.getDate().isAfter(endEvent);
+                    if (equalDayOfMonth && isAfterEvent) {
+                        schedule.addEvent(eventList.get(i));
+                    }                   
+                }
+            } 
         }
     }
     
-    public void annuallyList(Schedule schedule, Boolean leapYear) {
+    private void annuallyList(Schedule schedule) {
         ArrayList<Event> eventList = getAnnually();
         LocalDate date =  schedule.getDate();
         int listSize = eventList.size();
         
         for (int i = 0; i < listSize; i++) {
-            
+            if (!(schedule.searchEvent(eventList.get(i)))) {
+                Period period = eventList.get(i).getPeriod();
+                long days = period.countDays() + 1;
+                LocalDate eventDate = period.getStartDate();
+                for (int j = 0; j < days; j++) {
+                    boolean equalDayOfYear = (date.getDayOfYear() == eventDate.plusDays(j).getDayOfYear()); 
+                    LocalDate endEvent = period.getEndDate();
+                    boolean isAfterEvent = schedule.getDate().isAfter(endEvent);
+                    if (equalDayOfYear && isAfterEvent) {
+                        schedule.addEvent(eventList.get(i));
+                    }                   
+                }
+            } 
         }
+    }
+    
+    public void updateSchedule(Schedule schedule) {
+        dailyList(schedule);
+        weekdayList(schedule);
+        weeklyList(schedule);
+        monthlyList(schedule);
+        annuallyList(schedule);        
     }
     
 }
