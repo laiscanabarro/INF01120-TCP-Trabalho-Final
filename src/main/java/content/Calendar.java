@@ -70,16 +70,10 @@ public class Calendar {
 
     public void removeEvent(Event event){
         events.remove(event);
-
-        //filter the event date
-        LocalDate start = event.getPeriod().getStartDate();
-        long days = event.getPeriod().countDays();
-
-        for (int i = 0; i < days; i++){
-            Schedule schedule = searchSchedule(start.plusDays(i));
-            if (schedule != null){
-                schedule.removeEvent(event);
-            }
+     
+        int numSchedule = schedules.size();
+        for (int i = 0; i < numSchedule; i++){
+            schedules.get(i).searchEvent(event);
         }
 
     }
@@ -95,9 +89,7 @@ public class Calendar {
         tasks.remove(task);
 
         Schedule schedule = searchSchedule(task.getDeadline());
-        if (schedule != null){
-            schedule.removeTask(task);
-        }
+        schedule.removeTask(task);
         
     } 
     

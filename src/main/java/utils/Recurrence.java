@@ -120,7 +120,7 @@ public class Recurrence implements Serializable{
     }
 
     public enum RecurrenceType {
-        DAILY, WEEKDAY, WEEKLY, MONTHLY, ANNUALLY;
+        UNDEFINED, DAILY, WEEKDAY, WEEKLY, MONTHLY, ANNUALLY;
     }
 
     public String toString() {

@@ -228,6 +228,7 @@ public class EventPage extends Page {
         JRadioButton weeklyCheckBox = new JRadioButton ("Weekly");
         JRadioButton monthlyCheckBox = new JRadioButton ("Monthly");
         JRadioButton annuallyCheckBox = new JRadioButton ("Annually");
+        JRadioButton clearCheckBox = new JRadioButton ("Clear");
         
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(dailyCheckBox);
@@ -235,18 +236,21 @@ public class EventPage extends Page {
         buttonGroup.add(weeklyCheckBox);
         buttonGroup.add(monthlyCheckBox);
         buttonGroup.add(annuallyCheckBox);
+        buttonGroup.add(clearCheckBox);
         
         panelRecurrence.add(dailyCheckBox);
         panelRecurrence.add(weekdayCheckBox);
         panelRecurrence.add(weeklyCheckBox);
         panelRecurrence.add(monthlyCheckBox);
         panelRecurrence.add(annuallyCheckBox);
+        panelRecurrence.add(clearCheckBox);
             
         actionListenerRecurrence(dailyCheckBox, Recurrence.RecurrenceType.DAILY, recurrence);
         actionListenerRecurrence(weekdayCheckBox, Recurrence.RecurrenceType.WEEKDAY, recurrence);
         actionListenerRecurrence(weeklyCheckBox, Recurrence.RecurrenceType.WEEKLY, recurrence);
         actionListenerRecurrence(monthlyCheckBox, Recurrence.RecurrenceType.MONTHLY, recurrence);
         actionListenerRecurrence(annuallyCheckBox, Recurrence.RecurrenceType.ANNUALLY, recurrence);
+        actionListenerRecurrence(clearCheckBox, Recurrence.RecurrenceType.UNDEFINED, recurrence);
         
         int result = JOptionPane.showConfirmDialog(this, panelRecurrence, "Add recurrence",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -256,6 +260,9 @@ public class EventPage extends Page {
             if (recurrence.verifyRecurrence()) {
                 buttonRepeat.setText(recurrenceType.toString());
             }
+            else {
+                buttonRepeat.setText("Repeat event"); 
+            }
         }
         
     }
@@ -264,7 +271,12 @@ public class EventPage extends Page {
         button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    recurrence.changeRecurrence(recurrenceType, calendar, event);
+                    if (recurrenceType.equals(Recurrence.RecurrenceType.UNDEFINED)) {
+                        recurrence.clear(calendar, event);
+                    }
+                    else {
+                        recurrence.changeRecurrence(recurrenceType, calendar, event);
+                    }
                 }
             });
     }

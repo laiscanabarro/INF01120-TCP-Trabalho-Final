@@ -2,6 +2,7 @@ package content;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import utils.Period;
 
 /*
  * Schedule
@@ -46,11 +47,15 @@ public class Schedule {
     }
 
     public void removeEvent(Event event){
-        events.remove(event);
+        if (searchEvent(event)) {
+            events.remove(event);
+        }
     }
 
     public void removeTask(Task task){
-        tasks.remove(task);
+        if (searchTask(task)) {
+           tasks.remove(task); 
+        }
     }
 
     public boolean searchEvent(Event eventSearched){
@@ -94,6 +99,22 @@ public class Schedule {
         }
 
         return scheduleArray;
+    }
+    
+    public void updateSchedule(){
+        int numEvents = events.size();
+        for (int i = 0; i < numEvents; i++){
+            Event event = events.get(i);
+            Period period = event.getPeriod();
+            LocalDate start = period.getStartDate();
+            long days = period.countDays() + 1;
+            for (int j = 0; j < days; i++) {
+                boolean recurrence = event.getRecurrence().verifyRecurrence();
+                if(!(date.equals(start)) && !recurrence) {
+                    removeEvent(event);
+                }
+            }
+        }
     }
     
 }

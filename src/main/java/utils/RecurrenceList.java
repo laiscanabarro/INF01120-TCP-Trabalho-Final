@@ -197,7 +197,8 @@ public class RecurrenceList {
         weekdayList(schedule);
         weeklyList(schedule);
         monthlyList(schedule);
-        annuallyList(schedule);        
+        annuallyList(schedule);
+        schedule.updateSchedule();
     }
     
 }
