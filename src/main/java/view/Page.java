@@ -4,7 +4,6 @@ import user.User;
 import utils.PageUtils;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Page extends JFrame {
     public static final int WIDTH = 1280;

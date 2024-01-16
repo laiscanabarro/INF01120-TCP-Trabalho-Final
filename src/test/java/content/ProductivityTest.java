@@ -4,10 +4,6 @@ import org.junit.jupiter.api.*;
 import user.Productivity;
 import user.User;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductivityTest {
