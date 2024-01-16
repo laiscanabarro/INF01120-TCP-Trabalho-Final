@@ -36,17 +36,13 @@ public class HomePage extends Page {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 1;
+        gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.WEST;
-        JButton profileButton = generalButton(String.valueOf(LoginPage.currentUser.getEmail().toUpperCase().charAt(0)), new Dimension(50,50), hilightColor);
+        JButton profileButton = new JButton(String.valueOf(LoginPage.currentUser.getEmail()));
+        profileButton.setPreferredSize(buttonDimension);
         sideMenu.add(profileButton, gbc);
-        gbc.gridx++;
-        JLabel title = new JLabel(String.valueOf(LoginPage.currentUser.getEmail()));
-        sideMenu.add(title, gbc);
 
-        gbc.gridx = 0;
         gbc.gridy++;
-        gbc.gridwidth++;
         JButton listsButton = new JButton("All Lists");
         listsButton.setPreferredSize(buttonDimension);
         sideMenu.add(listsButton, gbc);
@@ -66,15 +62,10 @@ public class HomePage extends Page {
         productivityButton.setPreferredSize(buttonDimension);
         sideMenu.add(productivityButton, gbc);
 
-        gbc.gridx = 0;
         gbc.gridy++;
-        gbc.gridwidth = 1;
-        JButton addListButton = new JButton("+");
-        addListButton.setPreferredSize(new Dimension(50,buttonHeight));
-        sideMenu.add(addListButton, gbc);
-        gbc.gridx++;
-        JLabel addListLabel = new JLabel("New List");
-        sideMenu.add(addListLabel, gbc);
+        JButton signOutButton = new JButton("Sign Out");
+        signOutButton.setPreferredSize(buttonDimension);
+        sideMenu.add(signOutButton, gbc);
 
         //Componente em branco/preenchimento
         gbc.gridx = 0;
@@ -137,38 +128,12 @@ public class HomePage extends Page {
             }
         });
 
-        addListButton.addActionListener(new ActionListener() {
+        signOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateRightPanel(NewListPage.createList());
-            }
+                System.exit(0);
+            };
         });
-
-//        bnt6.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                System.exit(0);
-//            };
-//        });
-    }
-
-    public static JButton generalButton(String label, Dimension size, Color background) {
-        JButton button = new JButton(label);
-        button.setForeground(Color.WHITE);
-        button.setPreferredSize(size);
-//        button.setBorder(new RoundedBorder(0));
-        button.setBackground(background);
-
-        button.setVerticalTextPosition(AbstractButton.CENTER);
-        button.setHorizontalTextPosition(AbstractButton.CENTER);
-        button.setHorizontalAlignment(SwingConstants.CENTER);
-        button.setVerticalAlignment(SwingConstants.CENTER);
-
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setContentAreaFilled(false);
-        button.setOpaque(true);
-        return button;
     }
 
     public static void updateRightPanel(JPanel newPanel) {
