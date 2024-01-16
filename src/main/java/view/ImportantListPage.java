@@ -11,14 +11,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import static view.HomePage.generalButton;
 import static view.HomePage.updateRightPanel;
-import static view.Page.hilightColor;
 
 public class ImportantListPage extends JPanel {
-    private static final int buttonWidth = 261;
+    private static final int buttonWidth = 360;
     private static final int buttonHeight = 25;
     private static final Dimension buttonDimension = new Dimension(buttonWidth, buttonHeight);
+    private static final Dimension smallButtonDimension = new Dimension(60, buttonHeight);
     public static JPanel showList(TaskList list) {
         JPanel panel = new JPanel();
         panel.setOpaque(true);
@@ -31,13 +30,76 @@ public class ImportantListPage extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
-        JButton backButton = generalButton("<", new Dimension(50,50), hilightColor);
+        JButton backButton = new JButton("Back");
         panel.add(backButton, gbc);
 
         gbc.gridx++;
+        gbc.gridwidth = 5;
         JLabel title = new JLabel(list.getName());
         title.setFont(new Font("Arial", Font.BOLD, 20));
         panel.add(title, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.gridwidth = 1;
+        JButton orderAlpha = new JButton("A");
+        orderAlpha.setPreferredSize(smallButtonDimension);
+        panel.add(orderAlpha, gbc);
+        orderAlpha.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                list.changeOrder(TaskList.ORDER_BY.ALPHABET);
+                updateRightPanel(ImportantListPage.showList(ImportantList.getInstance()));
+            }
+        });
+
+        gbc.gridx++;
+        JButton orderDateAsc = new JButton("^D");
+        orderDateAsc.setPreferredSize(smallButtonDimension);
+        panel.add(orderDateAsc, gbc);
+        orderDateAsc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                list.changeOrder(TaskList.ORDER_BY.END_DATE_ASC);
+                updateRightPanel(ImportantListPage.showList(ImportantList.getInstance()));
+            }
+        });
+
+        gbc.gridx++;
+        JButton orderDateDesc = new JButton("vD");
+        orderDateDesc.setPreferredSize(smallButtonDimension);
+        panel.add(orderDateDesc, gbc);
+        orderDateDesc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                list.changeOrder(TaskList.ORDER_BY.END_DATE_DESC);
+                updateRightPanel(ImportantListPage.showList(ImportantList.getInstance()));
+            }
+        });
+
+        gbc.gridx++;
+        JButton orderImpAsc = new JButton("^I");
+        orderImpAsc.setPreferredSize(smallButtonDimension);
+        panel.add(orderImpAsc, gbc);
+        orderImpAsc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                list.changeOrder(TaskList.ORDER_BY.IMPORTANCE_ASC);
+                updateRightPanel(ImportantListPage.showList(ImportantList.getInstance()));
+            }
+        });
+
+        gbc.gridx++;
+        JButton orderImpDesc = new JButton("vI");
+        orderImpDesc.setPreferredSize(smallButtonDimension);
+        panel.add(orderImpDesc, gbc);
+        orderImpDesc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                list.changeOrder(TaskList.ORDER_BY.IMPORTANCE_DESC);
+                updateRightPanel(ImportantListPage.showList(ImportantList.getInstance()));
+            }
+        });
 
         for (Task task : list.getTasks()) {
             gbc.gridy++;
@@ -52,7 +114,8 @@ public class ImportantListPage extends JPanel {
                 }
             });
 
-            gbc.gridx = 1;
+            gbc.gridx++;
+            gbc.gridwidth = 5;
             gbc.anchor = GridBagConstraints.WEST;
             JButton button = new JButton(task.getName());
             button.setPreferredSize(buttonDimension);
@@ -65,8 +128,10 @@ public class ImportantListPage extends JPanel {
             });
 
             JLabel importanceLabel = new JLabel(String.valueOf(task.getImportanceScale()));
-            gbc.gridx = 2;
+            gbc.gridx = 6;
+            gbc.gridwidth = 1;
             JButton increaseButton = new JButton("+");
+            increaseButton.setPreferredSize(smallButtonDimension);
             panel.add(increaseButton, gbc);
             increaseButton.addActionListener(new ActionListener() {
                 @Override
@@ -76,11 +141,12 @@ public class ImportantListPage extends JPanel {
                 }
             });
 
-            gbc.gridx = 3;
+            gbc.gridx = 7;
             panel.add(importanceLabel, gbc);
 
-            gbc.gridx = 4;
+            gbc.gridx = 8;
             JButton decreaseButton = new JButton("-");
+            decreaseButton.setPreferredSize(smallButtonDimension);
             panel.add(decreaseButton, gbc);
             decreaseButton.addActionListener(new ActionListener() {
                 @Override
@@ -95,7 +161,7 @@ public class ImportantListPage extends JPanel {
         gbc.gridy++;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.gridwidth = 5;
+        gbc.gridwidth = 9;
         panel.add(new JLabel(), gbc);
 
         backButton.addActionListener(new ActionListener() {

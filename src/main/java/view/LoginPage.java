@@ -38,7 +38,7 @@ public class LoginPage extends Page {
         JTextField emailField = new JTextField(20);
         add(emailField, gbc);
         gbc.gridy++;
-        JTextField passwordField = new JTextField(20);
+        JPasswordField passwordField = new JPasswordField(20);
         add(passwordField, gbc);
 
         gbc.gridx--;
@@ -51,8 +51,8 @@ public class LoginPage extends Page {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String email = emailField.getText();
-                String password = passwordField.getText();
-                if (email != null && password != null) {
+                String password = String.valueOf(passwordField.getPassword());
+                if (!(email.isEmpty() || password.isEmpty())) {
                     if(Authentication.isValidEmail(email) && Authentication.isValidPassword(password)){
                         createUser(email, password);
                         homePage = new HomePage();

@@ -10,14 +10,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import static view.HomePage.generalButton;
 import static view.HomePage.updateRightPanel;
-import static view.Page.hilightColor;
 
 public class ListSpecificPage extends JPanel {
-    private static final int buttonWidth = 261;
+    private static final int buttonWidth = 360;
     private static final int buttonHeight = 25;
     private static final Dimension buttonDimension = new Dimension(buttonWidth, buttonHeight);
+    private static final Dimension smallButtonDimension = new Dimension(60, buttonHeight);
     public static JPanel showSpecificList(TaskList list) {
         JPanel panel = new JPanel();
         panel.setOpaque(true);
@@ -30,7 +29,7 @@ public class ListSpecificPage extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
-        JButton backButton = generalButton("<", new Dimension(50,50), hilightColor);
+        JButton backButton = new JButton("Back");
         panel.add(backButton, gbc);
 
         gbc.gridx++;
@@ -43,6 +42,7 @@ public class ListSpecificPage extends JPanel {
         gbc.gridx = 1;
         gbc.gridwidth = 1;
         JButton orderAlpha = new JButton("A");
+        orderAlpha.setPreferredSize(smallButtonDimension);
         panel.add(orderAlpha, gbc);
         orderAlpha.addActionListener(new ActionListener() {
             @Override
@@ -54,6 +54,7 @@ public class ListSpecificPage extends JPanel {
 
         gbc.gridx++;
         JButton orderDateAsc = new JButton("^D");
+        orderDateAsc.setPreferredSize(smallButtonDimension);
         panel.add(orderDateAsc, gbc);
         orderDateAsc.addActionListener(new ActionListener() {
             @Override
@@ -65,6 +66,7 @@ public class ListSpecificPage extends JPanel {
 
         gbc.gridx++;
         JButton orderDateDesc = new JButton("vD");
+        orderDateDesc.setPreferredSize(smallButtonDimension);
         panel.add(orderDateDesc, gbc);
         orderDateDesc.addActionListener(new ActionListener() {
             @Override
@@ -104,7 +106,7 @@ public class ListSpecificPage extends JPanel {
             gbc.gridx = 4;
             gbc.gridwidth = 1;
             JButton delete = new JButton("-");
-            delete.setPreferredSize(new Dimension(41, buttonHeight));
+            delete.setPreferredSize(smallButtonDimension);
             panel.add(delete, gbc);
             delete.addActionListener(new ActionListener() {
                 @Override
@@ -122,11 +124,13 @@ public class ListSpecificPage extends JPanel {
         panel.add(addTaskLabel, gbc);
         gbc.gridx++;
         gbc.gridwidth = 3;
-        JTextField nameField = new JTextField(26);
+        JTextField nameField = new JTextField();
+        nameField.setPreferredSize(buttonDimension);
         panel.add(nameField, gbc);
         gbc.gridx = 4;
         gbc.gridwidth = 1;
         JButton addTaskButton = new JButton("+");
+        addTaskButton.setPreferredSize(smallButtonDimension);
         panel.add(addTaskButton, gbc);
 
         gbc.gridx = 0;
