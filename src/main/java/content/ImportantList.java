@@ -1,7 +1,7 @@
 package content;
 
 public class ImportantList extends TaskList {
-    private static final ImportantList importantList;
+    private static final ImportantList IMPORTANT_LIST;
     public static final int MIN_IMPORTANCE = 0;
     public static final int MAX_IMPORTANCE = 5;
 
@@ -12,10 +12,10 @@ public class ImportantList extends TaskList {
     }
 
     static {
-        importantList = new ImportantList();
+        IMPORTANT_LIST = new ImportantList();
     }
     public static ImportantList getInstance() {
-        return importantList;
+        return IMPORTANT_LIST;
     }
     public static void removeImportance(Task task){
         task.setImportanceScale(MIN_IMPORTANCE);
