@@ -1,14 +1,7 @@
-package view;/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+package view;
 
 import java.awt.*;
 
-/**
- *
- * @author i576263
- */
 public class UserInfoPage extends Page {
 
     /**
@@ -26,22 +19,22 @@ public class UserInfoPage extends Page {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        titleLabel = new javax.swing.JLabel();
+        backBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
         enterNameField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica", 0, 36)); // NOI18N
-        jLabel1.setText("User Information");
+        titleLabel.setFont(new java.awt.Font("Helvetica", 0, 36)); // NOI18N
+        titleLabel.setText("User Information");
 
-        jButton1.setText("Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        backBtn.setText("Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                backBtnActionPerformed(evt);
             }
         });
 
@@ -52,7 +45,7 @@ public class UserInfoPage extends Page {
         }
 
 
-        jLabel3.setText("Email: " + LoginPage.currentUser.getEmail());
+        emailLabel.setText("Email: " + LoginPage.currentUser.getEmail());
 
         enterNameField.setText("Enter Name");
         enterNameField.addActionListener(new java.awt.event.ActionListener() {
@@ -71,13 +64,13 @@ public class UserInfoPage extends Page {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(23, 23, 23)
-                                                .addComponent(jButton1)
+                                                .addComponent(backBtn)
                                                 .addGap(117, 117, 117)
-                                                .addComponent(jLabel1))
+                                                .addComponent(titleLabel))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(133, 133, 133)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel3)
+                                                        .addComponent(emailLabel)
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(userNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(44, 44, 44)
@@ -93,13 +86,13 @@ public class UserInfoPage extends Page {
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(43, 43, 43)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jButton1))
+                                                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(backBtn))
                                                 .addGap(59, 59, 59)
                                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(129, 129, 129)
-                                                .addComponent(jLabel3)
+                                                .addComponent(emailLabel)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(userNameLabel)
@@ -110,7 +103,7 @@ public class UserInfoPage extends Page {
         pack();
     }// </editor-fold>
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {
         changeTo(homePage);
     }
 
@@ -157,10 +150,10 @@ public class UserInfoPage extends Page {
     }
     // Variables declaration - do not modify
     private javax.swing.JTextField enterNameField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton backBtn;
+    private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel userNameLabel;
     // End of variables declaration
 }

@@ -42,6 +42,7 @@ public class Productivity {
         this.dailyHabitGoal = goal;
     }
 
+    // Main methods
     public void setTasksCompletedToday(int tasksCompletedToday){
         this.tasksCompletedToday = tasksCompletedToday;
         this.calculateDailyTaskProgress();

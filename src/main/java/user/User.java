@@ -160,13 +160,11 @@ public class User {
     }
 
     public void updateProductivity() {
-        //int completedTasks = 0;
         int tasksCompletedToday = 0;
         int habitsCompletedToday = 0;
 
         if(this.habitLists != null && !this.habitLists.isEmpty()){
             for (HabitsList habitList : this.habitLists){
-                //completedHabits = completedHabits + habitList.getCompletedCount();
                 habitsCompletedToday = habitsCompletedToday + habitList.getCompletedTodayCount();
             }
             this.productivity.setHabitsCompletedToday(habitsCompletedToday);
@@ -174,14 +172,12 @@ public class User {
 
         if(this.taskLists != null && !this.taskLists.isEmpty()){
             for (TaskList taskList: this.taskLists) {
-                //completedTasks = completedTasks + taskList.getCompletedCount();
                 tasksCompletedToday = tasksCompletedToday + taskList.getCompletedTodayCount();
             }
         }
 
         tasksCompletedToday = tasksCompletedToday + ImportantList.getInstance().getCompletedTodayCount() + DailyList.getInstance().getCompletedTodayCount();
         this.productivity.setTasksCompletedToday(tasksCompletedToday);
-        //this.productivity.setHabitsCompletedToday(5);
     }
 
 

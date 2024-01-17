@@ -8,24 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductivityTest {
     Productivity productivity = new Productivity();
-    User user1;
-    User user2;
-    Task task;
-    TaskList taskList1;
-    TaskList taskList2;
     @BeforeAll
     public static void start() {
         System.out.println("Initiating Productivity tests");
     }
 
     @BeforeEach
-    public void init() {
-        user1 = new User("email1@email.com", "password1");
-        taskList1 = new TaskList();
-        task = new Task();
-        taskList1.addTask(task);
-        user1.addList(taskList1);
-    }
+    public void init() {}
 
     @Test
     @DisplayName("test calculating Daily Task Progress")
