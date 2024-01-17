@@ -2,16 +2,23 @@ package content;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import utils.RecurrenceList;
 
 public class Calendar { 
-    private ArrayList<Event> events; 
+    private ArrayList<Event> events;  
     private ArrayList<Task> tasks;
+    private ArrayList<TaskList> taskLists;
     private ArrayList<Schedule> schedules;
+    private RecurrenceList recurrenceList;
+    private TaskList undefinedList;
 
-    public Calendar(){
-        this.events = new ArrayList<Event>();
-        this.tasks = new ArrayList<Task>();
-        this.schedules = new ArrayList<Schedule>();
+    public Calendar(ArrayList<TaskList> taskLists){
+        this.events = new ArrayList<>();  
+        this.taskLists = taskLists;
+        this.schedules = new ArrayList<>();
+        this.tasks = getTasks();
+        this.recurrenceList = new RecurrenceList();
+        this.undefinedList = new TaskList();
     }
 
     public ArrayList<Event> getEvents(){
@@ -19,11 +26,33 @@ public class Calendar {
     }
 
     public ArrayList<Task> getTasks(){
-        return this.tasks;
+        ArrayList allTasks = new ArrayList<>();
+        int numLists = this.taskLists.size();
+        for (int i = 0; i < numLists; i++){
+            ArrayList<Task> newTasks = taskLists.get(i).getTasks();
+            int numTasks = newTasks.size();
+            for (int j = 0; j < numTasks; j++){
+                allTasks.add(j);
+            }
+        }
+        return allTasks;
     }
 
     public ArrayList<Schedule> getSchedules(){
         return this.schedules;
+    }
+
+    public RecurrenceList getRecurrenceList() {
+        return this.recurrenceList;
+    }
+    
+    public TaskList getUndefinedList() {
+        undefinedList.setName("Undefined");
+        return this.undefinedList;
+    }
+    
+    public void addSchecule(Schedule schedule){
+        schedules.add(schedule);
     }
 
     public void addEvent(Event event){
@@ -33,64 +62,46 @@ public class Calendar {
         LocalDate start = event.getPeriod().getStartDate();
         long days = event.getPeriod().countDays();
 
-        for (int i = 0; i < days; i++){
+        for (int i = 0; i <= days; i++){
             Schedule scheduleSearched = searchSchedule(start.plusDays(i));
-            if (scheduleSearched != null){
-                scheduleSearched.addEvent(event);
-            }
-            else{
-                Schedule schedule = new Schedule(start.plusDays(i));
-                schedule.addEvent(event);
-            }
+            scheduleSearched.addEvent(event);
         }
     }
 
     public void removeEvent(Event event){
         events.remove(event);
-
-        //filter the event date
-        LocalDate start = event.getPeriod().getStartDate();
-        long days = event.getPeriod().countDays();
-
-        for (int i = 0; i < days; i++){
-            Schedule schedule = searchSchedule(start.plusDays(i));
-            if (schedule != null){
-                schedule.removeEvent(event);
+     
+        int numSchedule = schedules.size();
+        for (int i = 0; i < numSchedule; i++){
+            if (schedules.get(i).searchEvent(event)) {
+                schedules.get(i).removeEvent(event);
             }
+            
         }
 
     }
 
-    public void addTask(Task task){
+    public void addTask(Task task, TaskList tasklist){
+        tasklist.addTask(task);
         tasks.add(task);
-
         Schedule schedule = searchSchedule(task.getDeadline());
-        if (schedule != null){
-            schedule.addTask(task);
-        }
-        else {
-            Schedule scheduleNew = new Schedule(task.getDeadline());
-            scheduleNew.addTask(task);
-        }
-
+        schedule.addTask(task);
     }
 
     public void removeTask(Task task){
         tasks.remove(task);
 
         Schedule schedule = searchSchedule(task.getDeadline());
-        if (schedule != null){
-            schedule.removeTask(task);
-        }
+        schedule.removeTask(task);
         
     } 
     
-    public void blockCalender(){
+    public void blockCalendar(){
         LocalDate date = LocalDate.of(0, 0, 0);
-        displayCalender(date);
+        displayCalendar(date);
     }
 
-    private int calculeFirstDayMonth(int year, int month) {
+    private int calculateFirstDayOfMonth(int year, int month) {
         LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
 
         return firstDayOfMonth.getDayOfWeek().getValue();
@@ -113,7 +124,7 @@ public class Calendar {
         return false;
     }
 
-    private int calculeDaysMonth(int month, boolean leapYear){
+    private int calculateDaysInMonth(int month, boolean leapYear){
         int daysMonth;
         int[] month31Days = {1,3,5,7,8,10,12};
         int[] month30Days = {4,6,9,11};
@@ -134,46 +145,100 @@ public class Calendar {
         return daysMonth;
     }
 
-    public void displayCalender(LocalDate date){
-        int firstDay = calculeFirstDayMonth(date.getYear(), date.getMonthValue());
+    public Object[][] displayCalendar(LocalDate date) {
+        int firstDay = calculateFirstDayOfMonth(date.getYear(), date.getMonthValue());
 
         boolean leapYear = leapYear(date.getYear()); //leap year = true (29 days in february); = false (28 days in february)
+        int daysMonth = calculateDaysInMonth(date.getMonthValue(), leapYear);
+        
+        int numRows = 6;
+        int numCols = 7;
 
-        int daysMonth = calculeDaysMonth(date.getMonthValue(), leapYear);
+        Object[][] calendarData = new Object[numRows][numCols];
 
-        //block calender
-        if (date.getYear() == 0){ 
-            return;
+        // Block calender
+        if (date.getYear() == 0) {
+            for (int i = 0; i < numRows; i++) {
+                for (int j = 0; j < numCols; j++) {
+                    calendarData[i][j] = null;
+                }
+            }
+            return calendarData;
+        }
+        
+        int row = 0;
+        int col = 0;
+
+        for (int i = 1; i <= (daysMonth + firstDay); i++) {
+
+            if (i >= firstDay + 1) {
+                calendarData[row][col] = (i - firstDay);
+            } else {
+                calendarData[row][col] = null;
+            }
+            col++;
+            
+            if (i % 7 == 0) {
+                col = 0;
+                row++;
+            }
         }
 
-        System.out.printf("        %d/%d \n", date.getMonth(), date.getYear());
-        System.out.println(" S  M  T  W  T  F  S");
+        return calendarData;
+    }
+    
+    public int displayDay(int col, int row, Object[][] calendar){
+        int numRows = calendar.length;
+        int numCols = calendar[0].length;
 
-        for (int i = 1; i <= (daysMonth + firstDay - 1); i++){
-            if (i >= firstDay){
-                System.out.printf("%2d ", (i - firstDay + 1));
-            } 
-            else {
-                System.out.print("   ");
+        if (row >= 0 && row < numRows && col >= 0 && col < numCols) {
+            Object value = calendar[row][col];
+
+            if (value instanceof Integer integer) {
+                return integer;
             }
+                
+        }  
+        
+        return -1;
+        
+    }  
+    
+    public int[] displaySelected(int day, Object[][] calendar) {
+        int numRows = calendar.length;
+        int numCols = calendar[0].length;
 
-            if (i % 7 == 0){
-                System.out.println();
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                Object value = calendar[i][j];
+
+                if (value instanceof Integer && (Integer) value == day) {
+                    // Day value was found, return position (i, j)
+                    return new int[]{i, j};
+                }
             }
         }
-        System.out.println();
 
-        Schedule schedule = searchSchedule(date);
-        schedule.displaySchedule();
-    }   
+        return null;
+    }
 
     public Schedule searchSchedule(LocalDate date){
         for (Schedule schedule : schedules){
             if(schedule.getDate().equals(date)){
+                recurrenceList.updateSchedule(schedule);
                 return schedule;
             }
         }
-        return null;
+        Schedule newSchedule = new Schedule(date);
+        recurrenceList.updateSchedule(newSchedule);
+        addSchecule(newSchedule);
+        return newSchedule;
+    }
+    
+    public String displayMonthYear(LocalDate date) {
+        String monthYear = date.getMonth() + " " + date.getYear();
+        
+        return monthYear;
     }
     
     public Event searchEvent(String name){
@@ -193,13 +258,5 @@ public class Calendar {
         }
         return null;
     }
-    
-    //public void selectDay(){}
-
-    //public void selectMonth(){}
-
-    //public void selectEvent(Event event){}
-
-    //public void selectTask(Task task){}
 
 }

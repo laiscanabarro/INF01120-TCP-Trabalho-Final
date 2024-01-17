@@ -20,6 +20,7 @@ public class Task {
         setStatus(!COMPLETED);
         setSubtasks(new ArrayList<>());
     }
+    
     public Task(String name, TaskList currentList, String description,
                 int importanceScale, LocalDate deadline, LocalDate conclusionDate) {
         setName(name);

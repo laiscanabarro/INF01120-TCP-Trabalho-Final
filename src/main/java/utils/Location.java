@@ -62,4 +62,20 @@ public class Location {
     public void setNumber(int number){
         this.number = number;
     }
+    
+    public String displayLocation(){
+        String locationString = String.join(", ", country, city, state, street) + ", " + String.valueOf(number);
+
+    return locationString;
+    }
+    
+    public boolean verifyLocation() {
+        return isNonEmpty(country) && isNonEmpty(city) && isNonEmpty(state) && isNonEmpty(street) && number > 0;
+    }
+
+    public boolean isNonEmpty(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+        
 }
+    

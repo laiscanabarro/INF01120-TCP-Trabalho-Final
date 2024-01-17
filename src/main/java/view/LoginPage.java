@@ -11,6 +11,11 @@ public class LoginPage extends Page {
 
     public LoginPage() {
         super();
+        JPanel panel = new JPanel();
+        panel.setOpaque(true);
+        panel.setBackground(Color.WHITE);
+
+        panel.setLayout(new GridBagLayout());        
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -57,6 +62,12 @@ public class LoginPage extends Page {
                         homePage = new HomePage();
                         changeTo(homePage);
                     }
+                    else {
+                        JOptionPane.showMessageDialog(panel, "Please enter a valid email and password.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(panel, "Please enter a valid email and password.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

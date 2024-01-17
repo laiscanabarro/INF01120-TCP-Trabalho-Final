@@ -1,5 +1,6 @@
 package content;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import user.User;
@@ -14,24 +15,11 @@ public class Event {
     private Recurrence recurrence;
     private ArrayList<User> participants = new ArrayList<>();
 
-    public Event(String name, Period period){
+    public Event(String name, LocalDate date){
         this.name = name;
-        this.period = period;
-    }
-
-    public Event(String name, Location location, Period period, Recurrence recurrence){
-        this.name = name;
-        this.location = location;
-        this.period = period;
-        this.recurrence = recurrence;
-    }
-
-    public Event(String name, Location location, Period period, Recurrence recurrence, ArrayList<User> participants){
-            this.name = name;
-            this.location = location;
-            this.period = period;
-            this.recurrence = recurrence;
-            this.participants = participants;
+        this.period = new Period(date);
+        this.participants = null;
+        this.recurrence = new Recurrence();
     }
 
     public String getName(){
@@ -66,23 +54,24 @@ public class Event {
         this.period = period;
     }
 
-    public void setRecurrence(Recurrence recurrence){
-        this.recurrence = recurrence;
-    }
-
     public void setParticipants(ArrayList<User> participants){
         this.participants = participants;
     }
     
-    /*
-    public void shareWhithFriend(User friend){
-        Notification notification = new Notification(this.name);
-        Invitation invitation = new Invitation(friend, notification); //se o convite for aceito esse amigo tem q entrar na lista de participantes
-    }
+    public String displayParticipants() {
+        StringBuilder resultBuilder = new StringBuilder();
 
-    public void shareWhithCommunity(Community community){
-        Notification notification = new Notification(this.name);
-        Invitation invitation = new Invitation(community, notification);
-    } 
-    */    
+        int numParticipants = participants.size();
+        for (int i = 0; i < numParticipants; i++) {
+            resultBuilder.append(participants.get(i));
+
+            // Add a comma only if you are not the last participant
+            if (i < numParticipants - 1) {
+                resultBuilder.append(", ");
+            }
+        }
+
+        return resultBuilder.toString();
+    }   
+    
 }

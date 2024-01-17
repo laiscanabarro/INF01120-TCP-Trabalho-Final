@@ -20,6 +20,10 @@ public class User {
     private Productivity productivity;
 
     // Constructor without parameters
+
+    /**
+     *
+     */
     public User(){
         this.name = null;
         this.friends = new HashSet<>();
@@ -27,9 +31,12 @@ public class User {
         this.productivity = new Productivity();
         this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
-
+        this.calendar = new Calendar(this.taskLists);
     }
+    
     // Constructor
+    
+    
     public User(String email, String password) {
         this.name = null;
         this.email = email;
@@ -39,6 +46,7 @@ public class User {
         this.productivity = new Productivity();
         this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
+        this.calendar = new Calendar(this.taskLists);
     }
 
 

@@ -2,20 +2,28 @@ package content;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import utils.Period;
 
 /*
  * Schedule
  * Class that stores a day's events and tasks
  */
 public class Schedule {
-    private ArrayList<Event> events;
+    private ArrayList<Event> events;  
     private ArrayList<Task> tasks;
     private LocalDate date;
 
     public Schedule (LocalDate date){
         this.date = date;
-        this. events = new ArrayList<Event>();
-        this.tasks = new ArrayList<Task>();
+        this.events = new ArrayList<>();
+        this.tasks = new ArrayList<>();
+    }
+    
+    public Schedule (LocalDate date, Event event){
+        this.date = date;
+        this.events = new ArrayList<>();
+        this.events.add(event);
+        this.tasks = new ArrayList<>();
     }
 
     public LocalDate getDate(){
@@ -39,49 +47,66 @@ public class Schedule {
     }
 
     public void removeEvent(Event event){
-        events.remove(event);
+        if (searchEvent(event)) {
+            events.remove(event);
+        }
     }
 
     public void removeTask(Task task){
-        tasks.remove(task);
+        if (searchTask(task)) {
+           tasks.remove(task); 
+        }
     }
 
-    public boolean searchEvent(Event event){
-        LocalDate start = event.getPeriod().getStartDate();
-        long days = event.getPeriod().countDays();
-        System.out.println(days);
-
-        for (long i = 0; i <= days; i++){
-             System.out.println(start.plusDays(i) + " " + this.date);
-            if (start.plusDays(i).compareTo(this.date) == 0){
+    public boolean searchEvent(Event eventSearched){
+        if (events.isEmpty()){
+            return false;
+        }
+        
+        for (Event event : events){
+            if(eventSearched.equals(event)){
+                return true;
+            }
+        }
+        return false;
+    } 
+    
+    public boolean searchTask(Task taskSearched){
+        if (tasks.isEmpty()){
+            return false;
+        }
+        
+        for (Task task : tasks){
+            if(taskSearched.equals(task)){
                 return true;
             }
         }
         return false;
     }
+    
 
-    public void displaySchedule(){
+    public Object[][] displaySchedule(){
         int numEvents = events.size();
-        for (int i = 0; i < numEvents; i++){
-            System.out.println(events.get(i));
-        }
-
         int numTasks = tasks.size();
-        for (int i = 0; i < numTasks; i++){
-            System.out.println(tasks.get(i));
+        int numRows = Math.max(numEvents, numTasks);
+
+        Object[][] scheduleArray = new Object[numRows][2];
+
+        for (int i = 0; i < numRows; i++) {
+            if (i < numTasks) {
+                scheduleArray[i][0] = tasks.get(i).getName();
+            } else {
+                scheduleArray[i][0] = null;  // Fill with null if there is no task
+            }
+
+            if (i < numEvents) {
+                scheduleArray[i][1] = events.get(i).getName();
+            } else {
+                scheduleArray[i][1] = null;  // Fill with null if there is no event
+            }
         }
 
+        return scheduleArray;
     }
-
-
     
-    
-
-
-
-
-
-    
-
-
 }
