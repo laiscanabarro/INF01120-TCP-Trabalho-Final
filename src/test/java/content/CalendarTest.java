@@ -6,6 +6,7 @@ import utils.Period;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 
 public class CalendarTest {
@@ -14,8 +15,10 @@ public class CalendarTest {
     Event event1;
     Event event2;
     Schedule schedule;
-    Calendar calender;
+    Calendar calendar;
     ArrayList<TaskList> taskLists;
+    Task task;
+    TaskList taskList;
 
     @BeforeAll
     public static void start(){
@@ -24,62 +27,81 @@ public class CalendarTest {
 
     @BeforeEach
     public void init(){
-        date = LocalDate.now();
+        date = LocalDate.of(2023, 12, 13);
         event1 = new Event("class", date);
         event2 = new Event("test", date);
         schedule = new Schedule(date);
         taskLists = new ArrayList<>();
-        calender = new Calendar(taskLists);
+        calendar = new Calendar(taskLists);
+        task = new Task();
+        taskList = new TaskList();
     }
 
     @Test
     public void addEvent(){
-        int beforeEventSize = calender.getEvents().size();
-        calender.addEvent(event1);
-        assertNotEquals(beforeEventSize, calender.getEvents().size());
+        int beforeEventSize = calendar.getEvents().size();
+        calendar.addEvent(event1);
+        assertNotEquals(beforeEventSize, calendar.getEvents().size());
     }
 
     @Test 
     public void removeEvent(){
-        calender.addEvent(event1);
-        int beforeEventSize = calender.getEvents().size();
-        calender.removeEvent(event1);
-        assertNotEquals(beforeEventSize, calender.getEvents().size());
+        calendar.addEvent(event1);
+        int beforeEventSize = calendar.getEvents().size();
+        calendar.removeEvent(event1);
+        assertNotEquals(beforeEventSize, calendar.getEvents().size());
     }
     
     @Test
     public void addSchecule(){
-        
+        int beforeScheduleSize = calendar.getSchedules().size();
+        calendar.addSchecule(schedule);
+        assertNotEquals(beforeScheduleSize, calendar.getSchedules().size());
     }
     
     @Test
     public void addTask(){
-        
+        int beforeTaskSize = calendar.getTasks().size();
+        calendar.addTask(task, taskList);
+        assertNotEquals(beforeTaskSize, calendar.getTasks().size());
     }
     
     @Test
     public void removeTask(){
-        
+        calendar.addTask(task, taskList);
+        int beforeTaskSize = calendar.getTasks().size();
+        calendar.removeTask(task);
+        assertNotEquals(beforeTaskSize, calendar.getTasks().size());
     }
     
     @Test
     public void searchSchedule(){
-        
+        calendar.addSchecule(schedule);
+        Schedule scheduleFound = calendar.searchSchedule(date);
+        assertEquals(scheduleFound, schedule);        
     }
     
     @Test
     public void displayMonthYear(){
-        
+        String dateString = calendar.displayMonthYear(date);
+        assertEquals(dateString, "DECEMBER 2023");
     }
     
     @Test
     public void searchEvent(){
-        
+        String name = "class";
+        calendar.addEvent(event1);
+        Event eventFound = calendar.searchEvent(name);
+        assertEquals(eventFound, event1);
     }
     
     @Test
     public void searchTask(){
-        
+        String name = "test";
+        task.setName(name);
+        calendar.addTask(task, taskList);
+        Task taskFound = calendar.searchTask(name);
+        assertEquals(taskFound, task);        
     }
 
     @AfterAll
