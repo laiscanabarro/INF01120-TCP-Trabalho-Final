@@ -6,6 +6,7 @@ import utils.Period;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class CalendarTest {
     LocalDate date;
@@ -14,6 +15,7 @@ public class CalendarTest {
     Event event2;
     Schedule schedule;
     Calendar calender;
+    ArrayList<TaskList> taskLists;
 
     @BeforeAll
     public static void start(){
@@ -23,11 +25,11 @@ public class CalendarTest {
     @BeforeEach
     public void init(){
         date = LocalDate.now();
-        period = new Period(date, date);
-        event1 = new Event("class", period);
-        event2 = new Event("test", period);
+        event1 = new Event("class", date);
+        event2 = new Event("test", date);
         schedule = new Schedule(date);
-        calender = new Calendar();
+        taskLists = new ArrayList<>();
+        calender = new Calendar(taskLists);
     }
 
     @Test
@@ -43,6 +45,41 @@ public class CalendarTest {
         int beforeEventSize = calender.getEvents().size();
         calender.removeEvent(event1);
         assertNotEquals(beforeEventSize, calender.getEvents().size());
+    }
+    
+    @Test
+    public void addSchecule(){
+        
+    }
+    
+    @Test
+    public void addTask(){
+        
+    }
+    
+    @Test
+    public void removeTask(){
+        
+    }
+    
+    @Test
+    public void searchSchedule(){
+        
+    }
+    
+    @Test
+    public void displayMonthYear(){
+        
+    }
+    
+    @Test
+    public void searchEvent(){
+        
+    }
+    
+    @Test
+    public void searchTask(){
+        
     }
 
     @AfterAll

@@ -272,7 +272,7 @@ public class CalendarPage extends Page {
         int day = showDate();      
         TaskList list = calendar.getUndefinedList();
    
-        if(Page.currentUser.getTaskLists().isEmpty()) {
+        if(Page.currentUser.getTaskLists().isEmpty() && !(LocalDate.now().equals(date))) {
             Page.currentUser.addList(list);
         }
                        
@@ -282,7 +282,12 @@ public class CalendarPage extends Page {
                 Task newTask = new Task();
                 newTask.setName(text);
                 newTask.setDeadline(date);
-                calendar.addTask(newTask, list);
+                if (LocalDate.now().equals(date)) {
+                    calendar.addTask(newTask, DailyList.getInstance());
+                }
+                else {
+                    calendar.addTask(newTask, list);
+                }
                 setTableSchedule(date, true);
             }
         }

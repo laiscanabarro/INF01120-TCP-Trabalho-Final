@@ -21,9 +21,23 @@ public class ScheduleTest {
     @BeforeEach
     public void init(){
         date = LocalDate.now();
-        period = new Period(date, date);
-        event = new Event("test", period);
+        event = new Event("test", date);
         schedule = new Schedule(date);
+    }
+    
+    @Test
+    public void addTask(){
+        
+    }
+    
+    @Test
+    public void removeTask(){
+        
+    }
+    
+    @Test
+    public void searchTask(){
+        
     }
 
     @Test 

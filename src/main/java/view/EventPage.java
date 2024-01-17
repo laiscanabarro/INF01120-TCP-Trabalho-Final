@@ -67,7 +67,7 @@ public class EventPage extends Page {
         panelEvent.setBackground(new java.awt.Color(255, 255, 255));
         panelEvent.setPreferredSize(new java.awt.Dimension(1286, 720));
 
-        footer.setBackground(new java.awt.Color(51, 51, 255));
+        footer.setBackground(hilightColor);
         footer.setPreferredSize(new java.awt.Dimension(100, 99));
 
         buttonRepeat.setBackground(new java.awt.Color(255, 255, 255));
@@ -100,7 +100,7 @@ public class EventPage extends Page {
             .addGroup(footerLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(buttonRepeat)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         labelEventName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -171,8 +171,8 @@ public class EventPage extends Page {
                 .addComponent(labelAddLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 400, Short.MAX_VALUE)
-                .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 456, Short.MAX_VALUE)
+                .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
