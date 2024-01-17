@@ -13,7 +13,6 @@ public class Recurrence implements Serializable{
     private boolean monthly;
     private boolean annually;
     private boolean custom;
-    private boolean undefined;
 
     public Recurrence(){
         this.daily = false;
@@ -68,10 +67,6 @@ public class Recurrence implements Serializable{
     public boolean getCustom(){
         return this.custom;
     }
-    
-    public boolean getUndefined(){
-        return this.undefined;
-    }
 
     public void setDaily(boolean daily){
         this.daily = daily;
@@ -97,11 +92,6 @@ public class Recurrence implements Serializable{
         this.custom = custom;
     }
     
-    public void setUndefined(boolean undefined){
-        this.undefined = undefined;
-    }
-   
-
     public RecurrenceType getRecurrenceType() {
         if (getDaily()) {
             return RecurrenceType.DAILY;

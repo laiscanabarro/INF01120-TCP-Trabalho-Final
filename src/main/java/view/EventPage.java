@@ -7,7 +7,10 @@ package view;
 import user.User;
 import content.*;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -97,7 +100,7 @@ public class EventPage extends Page {
             .addGroup(footerLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(buttonRepeat)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         labelEventName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -168,8 +171,8 @@ public class EventPage extends Page {
                 .addComponent(labelAddLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 455, Short.MAX_VALUE)
-                .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 400, Short.MAX_VALUE)
+                .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -180,10 +183,10 @@ public class EventPage extends Page {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panelEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        panelEvent.getAccessibleContext().setAccessibleParent(panelEvent);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -273,13 +276,11 @@ public class EventPage extends Page {
                 public void actionPerformed(ActionEvent e) {
                     if (recurrenceType.equals(Recurrence.RecurrenceType.UNDEFINED)) {
                         recurrence.clear(calendar, event);
-                        event.getRecurrence().setUndefined(true);
                         calendar.removeEvent(event);
                         calendar.addEvent(event);
                     }
                     else {
                         recurrence.changeRecurrence(recurrenceType, calendar, event);
-                        event.getRecurrence().setUndefined(false);
                     }
                 }
             });

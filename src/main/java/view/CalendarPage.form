@@ -60,10 +60,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="panelCalendar" max="32767" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="panelCalendar" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -84,12 +81,9 @@
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleParent" type="javax.accessibility.Accessible" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="default"/>
+          <ComponentRef name="panelCalendar"/>
         </Property>
       </AccessibilityProperties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="setSize(WIDTH, HEIGHT);"/>
-      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -128,9 +122,9 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="248" max="-2" attributes="0"/>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="textFieldTask" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="textFieldTask" pref="36" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="textFieldEvent" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="textFieldEvent" pref="36" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="169" max="-2" attributes="0"/>
                   <EmptySpace pref="56" max="32767" attributes="0"/>
@@ -243,6 +237,9 @@
                   <Color id="Default Cursor"/>
                 </Property>
                 <Property name="name" type="java.lang.String" value="" noResource="true"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[2147483647, 2147483647]"/>
+                </Property>
                 <Property name="rowHeight" type="int" value="37"/>
                 <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="33" red="0" type="rgb"/>
@@ -255,6 +252,8 @@
                   <JTableSelectionModel selectionMode="0"/>
                 </Property>
               </Properties>
+              <AccessibilityProperties>
+              </AccessibilityProperties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableCalendarMouseClicked"/>
               </Events>
@@ -283,6 +282,9 @@
                   <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    (Object [][]) calendar.searchSchedule(date).displaySchedule(),&#xa;    new String [] {&#xa;        &quot;Tasks&quot;, &quot;Events&quot;&#xa;    }&#xa;)" type="code"/>
                 </Property>
                 <Property name="cellSelectionEnabled" type="boolean" value="true"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[2147483647, 2147483647]"/>
+                </Property>
                 <Property name="rowHeight" type="int" value="30"/>
                 <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="33" red="0" type="rgb"/>
@@ -292,6 +294,8 @@
                 </Property>
                 <Property name="showVerticalLines" type="boolean" value="true"/>
               </Properties>
+              <AccessibilityProperties>
+              </AccessibilityProperties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableScheduleMouseClicked"/>
               </Events>
