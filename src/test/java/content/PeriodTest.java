@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 
 public class PeriodTest {
     LocalDate date1;
@@ -28,7 +29,7 @@ public class PeriodTest {
         date2 = LocalDate.of(2024, 1, 10);
         date3 = LocalDate.of(2023, 12, 15);
         time1 = LocalTime.of(12, 0);
-        time2 = LocalTime.now();
+        time2 = LocalTime.of(13, 10);
         period1 = new Period(date1, date2, time1, time2);
         period2 = new Period(date1, date3);
     }
@@ -40,6 +41,27 @@ public class PeriodTest {
 
         assertEquals(28, daysPeriod1);
         assertEquals(2, daysPeriod2);
+    }
+    
+    @Test
+    public void displayPeriod(){
+        String period = period2.displayPeriod();
+        assertEquals("13/12/2023 - 15/12/2023", period);
+        
+        period = period2.displayPeriod();
+        assertEquals("13/12/2023 - 10/01/2024, 12:00, 13:10", period);
+    }
+    
+    @Test
+    public void convertStringToLocalDate(){
+        LocalDate date = period2.convertStringToLocalDate("13/12/2023");
+        assertEquals(LocalDate.of(2023, 12, 13), date);
+    }   
+    
+    @Test
+    public void convertStringToLocalTime(){
+        LocalTime time = period1.convertStringToLocalTime("12:00");
+        assertEquals(LocalTime.of(12, 0), time); 
     }
 
     @AfterAll
