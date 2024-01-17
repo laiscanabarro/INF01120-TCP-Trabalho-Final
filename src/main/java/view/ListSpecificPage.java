@@ -13,10 +13,11 @@ import java.awt.event.ItemListener;
 import static view.HomePage.updateRightPanel;
 
 public class ListSpecificPage extends JPanel {
-    private static final int buttonWidth = 360;
-    private static final int buttonHeight = 25;
-    private static final Dimension buttonDimension = new Dimension(buttonWidth, buttonHeight);
-    private static final Dimension smallButtonDimension = new Dimension(60, buttonHeight);
+    private static final int BUTTON_WIDTH = 360;
+    private static final int BUTTON_HEIGHT = 25;
+    private static final Dimension BUTTON_DIMENSION = new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT);
+    private static final Dimension SMALL_BUTTON_DIMENSION = new Dimension(60, BUTTON_HEIGHT);
+
     public static JPanel showSpecificList(TaskList list) {
         JPanel panel = new JPanel();
         panel.setOpaque(true);
@@ -42,7 +43,7 @@ public class ListSpecificPage extends JPanel {
         gbc.gridx = 1;
         gbc.gridwidth = 1;
         JButton orderAlpha = new JButton("A");
-        orderAlpha.setPreferredSize(smallButtonDimension);
+        orderAlpha.setPreferredSize(SMALL_BUTTON_DIMENSION);
         panel.add(orderAlpha, gbc);
         orderAlpha.addActionListener(new ActionListener() {
             @Override
@@ -54,7 +55,7 @@ public class ListSpecificPage extends JPanel {
 
         gbc.gridx++;
         JButton orderDateAsc = new JButton("^D");
-        orderDateAsc.setPreferredSize(smallButtonDimension);
+        orderDateAsc.setPreferredSize(SMALL_BUTTON_DIMENSION);
         panel.add(orderDateAsc, gbc);
         orderDateAsc.addActionListener(new ActionListener() {
             @Override
@@ -66,7 +67,7 @@ public class ListSpecificPage extends JPanel {
 
         gbc.gridx++;
         JButton orderDateDesc = new JButton("vD");
-        orderDateDesc.setPreferredSize(smallButtonDimension);
+        orderDateDesc.setPreferredSize(SMALL_BUTTON_DIMENSION);
         panel.add(orderDateDesc, gbc);
         orderDateDesc.addActionListener(new ActionListener() {
             @Override
@@ -94,7 +95,7 @@ public class ListSpecificPage extends JPanel {
             gbc.gridwidth = 3;
             gbc.anchor = GridBagConstraints.WEST;
             JButton button = new JButton(task.getName());
-            button.setPreferredSize(buttonDimension);
+            button.setPreferredSize(BUTTON_DIMENSION);
             panel.add(button, gbc);
             button.addActionListener(new ActionListener() {
                 @Override
@@ -106,7 +107,7 @@ public class ListSpecificPage extends JPanel {
             gbc.gridx = 4;
             gbc.gridwidth = 1;
             JButton delete = new JButton("-");
-            delete.setPreferredSize(smallButtonDimension);
+            delete.setPreferredSize(SMALL_BUTTON_DIMENSION);
             panel.add(delete, gbc);
             delete.addActionListener(new ActionListener() {
                 @Override
@@ -125,12 +126,12 @@ public class ListSpecificPage extends JPanel {
         gbc.gridx++;
         gbc.gridwidth = 3;
         JTextField nameField = new JTextField();
-        nameField.setPreferredSize(buttonDimension);
+        nameField.setPreferredSize(BUTTON_DIMENSION);
         panel.add(nameField, gbc);
         gbc.gridx = 4;
         gbc.gridwidth = 1;
         JButton addTaskButton = new JButton("+");
-        addTaskButton.setPreferredSize(smallButtonDimension);
+        addTaskButton.setPreferredSize(SMALL_BUTTON_DIMENSION);
         panel.add(addTaskButton, gbc);
         gbc.gridx++;
         JButton clearListButton = new JButton("Clear List");
