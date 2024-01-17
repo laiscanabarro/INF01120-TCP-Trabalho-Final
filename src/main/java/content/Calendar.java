@@ -73,7 +73,10 @@ public class Calendar {
      
         int numSchedule = schedules.size();
         for (int i = 0; i < numSchedule; i++){
-            schedules.get(i).searchEvent(event);
+            if (schedules.get(i).searchEvent(event)) {
+                schedules.get(i).removeEvent(event);
+            }
+            
         }
 
     }
@@ -223,7 +226,6 @@ public class Calendar {
         for (Schedule schedule : schedules){
             if(schedule.getDate().equals(date)){
                 recurrenceList.updateSchedule(schedule);
-                
                 return schedule;
             }
         }

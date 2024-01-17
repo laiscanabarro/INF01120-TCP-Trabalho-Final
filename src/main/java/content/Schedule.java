@@ -11,7 +11,7 @@ import utils.Period;
 public class Schedule {
     private ArrayList<Event> events;  
     private ArrayList<Task> tasks;
-    private final LocalDate date;
+    private LocalDate date;
 
     public Schedule (LocalDate date){
         this.date = date;
@@ -59,6 +59,10 @@ public class Schedule {
     }
 
     public boolean searchEvent(Event eventSearched){
+        if (events.isEmpty()){
+            return false;
+        }
+        
         for (Event event : events){
             if(eventSearched.equals(event)){
                 return true;
@@ -68,6 +72,10 @@ public class Schedule {
     } 
     
     public boolean searchTask(Task taskSearched){
+        if (tasks.isEmpty()){
+            return false;
+        }
+        
         for (Task task : tasks){
             if(taskSearched.equals(task)){
                 return true;
@@ -99,22 +107,6 @@ public class Schedule {
         }
 
         return scheduleArray;
-    }
-    
-    public void updateSchedule(){
-        int numEvents = events.size();
-        for (int i = 0; i < numEvents; i++){
-            Event event = events.get(i);
-            Period period = event.getPeriod();
-            LocalDate start = period.getStartDate();
-            long days = period.countDays() + 1;
-            for (int j = 0; j < days; i++) {
-                boolean recurrence = event.getRecurrence().verifyRecurrence();
-                if(!(date.equals(start)) && !recurrence) {
-                    removeEvent(event);
-                }
-            }
-        }
     }
     
 }

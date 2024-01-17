@@ -273,9 +273,13 @@ public class EventPage extends Page {
                 public void actionPerformed(ActionEvent e) {
                     if (recurrenceType.equals(Recurrence.RecurrenceType.UNDEFINED)) {
                         recurrence.clear(calendar, event);
+                        event.getRecurrence().setUndefined(true);
+                        calendar.removeEvent(event);
+                        calendar.addEvent(event);
                     }
                     else {
                         recurrence.changeRecurrence(recurrenceType, calendar, event);
+                        event.getRecurrence().setUndefined(false);
                     }
                 }
             });
