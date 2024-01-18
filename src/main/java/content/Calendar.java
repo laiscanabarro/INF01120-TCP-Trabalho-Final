@@ -26,13 +26,13 @@ public class Calendar {
     }
 
     public ArrayList<Task> getTasks(){
-        ArrayList allTasks = new ArrayList<>();
+        ArrayList<Task> allTasks = new ArrayList<>();
         int numLists = this.taskLists.size();
         for (int i = 0; i < numLists; i++){
             ArrayList<Task> newTasks = taskLists.get(i).getTasks();
             int numTasks = newTasks.size();
             for (int j = 0; j < numTasks; j++){
-                allTasks.add(j);
+                allTasks.add(newTasks.get(j));
             }
         }
         return allTasks;
@@ -92,8 +92,9 @@ public class Calendar {
         tasks.remove(task);
 
         Schedule schedule = searchSchedule(task.getDeadline());
-        schedule.removeTask(task);
-        
+        if (schedule.searchTask(task)) {
+            schedule.removeTask(task);
+        }        
     } 
     
     public void blockCalendar(){
