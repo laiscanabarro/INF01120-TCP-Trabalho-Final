@@ -53,7 +53,7 @@ public class RecurrenceTest {
     public void toStringTest(){
         recurrence.setMonthly(true);
         String type = recurrence.toString();
-        assertEquals(type, "monthly");
+        assertEquals(type, "Monthly");
     }
     
     @Test

@@ -29,7 +29,7 @@ public class RecurrenceListTest {
     public void addDaily(){
         int beforeDaily = recurrenceList.getDaily().size();
         recurrenceList.addDaily(event);
-        assertEquals(beforeDaily, recurrenceList.getDaily().size());
+        assertNotEquals(beforeDaily, recurrenceList.getDaily().size());
     }
     
     @Test
@@ -37,14 +37,14 @@ public class RecurrenceListTest {
         recurrenceList.addDaily(event);
         int beforeDaily = recurrenceList.getDaily().size();
         recurrenceList.removeDaily(event);
-        assertEquals(beforeDaily, recurrenceList.getDaily().size());
+        assertNotEquals(beforeDaily, recurrenceList.getDaily().size());
     }
     
     @Test
     public void addWeekday(){
         int beforeWeekday = recurrenceList.getWeekday().size();
         recurrenceList.addWeekday(event);
-        assertEquals(beforeWeekday, recurrenceList.getWeekday().size());
+        assertNotEquals(beforeWeekday, recurrenceList.getWeekday().size());
     }
     
     @Test
@@ -52,14 +52,14 @@ public class RecurrenceListTest {
         recurrenceList.addWeekday(event);
         int beforeWeekday = recurrenceList.getWeekday().size();
         recurrenceList.removeWeekday(event);
-        assertEquals(beforeWeekday, recurrenceList.getWeekday().size());
+        assertNotEquals(beforeWeekday, recurrenceList.getWeekday().size());
     }
     
     @Test
     public void addWeekly(){
         int beforeWeekly = recurrenceList.getWeekly().size();
         recurrenceList.addWeekly(event);
-        assertEquals(beforeWeekly, recurrenceList.getWeekly().size());
+        assertNotEquals(beforeWeekly, recurrenceList.getWeekly().size());
     }
     
     @Test
@@ -67,14 +67,14 @@ public class RecurrenceListTest {
         recurrenceList.addWeekly(event);
         int beforeWeekly = recurrenceList.getWeekly().size();
         recurrenceList.removeWeekly(event);
-        assertEquals(beforeWeekly, recurrenceList.getWeekly().size());
+        assertNotEquals(beforeWeekly, recurrenceList.getWeekly().size());
     }
     
     @Test
     public void addMonthly(){
         int beforeMonthly = recurrenceList.getMonthly().size();
         recurrenceList.addMonthly(event);
-        assertEquals(beforeMonthly, recurrenceList.getMonthly().size());
+        assertNotEquals(beforeMonthly, recurrenceList.getMonthly().size());
     }
     
     @Test
@@ -82,14 +82,14 @@ public class RecurrenceListTest {
         recurrenceList.addMonthly(event);
         int beforeMonthly = recurrenceList.getMonthly().size();
         recurrenceList.removeMonthly(event);
-        assertEquals(beforeMonthly, recurrenceList.getMonthly().size());
+        assertNotEquals(beforeMonthly, recurrenceList.getMonthly().size());
     }
     
     @Test
     public void addAnnually(){
         int beforeAnnually = recurrenceList.getAnnually().size();
         recurrenceList.addAnnually(event);
-        assertEquals(beforeAnnually, recurrenceList.getAnnually().size());
+        assertNotEquals(beforeAnnually, recurrenceList.getAnnually().size());
     }
     
     @Test

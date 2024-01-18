@@ -60,6 +60,8 @@ public class CalendarTest {
     
     @Test
     public void addTask(){
+        taskLists.add(taskList);
+        calendar.addSchecule(schedule);
         int beforeTaskSize = calendar.getTasks().size();
         calendar.addTask(task, taskList);
         assertNotEquals(beforeTaskSize, calendar.getTasks().size());
@@ -67,9 +69,12 @@ public class CalendarTest {
     
     @Test
     public void removeTask(){
+        taskLists.add(taskList);
+        calendar.addSchecule(schedule);
+        task.setDeadline(date);
         calendar.addTask(task, taskList);
         int beforeTaskSize = calendar.getTasks().size();
-        calendar.removeTask(task);
+        calendar.removeTask(task, taskList);
         assertNotEquals(beforeTaskSize, calendar.getTasks().size());
     }
     
