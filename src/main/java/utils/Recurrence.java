@@ -2,9 +2,7 @@ package utils;
 
 import content.Calendar;
 import content.Event;
-import content.Schedule;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class Recurrence implements Serializable{
     private boolean daily;
@@ -41,6 +39,9 @@ public class Recurrence implements Serializable{
             case ANNUALLY:
                 setAnnually(true);
                 break;
+            default:
+                break;
+            
         }
     }
 
@@ -167,6 +168,8 @@ public class Recurrence implements Serializable{
                 calendar.getRecurrenceList().addAnnually(event);
                 setOthersFalse(RecurrenceType.ANNUALLY, calendar, event);
                 break;
+            default:
+                break;
         }
     }
 
@@ -200,6 +203,8 @@ public class Recurrence implements Serializable{
             case ANNUALLY:
                 setAnnually(false);
                 calendar.getRecurrenceList().removeAnnually(event);
+                break;
+            default:
                 break;
                
         }

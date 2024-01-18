@@ -66,7 +66,7 @@ public class Location {
     public String displayLocation(){
         String locationString = String.join(", ", country, city, state, street) + ", " + String.valueOf(number);
 
-    return locationString;
+        return locationString;
     }
     
     public boolean verifyLocation() {
