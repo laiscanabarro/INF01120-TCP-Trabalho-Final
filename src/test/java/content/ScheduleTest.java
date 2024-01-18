@@ -12,6 +12,7 @@ public class ScheduleTest {
     Period period;
     Event event;
     Schedule schedule;
+    Task task;
 
     @BeforeAll
     public static void start(){
@@ -23,21 +24,29 @@ public class ScheduleTest {
         date = LocalDate.now();
         event = new Event("test", date);
         schedule = new Schedule(date);
+        task = new Task();
     }
     
     @Test
     public void addTask(){
-        
+        int beforeTaskSize = schedule.getTasks().size();
+        schedule.addTask(task);
+        assertNotEquals(beforeTaskSize, schedule.getTasks().size());
     }
     
     @Test
     public void removeTask(){
-        
+        schedule.addTask(task);
+        int beforeTaskSize = schedule.getTasks().size();
+        schedule.removeTask(task);
+        assertNotEquals(beforeTaskSize, schedule.getTasks().size());
     }
     
     @Test
     public void searchTask(){
-        
+        schedule.addTask(task);
+        boolean taskFound = schedule.searchTask(task); 
+        assertEquals(true, taskFound);
     }
 
     @Test 
@@ -58,8 +67,8 @@ public class ScheduleTest {
     @Test
     public void searchEvent(){
         schedule.addEvent(event);
-        boolean eventFinded = schedule.searchEvent(event); 
-        assertEquals(true, eventFinded);
+        boolean eventFound = schedule.searchEvent(event); 
+        assertEquals(true, eventFound);
     }
 
     @AfterAll

@@ -6,11 +6,6 @@ import utils.Location;
 
 public class LocationTest {
     Location location;
-    String country;
-    String city;
-    String state;
-    String street;
-    int number;
     
     @BeforeAll
     public static void start(){
@@ -19,27 +14,32 @@ public class LocationTest {
     
     @BeforeEach
     public void init(){
-        location = new Location();
-        country = "Brazil";
-        city = "POA";
-        state = "RS";
-        street = "Maua";
-        number = 13;
+        location = new Location("Brazil", "POA", "RS", "Maua", 13);
     }
     
     @Test
     public void displayLocation(){
-        //
+        String locationString = "Brazil, POA, RS, Maua, 13";
+        assertEquals(locationString, location.displayLocation());        
     }
     
     @Test
     public void verifyLocation(){
-        
+        boolean value = location.verifyLocation();
+        assertEquals(value, true);
+
+        location.setNumber(0);
+        value = location.verifyLocation();
+        assertEquals(value, false);
     }
     
     @Test
     public void isNonEmpty(){
-        
+        String city = " ";
+        assertEquals(false, location.isNonEmpty(city));
+
+        city = "POA";
+        assertEquals(true, location.isNonEmpty(city));
     }
     
     @AfterAll

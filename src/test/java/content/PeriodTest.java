@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 
 public class PeriodTest {
     LocalDate date1;
