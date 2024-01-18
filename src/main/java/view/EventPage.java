@@ -24,10 +24,7 @@ import utils.Location;
 import utils.Period;
 import utils.Recurrence;
 
-/**
- *
- * @author laisa
- */
+
 public class EventPage extends Page {
     private static Event event;
     private static Calendar calendar;
@@ -67,7 +64,7 @@ public class EventPage extends Page {
         panelEvent.setBackground(new java.awt.Color(255, 255, 255));
         panelEvent.setPreferredSize(new java.awt.Dimension(1286, 720));
 
-        footer.setBackground(hilightColor);
+        footer.setBackground(new java.awt.Color(34, 139, 230));
         footer.setPreferredSize(new java.awt.Dimension(100, 99));
 
         buttonRepeat.setBackground(new java.awt.Color(255, 255, 255));
