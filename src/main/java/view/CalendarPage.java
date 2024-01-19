@@ -11,23 +11,14 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.Month;
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import utils.PageUtils;
 import static view.HomePage.updateRightPanel;
-import static view.Page.homePage;
 
-/**
- *
- * @author laisa
- */
+
 public class CalendarPage extends Page {
     private static Calendar calendar;
     private static LocalDate date;
@@ -38,12 +29,14 @@ public class CalendarPage extends Page {
      * @param date
      */
     public CalendarPage(Calendar calendar, LocalDate date) {
+        super();
         CalendarPage.calendar = calendar;
         CalendarPage.date = date;
         initComponents();
     }
     
     public CalendarPage(Calendar calendar) {
+        super();
         CalendarPage.calendar = calendar;
         CalendarPage.date = LocalDate.now();
         initComponents();
@@ -57,10 +50,6 @@ public class CalendarPage extends Page {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        setSize(WIDTH, HEIGHT);
         panelCalendar = new javax.swing.JPanel();
         labelTitle = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
@@ -72,31 +61,16 @@ public class CalendarPage extends Page {
         jScrollPane3 = new javax.swing.JScrollPane();
         tableSchedule = new javax.swing.JTable();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TaDa - Calendar");
         setBackground(new java.awt.Color(255, 255, 255));
-        setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusTraversalPolicyProvider(true);
-        setSize(new java.awt.Dimension(1280, 720));
 
         panelCalendar.setBackground(new java.awt.Color(255, 255, 255));
         panelCalendar.setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        labelTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelTitle.setFont(new java.awt.Font("Ariel", 1, 24)); // NOI18N
         labelTitle.setForeground(new java.awt.Color(51, 51, 51));
         labelTitle.setText("Calendar");
 
@@ -108,9 +82,8 @@ public class CalendarPage extends Page {
             }
         });
 
-        labelMonthYear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelMonthYear.setFont(new java.awt.Font("Ariel", 1, 14)); // NOI18N
         labelMonthYear.setForeground(new java.awt.Color(51, 51, 51));
-        //LocalDate today = LocalDate.now();
         labelMonthYear.setText(calendar.displayMonthYear(date));
         labelMonthYear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -118,7 +91,7 @@ public class CalendarPage extends Page {
             }
         });
 
-        textFieldTask.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        textFieldTask.setFont(new java.awt.Font("Ariel", 0, 14)); // NOI18N
         textFieldTask.setForeground(new java.awt.Color(153, 153, 153));
         textFieldTask.setText("New task");
         textFieldTask.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -137,7 +110,7 @@ public class CalendarPage extends Page {
             }
         });
 
-        textFieldEvent.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        textFieldEvent.setFont(new java.awt.Font("Ariel", 0, 14)); // NOI18N
         textFieldEvent.setForeground(new java.awt.Color(153, 153, 153));
         textFieldEvent.setText("New event");
         textFieldEvent.setMargin(new java.awt.Insets(2, 16, 2, 6));
@@ -152,7 +125,7 @@ public class CalendarPage extends Page {
             }
         });
 
-        tableCalendar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tableCalendar.setFont(new java.awt.Font("Ariel", 0, 14)); // NOI18N
         tableCalendar.setForeground(new java.awt.Color(51, 51, 51));
         tableCalendar.setModel(new javax.swing.table.DefaultTableModel(
             (Object[][]) calendar.displayCalendar(date),
@@ -176,7 +149,7 @@ public class CalendarPage extends Page {
         });
         jScrollPane2.setViewportView(tableCalendar);
 
-        tableSchedule.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tableSchedule.setFont(new java.awt.Font("Ariel", 0, 14)); // NOI18N
         tableSchedule.setForeground(new java.awt.Color(51, 51, 51));
         tableSchedule.setModel(new javax.swing.table.DefaultTableModel(
             (Object [][]) calendar.searchSchedule(date).displaySchedule(),
