@@ -69,17 +69,6 @@ public class CalendarTest {
     }
     
     @Test
-    public void removeTask(){
-        taskLists.add(taskList);
-        calendar.addSchecule(schedule);
-        task.setDeadline(date);
-        calendar.addTask(task, taskList);
-        int beforeTaskSize = calendar.getTasks().size();
-        calendar.removeTask(task, taskList);
-        assertNotEquals(beforeTaskSize, calendar.getTasks().size());
-    }
-    
-    @Test
     public void searchSchedule(){
         calendar.addSchecule(schedule);
         Schedule scheduleFound = calendar.searchSchedule(date);
