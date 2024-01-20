@@ -205,13 +205,13 @@ public class CalendarPage extends Page {
                     .addComponent(labelTitle))
                 .addGap(36, 36, 36)
                 .addComponent(labelMonthYear)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(textFieldTask, javax.swing.GroupLayout.DEFAULT_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(textFieldTask, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(textFieldEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(textFieldEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                 .addContainerGap(56, Short.MAX_VALUE))
         );
@@ -452,6 +452,11 @@ public class CalendarPage extends Page {
                 "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
             }
         ));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < tableCalendar.getColumnCount(); i++) {
+            tableCalendar.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
     
     private void setTableSchedule(LocalDate date, boolean value) {
