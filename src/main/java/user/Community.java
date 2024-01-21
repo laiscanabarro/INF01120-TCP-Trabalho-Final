@@ -4,20 +4,22 @@ import content.TaskList;
 
 import java.util.ArrayList;
 
+import content.Event;
+
 public class Community {
     private static final int MAXCAP = 20;
     private String name;
     private String owner;
     private ArrayList<User> members;
     private ArrayList<TaskList> lists;
-//    private ArrayList<Event> events;
+    private ArrayList<Event> events;
     
     public Community(String name, String owner) {
         this.name = name;
         this.owner = owner;
         this.members = new ArrayList<>();
         this.lists = new ArrayList<>();
-//        this.events = new ArrayList<>();
+        this.events = new ArrayList<>();
     }
 
     public static int getMaxcap() {
@@ -56,13 +58,13 @@ public class Community {
         this.lists = lists;
     }
 
-//    public ArrayList<Event> getEvents() {
-//        return events;
-//    }
+    public ArrayList<Event> getEvents() {
+         return events;
+    }
 
-//    public void setEvents(ArrayList<Event> events) {
-//        this.events = events;
-//    }
+    public void setEvents(ArrayList<Event> events) {
+        this.events = events;
+    }
 
     public boolean addMember(User member) {
         if (searchMember(member.getName()) == null) {
@@ -118,13 +120,5 @@ public class Community {
             return true;
         }
         return false;
-    }
-
-    public void displayCommunity() {
-        // display community info
-    }
-
-    public void selectList(TaskList list) {
-        
     }
 }

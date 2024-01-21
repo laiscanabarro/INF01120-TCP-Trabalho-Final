@@ -1,4 +1,4 @@
-package content;
+package user;
 
 import org.junit.jupiter.api.*;
 import user.Authentication;

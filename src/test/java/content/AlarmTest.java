@@ -16,7 +16,7 @@ public class AlarmTest {
 
     @BeforeAll
     public static void start(){
-        System.out.println("Initiating Calender tests");
+        System.out.println("Initiating Alarm tests");
     }
 
     @BeforeEach
