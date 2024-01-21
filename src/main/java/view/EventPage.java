@@ -56,6 +56,7 @@ public class EventPage extends Page {
         labelAddLocation = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
+        removeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TaDa - Event");
@@ -138,6 +139,13 @@ public class EventPage extends Page {
             }
         });
 
+        removeButton.setText("Remove event");
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelEventLayout = new javax.swing.GroupLayout(panelEvent);
         panelEvent.setLayout(panelEventLayout);
         panelEventLayout.setHorizontalGroup(
@@ -151,7 +159,8 @@ public class EventPage extends Page {
                             .addGroup(panelEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(labelAddLocation, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(labelEventName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(removeButton)))
                     .addGroup(panelEventLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(backButton)))
@@ -168,7 +177,9 @@ public class EventPage extends Page {
                 .addComponent(labelAddLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(labelDate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 456, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(removeButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 415, Short.MAX_VALUE)
                 .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -209,6 +220,16 @@ public class EventPage extends Page {
         CalendarPage calendaPage = new CalendarPage(calendar, date);
         changeTo(calendaPage);
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
+        Recurrence recurrence = event.getRecurrence();
+        recurrence.clear(calendar, event);
+        calendar.removeEvent(event);
+        
+        LocalDate date = event.getPeriod().getStartDate();
+        CalendarPage calendaPage = new CalendarPage(calendar, date);
+        changeTo(calendaPage);
+    }//GEN-LAST:event_removeButtonActionPerformed
      
     private void displayRecurrenceDialog() {
         Recurrence recurrence;
@@ -467,5 +488,6 @@ public class EventPage extends Page {
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelEventName;
     private javax.swing.JPanel panelEvent;
+    private javax.swing.JButton removeButton;
     // End of variables declaration//GEN-END:variables
 }
