@@ -21,7 +21,7 @@ public class CalendarTest {
 
     @BeforeAll
     public static void start(){
-        System.out.println("Initiating Calender tests");
+        System.out.println("Initiating Calendar tests");
     }
 
     @BeforeEach
@@ -54,14 +54,14 @@ public class CalendarTest {
     @Test
     public void addSchecule(){
         int beforeScheduleSize = calendar.getSchedules().size();
-        calendar.addSchecule(schedule);
+        calendar.addSchedule(schedule);
         assertNotEquals(beforeScheduleSize, calendar.getSchedules().size());
     }
     
     @Test
     public void addTask(){
         taskLists.add(taskList);
-        calendar.addSchecule(schedule);
+        calendar.addSchedule(schedule);
         int beforeTaskSize = calendar.getTasks().size();
         calendar.addTask(task, taskList);
         assertNotEquals(beforeTaskSize, calendar.getTasks().size());
@@ -70,7 +70,7 @@ public class CalendarTest {
     @Test
     public void removeTask(){
         taskLists.add(taskList);
-        calendar.addSchecule(schedule);
+        calendar.addSchedule(schedule);
         task.setDeadline(date);
         calendar.addTask(task, taskList);
         int beforeTaskSize = calendar.getTasks().size();
@@ -80,7 +80,7 @@ public class CalendarTest {
     
     @Test
     public void searchSchedule(){
-        calendar.addSchecule(schedule);
+        calendar.addSchedule(schedule);
         Schedule scheduleFound = calendar.searchSchedule(date);
         assertEquals(scheduleFound, schedule);        
     }
@@ -110,6 +110,6 @@ public class CalendarTest {
 
     @AfterAll
     public static void close(){
-        System.out.println("Finalizing Calender testes");
+        System.out.println("Finalizing Calendar testes");
     }
 }

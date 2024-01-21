@@ -32,11 +32,11 @@ public class User {
         this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
         this.calendar = new Calendar(this.taskLists);
+        this.notifications = new NotificationList();
+        this.communities = new ArrayList<>();
     }
     
     // Constructor
-    
-    
     public User(String email, String password) {
         this.name = null;
         this.email = email;
@@ -47,6 +47,8 @@ public class User {
         this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
         this.calendar = new Calendar(this.taskLists);
+        this.notifications = new NotificationList();
+        this.communities = new ArrayList<>();
     }
 
 

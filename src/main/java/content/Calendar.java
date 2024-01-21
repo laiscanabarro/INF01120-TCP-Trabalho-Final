@@ -51,7 +51,7 @@ public class Calendar {
         return this.undefinedList;
     }
     
-    public void addSchecule(Schedule schedule){
+    public void addSchedule(Schedule schedule){
         schedules.add(schedule);
     }
 
@@ -230,7 +230,7 @@ public class Calendar {
         }
         Schedule newSchedule = new Schedule(date);
         recurrenceList.updateSchedule(newSchedule);
-        addSchecule(newSchedule);
+        addSchedule(newSchedule);
         return newSchedule;
     }
     
