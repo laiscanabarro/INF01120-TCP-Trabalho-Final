@@ -51,6 +51,13 @@ public class CalendarTest {
         calendar.removeEvent(event1);
         assertNotEquals(beforeEventSize, calendar.getEvents().size());
     }
+
+    @Test
+    public void searchEvent(){
+        calendar.addEvent(event1);
+        Event eventFound = calendar.searchEvent(event1);
+        assertEquals(eventFound, event1);
+    }
     
     @Test
     public void addSchecule(){
@@ -58,12 +65,20 @@ public class CalendarTest {
         calendar.addSchecule(schedule);
         assertNotEquals(beforeScheduleSize, calendar.getSchedules().size());
     }
+
+    @Test
+    public void searchSchedule(){
+        calendar.addSchecule(schedule);
+        Schedule scheduleFound = calendar.searchSchedule(date);
+        assertEquals(scheduleFound, schedule);        
+    }
     
     @Test
     public void addTask(){
         taskLists.add(taskList);
         calendar.addSchecule(schedule);
         int beforeTaskSize = calendar.getTasks().size();
+        task.setDeadline(date);
         calendar.addTask(task);
         taskList.addTask(task);
         assertNotEquals(beforeTaskSize, calendar.getTasks().size());
@@ -83,30 +98,16 @@ public class CalendarTest {
     }
     
     @Test
-    public void searchSchedule(){
-        calendar.addSchecule(schedule);
-        Schedule scheduleFound = calendar.searchSchedule(date);
-        assertEquals(scheduleFound, schedule);        
-    }
-    
-    @Test
-    public void displayMonthYear(){
-        String dateString = calendar.displayMonthYear(date);
-        assertEquals(dateString, "DECEMBER 2023");
-    }
-    
-    @Test
-    public void searchEvent(){
-        calendar.addEvent(event1);
-        Event eventFound = calendar.searchEvent(event1);
-        assertEquals(eventFound, event1);
-    }
-    
-    @Test
     public void searchTask(){
         calendar.addTask(task);
         Task taskFound = calendar.searchTask(task);
         assertEquals(taskFound, task);        
+    }
+
+    @Test
+    public void displayMonthYear(){
+        String dateString = calendar.displayMonthYear(date);
+        assertEquals(dateString, "DECEMBER 2023");
     }
 
     @AfterAll

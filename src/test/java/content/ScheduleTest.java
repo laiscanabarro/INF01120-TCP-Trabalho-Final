@@ -47,6 +47,11 @@ public class ScheduleTest {
         schedule.addTask(task);
         boolean taskFound = schedule.searchTask(task); 
         assertEquals(true, taskFound);
+
+        schedule.removeTask(task);
+        taskFound = schedule.searchTask(task); 
+        assertEquals(false, taskFound);
+
     }
 
     @Test 
@@ -69,6 +74,10 @@ public class ScheduleTest {
         schedule.addEvent(event);
         boolean eventFound = schedule.searchEvent(event); 
         assertEquals(true, eventFound);
+
+        schedule.removeEvent(event);
+        eventFound = schedule.searchEvent(event); 
+        assertEquals(false, eventFound);
     }
 
     @AfterAll
