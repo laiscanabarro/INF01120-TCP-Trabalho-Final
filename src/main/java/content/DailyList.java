@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DailyList extends TaskList {
-    private static final DailyList dailyList;
+    private static final DailyList DAILY_LIST;
     private static String dayOfWeek;
     private static Date currentDate;
     private static final Locale LOCALE = new Locale("pt_BR");
@@ -18,10 +18,10 @@ public class DailyList extends TaskList {
     }
 
     static {
-        dailyList = new DailyList();
+        DAILY_LIST = new DailyList();
     }
     public static DailyList getInstance() {
-        return dailyList;
+        return DAILY_LIST;
     }
     public static void setDayOfWeek(Date date, Locale locale) {
         DateFormat formatter = new SimpleDateFormat("EEEE", locale);

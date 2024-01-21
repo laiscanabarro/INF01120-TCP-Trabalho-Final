@@ -2,7 +2,6 @@ package content;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Task {
     private String name;
@@ -15,10 +14,6 @@ public class Task {
     private ArrayList<Subtask> subtasks;
     private LocalDate conclusionDate;
     public static final boolean COMPLETED = true;
-
-
-//    Deixar comentado até existir um alarm
-//    private Alarm alarm;
 
     public Task() {
         setImportanceScale(ImportantList.MIN_IMPORTANCE);

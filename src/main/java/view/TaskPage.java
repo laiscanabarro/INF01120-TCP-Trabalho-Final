@@ -13,11 +13,14 @@ import java.awt.event.ItemListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static view.HomePage.generalButton;
 import static view.HomePage.updateRightPanel;
-import static view.Page.hilightColor;
 
 public class TaskPage extends JPanel {
+    private static final int BUTTON_WIDTH = 360;
+    private static final int BUTTON_HEIGHT = 25;
+    private static final Dimension BUTTON_DIMENSION = new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT);
+    private static final Dimension SMALL_BUTTON_DIMENSION = new Dimension(60, BUTTON_HEIGHT);
+
     public static JPanel showTask(Task task) {
         JPanel panel = new JPanel();
         panel.setOpaque(true);
@@ -30,22 +33,25 @@ public class TaskPage extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
-        JButton backButton = generalButton("<", new Dimension(50,50), hilightColor);
+        JButton backButton = new JButton("Back");
         panel.add(backButton, gbc);
 
         gbc.gridx++;
+        gbc.gridwidth = 3;
         JLabel title = new JLabel(task.getName());
         title.setFont(new Font("Arial", Font.BOLD, 20));
         panel.add(title, gbc);
 
         gbc.gridx = 0;
         gbc.gridy++;
+        gbc.gridwidth = 1;
         JLabel scaleLabel = new JLabel("Importance Scale: ");
         panel.add(scaleLabel, gbc);
 
         gbc.gridx++;
         JLabel scale = new JLabel(String.valueOf(task.getImportanceScale()));
         JButton increase = new JButton("+");
+        increase.setPreferredSize(SMALL_BUTTON_DIMENSION);
         panel.add(increase, gbc);
         increase.addActionListener(new ActionListener() {
             @Override
@@ -60,6 +66,7 @@ public class TaskPage extends JPanel {
 
         gbc.gridx++;
         JButton decrease = new JButton("-");
+        decrease.setPreferredSize(SMALL_BUTTON_DIMENSION);
         panel.add(decrease, gbc);
         decrease.addActionListener(new ActionListener() {
             @Override
@@ -77,7 +84,7 @@ public class TaskPage extends JPanel {
 
         gbc.gridx++;
         JTextField description = new JTextField(task.getDescription());
-        description.setColumns(20);
+        description.setPreferredSize(BUTTON_DIMENSION);
         panel.add(description, gbc);
         description.addActionListener(new ActionListener() {
             @Override
@@ -95,7 +102,7 @@ public class TaskPage extends JPanel {
 
         gbc.gridx++;
         JTextField deadline = new JTextField(String.valueOf(task.getDeadline() == null ? "" : task.getDeadline()));
-        deadline.setColumns(20);
+        deadline.setPreferredSize(BUTTON_DIMENSION);
         panel.add(deadline, gbc);
         deadline.addActionListener(new ActionListener() {
             @Override
@@ -104,6 +111,7 @@ public class TaskPage extends JPanel {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
                 LocalDate localDate = LocalDate.parse(newDeadline, formatter);
                 task.setDeadline(localDate);
+                Page.currentUser.getCalendar().addTask(task);
             }
         });
 
@@ -142,6 +150,7 @@ public class TaskPage extends JPanel {
             gbc.gridx = 4;
             gbc.gridwidth = 1;
             JButton delete = new JButton("-");
+            delete.setPreferredSize(SMALL_BUTTON_DIMENSION);
             panel.add(delete, gbc);
             delete.addActionListener(new ActionListener() {
                 @Override
@@ -170,11 +179,13 @@ public class TaskPage extends JPanel {
         panel.add(addSubtaskLabel, gbc);
         gbc.gridx++;
         gbc.gridwidth = 3;
-        JTextField nameField = new JTextField(20);
+        JTextField nameField = new JTextField();
+        nameField.setPreferredSize(BUTTON_DIMENSION);
         panel.add(nameField, gbc);
         gbc.gridx = 4;
         gbc.gridwidth = 1;
         JButton addSubtaskButton = new JButton("+");
+        addSubtaskButton.setPreferredSize(SMALL_BUTTON_DIMENSION);
         panel.add(addSubtaskButton, gbc);
 
         gbc.gridx = 0;

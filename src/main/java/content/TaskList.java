@@ -49,11 +49,6 @@ public class TaskList {
         }
         return completedTodayCount;
     }
-    private void reset(){
-        setName(null);
-        ArrayList<Task> emptyTasks = new ArrayList<>();
-        setTasks(emptyTasks);
-    }
     public void clear(){ tasks.clear(); }
     public void addTask(Task task){
         task.setCurrentList(this);
@@ -80,7 +75,7 @@ public class TaskList {
         setListOrder(ORDER_BY.ALPHABET);
     }
     private void orderByEndDate(boolean isDesc){
-        tasks.sort(Comparator.comparing(Task::getDeadline));
+        tasks.sort(Comparator.comparing(Task::getDeadline, Comparator.nullsFirst(Comparator.naturalOrder())));
         if (isDesc){
             Collections.reverse(tasks);
             setListOrder(ORDER_BY.END_DATE_DESC);
