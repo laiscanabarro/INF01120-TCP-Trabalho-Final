@@ -69,9 +69,11 @@ public class Calendar {
     }
 
     public void addTask(Task task){
-        tasks.add(task);
-        Schedule schedule = searchSchedule(task.getDeadline());
-        schedule.addTask(task);
+        if (task.getDeadline() != null) {
+            tasks.add(task);
+            Schedule schedule = searchSchedule(task.getDeadline());
+            schedule.addTask(task);
+        }
     }
 
     public void removeEvent(Event event){
@@ -89,6 +91,14 @@ public class Calendar {
         tasks.remove(task);
         Schedule schedule = searchSchedule(task.getDeadline());
         schedule.removeTask(task);
+    }
+
+    public void clearTaskList(TaskList taskList){
+        int numTasks = taskList.getTasks().size();
+        for(int i = 0; i < numTasks; i++){
+            Task task = taskList.getTasks().get(i);
+            removeTask(task);
+        }
     }
 
     public Schedule searchSchedule(LocalDate date){

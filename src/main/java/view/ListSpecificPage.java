@@ -169,6 +169,7 @@ public class ListSpecificPage extends JPanel {
         clearListButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Page.currentUser.getCalendar().clearTaskList(list);
                 list.clear();
                 updateRightPanel(ListSpecificPage.showSpecificList(list));
             }
