@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class NotificationListTest {
@@ -22,7 +23,7 @@ public class NotificationListTest {
         notification1 = new Notification("Alarm");
         notification2 = new Notification("Invitation");
         list = new NotificationList();
-        date = date.now();
+        date = LocalDate.now();
     }
 
     @Test
