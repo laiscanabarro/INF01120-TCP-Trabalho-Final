@@ -3,10 +3,14 @@ package content;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class NotificationListTest {
     Notification notification1;
     Notification notification2;
     NotificationList list;
+    LocalDate date;
 
     @BeforeAll
     public static void start(){
@@ -18,6 +22,7 @@ public class NotificationListTest {
         notification1 = new Notification("Alarm");
         notification2 = new Notification("Invitation");
         list = new NotificationList();
+        date = LocalDate.now();
     }
 
     @Test
@@ -34,6 +39,15 @@ public class NotificationListTest {
         int beforeRemove = list.getNotifications().size();
         list.removeNotification(notification2);
         assertNotEquals(beforeRemove, list.getNotifications().size());
+    }
+
+    @Test
+    public void displayNotification(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        String formattedDate = date.format(formatter);
+        String notificationString = list.displayNotification(notification1);
+        String string = "Alarm " + formattedDate;
+        assertEquals(notificationString, string);
     }
 
     @AfterAll
