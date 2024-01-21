@@ -55,6 +55,7 @@ public class ListsPage extends JPanel {
             delete.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    Page.currentUser.getCalendar().clearTaskList(list);
                     Page.currentUser.removeList(list);
                     updateRightPanel(ListsPage.showLists());
                 }

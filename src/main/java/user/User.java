@@ -32,6 +32,7 @@ public class User {
         this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
         this.calendar = new Calendar(this.taskLists);
+        this.notifications = new NotificationList();
     }
     
     // Constructor
@@ -47,6 +48,7 @@ public class User {
         this.habitLists = new ArrayList<>();
         this.taskLists = new ArrayList<>();
         this.calendar = new Calendar(this.taskLists);
+        this.notifications = new NotificationList();
     }
 
 

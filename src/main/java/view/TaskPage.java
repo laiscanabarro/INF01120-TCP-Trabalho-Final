@@ -111,6 +111,7 @@ public class TaskPage extends JPanel {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
                 LocalDate localDate = LocalDate.parse(newDeadline, formatter);
                 task.setDeadline(localDate);
+                Page.currentUser.getCalendar().addTask(task);
             }
         });
 

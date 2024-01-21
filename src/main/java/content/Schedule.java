@@ -48,6 +48,7 @@ public class Schedule {
 
     public void removeEvent(Event event){
         if (searchEvent(event)) {
+            System.out.println(event.getName());
             events.remove(event);
         }
     }
@@ -103,6 +104,30 @@ public class Schedule {
                 scheduleArray[i][1] = events.get(i).getName();
             } else {
                 scheduleArray[i][1] = null;  // Fill with null if there is no event
+            }
+        }
+
+        return scheduleArray;
+    }
+
+    public Object[][] scheduleObjects(){
+        int numEvents = events.size();
+        int numTasks = tasks.size();
+        int numRows = Math.max(numEvents, numTasks);
+
+        Object[][] scheduleArray = new Object[numRows][2];
+
+        for (int i = 0; i < numRows; i++) {
+            if (i < numTasks) {
+                scheduleArray[i][0] = tasks.get(i);
+            } else {
+                scheduleArray[i][0] = null;  
+            }
+
+            if (i < numEvents) {
+                scheduleArray[i][1] = events.get(i);
+            } else {
+                scheduleArray[i][1] = null; 
             }
         }
 
