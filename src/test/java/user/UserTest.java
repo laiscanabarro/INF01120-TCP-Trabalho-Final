@@ -1,5 +1,8 @@
-package content;
+package user;
 
+import content.HabitsList;
+import content.Task;
+import content.TaskList;
 import org.junit.jupiter.api.*;
 
 import user.User;

@@ -21,7 +21,7 @@ public class CalendarTest {
 
     @BeforeAll
     public static void start(){
-        System.out.println("Initiating Calender tests");
+        System.out.println("Initiating Calendar tests");
     }
 
     @BeforeEach
@@ -34,7 +34,6 @@ public class CalendarTest {
         calendar = new Calendar(taskLists);
         task = new Task();
         taskList = new TaskList();
-
     }
 
     @Test
@@ -58,25 +57,25 @@ public class CalendarTest {
         Event eventFound = calendar.searchEvent(event1);
         assertEquals(eventFound, event1);
     }
-    
+
     @Test
-    public void addSchecule(){
+    public void Schedule(){
         int beforeScheduleSize = calendar.getSchedules().size();
-        calendar.addSchecule(schedule);
+        calendar.addSchedule(schedule);
         assertNotEquals(beforeScheduleSize, calendar.getSchedules().size());
     }
 
     @Test
     public void searchSchedule(){
-        calendar.addSchecule(schedule);
+        calendar.addSchedule(schedule);
         Schedule scheduleFound = calendar.searchSchedule(date);
-        assertEquals(scheduleFound, schedule);        
+        assertEquals(scheduleFound, schedule);
     }
-    
+
     @Test
     public void addTask(){
         taskLists.add(taskList);
-        calendar.addSchecule(schedule);
+        calendar.addSchedule(schedule);
         int beforeTaskSize = calendar.getTasks().size();
         task.setDeadline(date);
         calendar.addTask(task);
@@ -84,10 +83,10 @@ public class CalendarTest {
         assertNotEquals(beforeTaskSize, calendar.getTasks().size());
     }
 
-    @Test 
+    @Test
     public void removeTask(){
         taskLists.add(taskList);
-        calendar.addSchecule(schedule);
+        calendar.addSchedule(schedule);
         task.setDeadline(date);
         calendar.addTask(task);
         taskList.addTask(task);
@@ -97,13 +96,15 @@ public class CalendarTest {
         assertNotEquals(beforeEventSize, calendar.getTasks().size());
     }
     
+
+
     @Test
     public void searchTask(){
-        calendar.addSchecule(schedule);
+        calendar.addSchedule(schedule);
         task.setDeadline(date);
         calendar.addTask(task);
         Task taskFound = calendar.searchTask((Object) task);
-        assertEquals(task, taskFound);        
+        assertEquals(task, taskFound);
     }
 
     @Test
@@ -114,6 +115,6 @@ public class CalendarTest {
 
     @AfterAll
     public static void close(){
-        System.out.println("Finalizing Calender testes");
+        System.out.println("Finalizing Calendar testes");
     }
 }
