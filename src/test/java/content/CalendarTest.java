@@ -50,62 +50,67 @@ public class CalendarTest {
         calendar.removeEvent(event1);
         assertNotEquals(beforeEventSize, calendar.getEvents().size());
     }
-    
+
     @Test
-    public void addSchecule(){
+    public void searchEvent(){
+        calendar.addEvent(event1);
+        Event eventFound = calendar.searchEvent(event1);
+        assertEquals(eventFound, event1);
+    }
+
+    @Test
+    public void Schedule(){
         int beforeScheduleSize = calendar.getSchedules().size();
         calendar.addSchedule(schedule);
         assertNotEquals(beforeScheduleSize, calendar.getSchedules().size());
     }
-    
+
+    @Test
+    public void searchSchedule(){
+        calendar.addSchedule(schedule);
+        Schedule scheduleFound = calendar.searchSchedule(date);
+        assertEquals(scheduleFound, schedule);
+    }
+
     @Test
     public void addTask(){
         taskLists.add(taskList);
         calendar.addSchedule(schedule);
         int beforeTaskSize = calendar.getTasks().size();
-        calendar.addTask(task, taskList);
+        task.setDeadline(date);
+        calendar.addTask(task);
+        taskList.addTask(task);
         assertNotEquals(beforeTaskSize, calendar.getTasks().size());
     }
-    
+
     @Test
     public void removeTask(){
         taskLists.add(taskList);
         calendar.addSchedule(schedule);
         task.setDeadline(date);
-        calendar.addTask(task, taskList);
-        int beforeTaskSize = calendar.getTasks().size();
-        calendar.removeTask(task, taskList);
-        assertNotEquals(beforeTaskSize, calendar.getTasks().size());
+        calendar.addTask(task);
+        taskList.addTask(task);
+        int beforeEventSize = calendar.getTasks().size();
+        calendar.removeTask(task);
+        taskList.removeTask(task);
+        assertNotEquals(beforeEventSize, calendar.getTasks().size());
     }
     
+
+
     @Test
-    public void searchSchedule(){
+    public void searchTask(){
         calendar.addSchedule(schedule);
-        Schedule scheduleFound = calendar.searchSchedule(date);
-        assertEquals(scheduleFound, schedule);        
+        task.setDeadline(date);
+        calendar.addTask(task);
+        Task taskFound = calendar.searchTask((Object) task);
+        assertEquals(task, taskFound);
     }
-    
+
     @Test
     public void displayMonthYear(){
         String dateString = calendar.displayMonthYear(date);
         assertEquals(dateString, "DECEMBER 2023");
-    }
-    
-    @Test
-    public void searchEvent(){
-        String name = "class";
-        calendar.addEvent(event1);
-        Event eventFound = calendar.searchEvent(name);
-        assertEquals(eventFound, event1);
-    }
-    
-    @Test
-    public void searchTask(){
-        String name = "test";
-        task.setName(name);
-        calendar.addTask(task, taskList);
-        Task taskFound = calendar.searchTask(name);
-        assertEquals(taskFound, task);        
     }
 
     @AfterAll

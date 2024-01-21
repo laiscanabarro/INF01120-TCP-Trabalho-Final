@@ -96,8 +96,8 @@ public class RecurrenceListTest {
     public void removeAnnually(){
         recurrenceList.addAnnually(event);
         int beforeAnnually = recurrenceList.getAnnually().size();
-        recurrenceList.removeDaily(event);
-        assertEquals(beforeAnnually, recurrenceList.getAnnually().size());
+        recurrenceList.removeAnnually(event);
+        assertNotEquals(beforeAnnually, recurrenceList.getAnnually().size());
     }
     
     @AfterAll

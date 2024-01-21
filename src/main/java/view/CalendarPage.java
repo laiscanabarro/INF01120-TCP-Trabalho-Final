@@ -4,6 +4,8 @@
  */
 package view;
 import content.*;
+
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,23 +13,16 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.Month;
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import utils.PageUtils;
-import static view.HomePage.updateRightPanel;
-import static view.Page.homePage;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
-/**
- *
- * @author laisa
- */
+import static view.HomePage.updateRightPanel;
+
 public class CalendarPage extends Page {
     private static Calendar calendar;
     private static LocalDate date;
@@ -38,12 +33,14 @@ public class CalendarPage extends Page {
      * @param date
      */
     public CalendarPage(Calendar calendar, LocalDate date) {
+        super();
         CalendarPage.calendar = calendar;
         CalendarPage.date = date;
         initComponents();
     }
     
     public CalendarPage(Calendar calendar) {
+        super();
         CalendarPage.calendar = calendar;
         CalendarPage.date = LocalDate.now();
         initComponents();
@@ -57,46 +54,24 @@ public class CalendarPage extends Page {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        setSize(WIDTH, HEIGHT);
+        jScrollCalendar = new javax.swing.JScrollPane();
         panelCalendar = new javax.swing.JPanel();
         labelTitle = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         labelMonthYear = new javax.swing.JLabel();
         textFieldTask = new javax.swing.JTextField();
         textFieldEvent = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
         tableCalendar =  new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollSchedule = new javax.swing.JScrollPane();
         tableSchedule = new javax.swing.JTable();
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TaDa - Calendar");
         setBackground(new java.awt.Color(255, 255, 255));
-        setBounds(new java.awt.Rectangle(0, 0, 1280, 720));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusTraversalPolicyProvider(true);
-        setSize(new java.awt.Dimension(1280, 720));
 
-        panelCalendar.setBackground(new java.awt.Color(255, 255, 255));
-        panelCalendar.setPreferredSize(new java.awt.Dimension(1280, 720));
-
-        labelTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelTitle.setFont(new java.awt.Font("Ariel", 1, 20)); // NOI18N
         labelTitle.setForeground(new java.awt.Color(51, 51, 51));
         labelTitle.setText("Calendar");
 
@@ -108,9 +83,8 @@ public class CalendarPage extends Page {
             }
         });
 
-        labelMonthYear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelMonthYear.setFont(new java.awt.Font("Ariel", 1, 14)); // NOI18N
         labelMonthYear.setForeground(new java.awt.Color(51, 51, 51));
-        //LocalDate today = LocalDate.now();
         labelMonthYear.setText(calendar.displayMonthYear(date));
         labelMonthYear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -118,7 +92,7 @@ public class CalendarPage extends Page {
             }
         });
 
-        textFieldTask.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        textFieldTask.setFont(new java.awt.Font("Ariel", 0, 14)); // NOI18N
         textFieldTask.setForeground(new java.awt.Color(153, 153, 153));
         textFieldTask.setText("New task");
         textFieldTask.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -137,7 +111,7 @@ public class CalendarPage extends Page {
             }
         });
 
-        textFieldEvent.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        textFieldEvent.setFont(new java.awt.Font("Ariel", 0, 14)); // NOI18N
         textFieldEvent.setForeground(new java.awt.Color(153, 153, 153));
         textFieldEvent.setText("New event");
         textFieldEvent.setMargin(new java.awt.Insets(2, 16, 2, 6));
@@ -152,7 +126,7 @@ public class CalendarPage extends Page {
             }
         });
 
-        tableCalendar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tableCalendar.setFont(new java.awt.Font("Ariel", 0, 14)); // NOI18N
         tableCalendar.setForeground(new java.awt.Color(51, 51, 51));
         tableCalendar.setModel(new javax.swing.table.DefaultTableModel(
             (Object[][]) calendar.displayCalendar(date),
@@ -162,10 +136,15 @@ public class CalendarPage extends Page {
         ));
         tableCalendar.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tableCalendar.setCellSelectionEnabled(true);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < tableCalendar.getColumnCount(); i++) {
+            tableCalendar.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
         tableCalendar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tableCalendar.setName(""); // NOI18N
-        tableCalendar.setRowHeight(37);
-        tableCalendar.setSelectionBackground(new java.awt.Color(0, 51, 255));
+        tableCalendar.setRowHeight(36);
+        tableCalendar.setSelectionBackground(new java.awt.Color(34, 139, 230));
         tableCalendar.setSelectionForeground(new java.awt.Color(255, 255, 255));
         tableCalendar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableCalendar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -174,9 +153,9 @@ public class CalendarPage extends Page {
                 tableCalendarMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tableCalendar);
+        jScrollCalendar.setViewportView(tableCalendar);
 
-        tableSchedule.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tableSchedule.setFont(new java.awt.Font("Ariel", 0, 14)); // NOI18N
         tableSchedule.setForeground(new java.awt.Color(51, 51, 51));
         tableSchedule.setModel(new javax.swing.table.DefaultTableModel(
             (Object [][]) calendar.searchSchedule(date).displaySchedule(),
@@ -186,7 +165,7 @@ public class CalendarPage extends Page {
         ));
         tableSchedule.setCellSelectionEnabled(true);
         tableSchedule.setRowHeight(30);
-        tableSchedule.setSelectionBackground(new java.awt.Color(0, 51, 255));
+        tableSchedule.setSelectionBackground(new java.awt.Color(34, 139, 230));
         tableSchedule.setSelectionForeground(new java.awt.Color(255, 255, 255));
         tableSchedule.setShowVerticalLines(true);
         tableSchedule.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,58 +173,59 @@ public class CalendarPage extends Page {
                 tableScheduleMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tableSchedule);
+        jScrollSchedule.setViewportView(tableSchedule);
 
         javax.swing.GroupLayout panelCalendarLayout = new javax.swing.GroupLayout(panelCalendar);
         panelCalendar.setLayout(panelCalendarLayout);
+        panelCalendar.setBackground(Color.WHITE);
+        panelCalendar.setOpaque(true);
+
         panelCalendarLayout.setHorizontalGroup(
-            panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(panelCalendarLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(backButton)
                 .addGap(36, 36, 36)
-                .addGroup(panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
+                    .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelCalendarLayout.createSequentialGroup()
                         .addGap(64, 64, 64)
-                        .addGroup(panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
-                            .addComponent(labelMonthYear)
-                            .addComponent(textFieldTask)
-                            .addComponent(textFieldEvent)
-                            .addComponent(jScrollPane3))))
-                .addContainerGap(196, Short.MAX_VALUE))
+                        .addGroup(panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
+                            .addComponent(jScrollCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                            .addComponent(labelMonthYear, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                            .addComponent(textFieldTask, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                            .addComponent(textFieldEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                            .addComponent(jScrollSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE))))
+                .addContainerGap(196, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelCalendarLayout.setVerticalGroup(
-            panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addGroup(panelCalendarLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(backButton)
+                    .addComponent(labelTitle))
                 .addGap(36, 36, 36)
                 .addComponent(labelMonthYear)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jScrollCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(textFieldTask, javax.swing.GroupLayout.DEFAULT_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(textFieldTask, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(textFieldEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFieldEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jScrollSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
+            .addComponent(panelCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
             .addComponent(panelCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -283,10 +263,12 @@ public class CalendarPage extends Page {
                 newTask.setName(text);
                 newTask.setDeadline(date);
                 if (LocalDate.now().equals(date)) {
-                    calendar.addTask(newTask, DailyList.getInstance());
+                    calendar.addTask(newTask);
+                    DailyList.getInstance().addTask(newTask);
                 }
                 else {
-                    calendar.addTask(newTask, list);
+                    calendar.addTask(newTask);
+                    list.addTask(newTask);
                 }
                 setTableSchedule(date, true);
             }
@@ -331,7 +313,7 @@ public class CalendarPage extends Page {
     private void tableScheduleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableScheduleMouseClicked
         int col = tableSchedule.getSelectedColumn();
         int row = tableSchedule.getSelectedRow();        
-        String selected = calendar.searchSchedule(date).displaySchedule()[row][col].toString();
+        Object selected = calendar.searchSchedule(date).scheduleObjects()[row][col];
         
         if (selected != null && col == 0) {
             Task task = calendar.searchTask(selected);
@@ -340,7 +322,7 @@ public class CalendarPage extends Page {
         }
         else if (selected != null && col == 1) {
             Event event = calendar.searchEvent(selected);
-            EventPage eventPage = new EventPage(event, calendar);
+            EventPage eventPage = new EventPage(event, calendar, date);
             changeTo(eventPage);
         }
     }//GEN-LAST:event_tableScheduleMouseClicked
@@ -474,6 +456,11 @@ public class CalendarPage extends Page {
                 "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
             }
         ));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < tableCalendar.getColumnCount(); i++) {
+            tableCalendar.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
     
     private void setTableSchedule(LocalDate date, boolean value) {
@@ -496,10 +483,8 @@ public class CalendarPage extends Page {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollCalendar;
+    private javax.swing.JScrollPane jScrollSchedule;
     private javax.swing.JLabel labelMonthYear;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JPanel panelCalendar;

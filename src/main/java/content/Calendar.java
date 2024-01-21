@@ -68,6 +68,14 @@ public class Calendar {
         }
     }
 
+    public void addTask(Task task){
+        if (task.getDeadline() != null) {
+            tasks.add(task);
+            Schedule schedule = searchSchedule(task.getDeadline());
+            schedule.addTask(task);
+        }
+    }
+
     public void removeEvent(Event event){
         events.remove(event);
      
@@ -79,21 +87,58 @@ public class Calendar {
 
     }
 
-    public void addTask(Task task, TaskList tasklist){
-        tasklist.addTask(task);
-        tasks.add(task);
-        Schedule schedule = searchSchedule(task.getDeadline());
-        schedule.addTask(task);
-    }
-
-    public void removeTask(Task task, TaskList taskList){
-        taskList.removeTask(task);
+    public void removeTask(Task task){
         tasks.remove(task);
         Schedule schedule = searchSchedule(task.getDeadline());
         schedule.removeTask(task);
-        
-        
-    } 
+    }
+
+    public void clearTaskList(TaskList taskList){
+        int numTasks = taskList.getTasks().size();
+        for(int i = 0; i < numTasks; i++){
+            Task task = taskList.getTasks().get(i);
+            removeTask(task);
+        }
+    }
+
+    public Schedule searchSchedule(LocalDate date){
+        for (Schedule schedule : schedules){
+            if(schedule.getDate().equals(date)){
+                recurrenceList.updateSchedule(schedule);
+                return schedule;
+            }
+        }
+        Schedule newSchedule = new Schedule(date);
+        recurrenceList.updateSchedule(newSchedule);
+        addSchedule(newSchedule);
+        return newSchedule;
+    }
+
+    public Event searchEvent(Object event){
+        if (events.isEmpty()){
+            return null;
+        }
+
+        for (Event eventFound : events){
+            if(eventFound.equals(event)){
+                return eventFound;
+            }
+        }
+        return null;
+    }
+
+    public Task searchTask(Object task){
+        if (tasks.isEmpty()){
+            return null;
+        }
+
+        for (Task taskFound : tasks){
+            if(taskFound.equals(task)){
+                return taskFound;
+            }
+        }
+        return null;
+    }
     
     public void blockCalendar(){
         LocalDate date = LocalDate.of(0, 0, 0);
@@ -220,42 +265,11 @@ public class Calendar {
 
         return null;
     }
-
-    public Schedule searchSchedule(LocalDate date){
-        for (Schedule schedule : schedules){
-            if(schedule.getDate().equals(date)){
-                recurrenceList.updateSchedule(schedule);
-                return schedule;
-            }
-        }
-        Schedule newSchedule = new Schedule(date);
-        recurrenceList.updateSchedule(newSchedule);
-        addSchedule(newSchedule);
-        return newSchedule;
-    }
     
     public String displayMonthYear(LocalDate date) {
         String monthYear = date.getMonth() + " " + date.getYear();
         
         return monthYear;
-    }
-    
-    public Event searchEvent(String name){
-        for (Event event : events){
-            if(event.getName().equals(name)){
-                return event;
-            }
-        }
-        return null;
-    }
-
-    public Task searchTask(String name){
-        for (Task task : tasks){
-            if(task.getName().equals(name)){
-                return task;
-            }
-        }
-        return null;
     }
 
 }

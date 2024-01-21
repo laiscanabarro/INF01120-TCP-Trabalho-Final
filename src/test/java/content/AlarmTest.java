@@ -1,6 +1,7 @@
 package content;
 
 import org.junit.jupiter.api.*;
+
 import user.User;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +13,8 @@ public class AlarmTest {
     Alarm alarmFuture;
     LocalDate testDate;
     LocalDate futureDate;
-    User testUser;
+    Alarm alarm;
+    User user;
 
     @BeforeAll
     public static void start(){
@@ -25,15 +27,19 @@ public class AlarmTest {
         futureDate = LocalDate.of(2024, 12, 13);
         alarmCurrent = new Alarm(testDate, "Today");
         alarmFuture = new Alarm(futureDate, "Future");
-        testUser = new User();
+        alarm = new Alarm(testDate, "test");
+        user = new User();
     }
 
     @Test
     public void compareDate(){
-        alarmCurrent.compareDate(testUser);
-        alarmFuture.compareDate(testUser);
+        int beforeNotification = user.getNotifications().getNotifications().size();
+        alarm.compareDate(user);
+        assertNotEquals(beforeNotification, user.getNotifications().getNotifications().size());
+        alarmCurrent.compareDate(user);
+        alarmFuture.compareDate(user);
         // only the notification for alarmCurrent gets added
-        assertEquals(1, testUser.getNotifications().getNotifications().size());
+        assertEquals(2, user.getNotifications().getNotifications().size());
     }
 
     @AfterAll

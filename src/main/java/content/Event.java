@@ -13,12 +13,12 @@ public class Event {
     private Location location; 
     private Period period;
     private Recurrence recurrence;
-    private ArrayList<User> participants = new ArrayList<>();
+    private ArrayList<User> participants;
 
     public Event(String name, LocalDate date){
         this.name = name;
         this.period = new Period(date);
-        this.participants = null;
+        this.participants = new ArrayList<>();
         this.recurrence = new Recurrence();
     }
 
@@ -56,6 +56,32 @@ public class Event {
 
     public void setParticipants(ArrayList<User> participants){
         this.participants = participants;
+    }
+
+    public void addParticipant(User user){
+        if (!(searchParticipant(user))) {
+            participants.add(user);
+        }
+    }
+
+    public void removeParticipant(User user){
+        if (searchParticipant(user)) {
+            participants.remove(user);
+        }
+    }
+
+    public boolean searchParticipant(User user){
+        if (participants.isEmpty()) {
+            return false;
+        }
+
+        
+        for (User participant : participants) {
+            if(participant.equals(user)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public String displayParticipants() {

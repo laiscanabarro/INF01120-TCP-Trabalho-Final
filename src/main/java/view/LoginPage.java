@@ -16,40 +16,38 @@ public class LoginPage extends Page {
         panel.setBackground(Color.WHITE);
 
         panel.setLayout(new GridBagLayout());        
-        setLocationRelativeTo(null);
-        setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(4, 4, 4, 4);
 
-        // Trocar por um ícone/imagem
+        //ImageIcon originalImageIcon = new ImageIcon(getClass().getResource("/icons/TaDa.png"));
         JLabel title = new JLabel("TaDa");
-        title.setFont(new Font("Arial", Font.BOLD, 20));
+        title.setFont(new java.awt.Font("Ariel", 1, 25));
         title.setHorizontalAlignment(SwingConstants.CENTER);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        add(title, gbc);
+        panel.add(title, gbc);
 
         gbc.gridy++;
         gbc.gridwidth--;
-        add(new JLabel("E-mail: "), gbc);
+        panel.add(new JLabel("E-mail: "), gbc);
         gbc.gridy++;
-        add(new JLabel("Password: "), gbc);
+        panel.add(new JLabel("Password: "), gbc);
 
         gbc.gridx++;
         gbc.gridy--;
         JTextField emailField = new JTextField(20);
-        add(emailField, gbc);
+        panel.add(emailField, gbc);
         gbc.gridy++;
         JPasswordField passwordField = new JPasswordField(20);
-        add(passwordField, gbc);
+        panel.add(passwordField, gbc);
 
         gbc.gridx--;
         gbc.gridy++;
         gbc.gridwidth++;
         JButton signInButton = new JButton("Sign In");
-        add(signInButton, gbc);
+        panel.add(signInButton, gbc);
 
         signInButton.addActionListener(new ActionListener() {
             @Override
@@ -71,10 +69,16 @@ public class LoginPage extends Page {
                 }
             }
         });
+
+        getContentPane().add(panel);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
     private void createUser(String email, String password) {
         currentUser.setEmail(email);
         currentUser.setPassword(password);
-    }
+    }    
+    
 }
