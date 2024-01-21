@@ -320,7 +320,7 @@ public class CalendarPage extends Page {
         }
         else if (selected != null && col == 1) {
             Event event = calendar.searchEvent(selected);
-            EventPage eventPage = new EventPage(event, calendar);
+            EventPage eventPage = new EventPage(event, calendar, date);
             changeTo(eventPage);
         }
     }//GEN-LAST:event_tableScheduleMouseClicked

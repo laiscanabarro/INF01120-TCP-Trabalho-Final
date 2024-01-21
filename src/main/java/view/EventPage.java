@@ -28,15 +28,18 @@ import utils.Recurrence;
 public class EventPage extends Page {
     private static Event event;
     private static Calendar calendar;
+    private static LocalDate date;
 
     /**
      * Creates new form EventPage
      * @param event
      * @param calendar
+     * @param date
      */
-    public EventPage(Event event, Calendar calendar) {
+    public EventPage(Event event, Calendar calendar, LocalDate date) {
         EventPage.event = event;
         EventPage.calendar = calendar;
+        EventPage.date = date;
         initComponents();
     }
 
@@ -125,7 +128,14 @@ public class EventPage extends Page {
             }
         });
 
-        labelDate.setText(event.getPeriod().displayPeriod());
+        if (event.getPeriod().getEndDate().isAfter(date) ||event.getPeriod().getEndDate().isEqual(date)){
+            labelDate.setText(event.getPeriod().displayPeriod());
+        }
+        else {
+            Period period = new Period(date);
+            labelDate.setText(period.displayPeriod());
+        }
+        
         labelDate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dateMouseClicked(evt);
