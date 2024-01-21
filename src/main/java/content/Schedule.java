@@ -48,7 +48,6 @@ public class Schedule {
 
     public void removeEvent(Event event){
         if (searchEvent(event)) {
-            System.out.println(event.getName());
             events.remove(event);
         }
     }
