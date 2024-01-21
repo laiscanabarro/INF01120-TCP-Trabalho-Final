@@ -12,3 +12,6 @@
 
 # Ignore all .war files
 *.war
+
+# Ignore all .form files
+*.form
