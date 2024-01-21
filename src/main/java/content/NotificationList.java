@@ -41,6 +41,4 @@ public class NotificationList {
         System.out.printf("%s %s%n", name, formattedDate);
     }
 
-    //public selectNotification(Notification notification){}
-
 }

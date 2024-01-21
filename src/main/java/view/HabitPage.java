@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class HabitPage extends Page {
 
@@ -247,7 +248,9 @@ public class HabitPage extends Page {
 
                 String habitCategory = JOptionPane.showInputDialog(this, "Enter the category for the habit:");
 
-                Recurrence.RecurrenceType[] recurrenceTypes = Recurrence.RecurrenceType.values();
+                Recurrence.RecurrenceType[] recurrenceTypes = Arrays.stream(Recurrence.RecurrenceType.values())
+                        .filter(type -> type != Recurrence.RecurrenceType.UNDEFINED)
+                        .toArray(Recurrence.RecurrenceType[]::new);
 
                 JComboBox<Recurrence.RecurrenceType> recurrenceComboBox = new JComboBox<>(recurrenceTypes);
                 int option = JOptionPane.showConfirmDialog(this, recurrenceComboBox, "Choose Recurrence", JOptionPane.OK_CANCEL_OPTION);
