@@ -99,9 +99,11 @@ public class CalendarTest {
     
     @Test
     public void searchTask(){
+        calendar.addSchecule(schedule);
+        task.setDeadline(date);
         calendar.addTask(task);
-        Task taskFound = calendar.searchTask(task);
-        assertEquals(taskFound, task);        
+        Task taskFound = calendar.searchTask((Object) task);
+        assertEquals(task, taskFound);        
     }
 
     @Test

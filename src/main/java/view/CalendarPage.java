@@ -33,12 +33,14 @@ public class CalendarPage extends Page {
      * @param date
      */
     public CalendarPage(Calendar calendar, LocalDate date) {
+        super();
         CalendarPage.calendar = calendar;
         CalendarPage.date = date;
         initComponents();
     }
     
     public CalendarPage(Calendar calendar) {
+        super();
         CalendarPage.calendar = calendar;
         CalendarPage.date = LocalDate.now();
         initComponents();

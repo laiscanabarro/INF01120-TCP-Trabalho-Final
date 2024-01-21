@@ -2,7 +2,6 @@ package content;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import utils.Period;
 
 /*
  * Schedule
