@@ -113,6 +113,7 @@ public class ListSpecificPage extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     list.removeTask(task);
+                    Page.currentUser.getCalendar().removeTask(task);
                     updateRightPanel(ListSpecificPage.showSpecificList(list));
                 }
             });
@@ -159,6 +160,7 @@ public class ListSpecificPage extends JPanel {
                     Task newTask = new Task();
                     newTask.setName(name);
                     list.addTask(newTask);
+                    Page.currentUser.getCalendar().addTask(newTask);
                     updateRightPanel(ListSpecificPage.showSpecificList(list));
                 }
             }

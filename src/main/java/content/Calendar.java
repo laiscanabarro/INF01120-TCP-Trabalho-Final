@@ -79,11 +79,16 @@ public class Calendar {
 
     }
 
-    public void addTask(Task task, TaskList tasklist){
-        tasklist.addTask(task);
+    public void addTask(Task task){
         tasks.add(task);
         Schedule schedule = searchSchedule(task.getDeadline());
         schedule.addTask(task);
+    }
+
+    public void removeTask(Task task){
+        tasks.remove(task);
+        Schedule schedule = searchSchedule(task.getDeadline());
+        schedule.removeTask(task);
     }
     
     public void blockCalendar(){
@@ -231,19 +236,19 @@ public class Calendar {
         return monthYear;
     }
     
-    public Event searchEvent(String name){
-        for (Event event : events){
-            if(event.getName().equals(name)){
-                return event;
+    public Event searchEvent(Object event){
+        for (Event eventFound : events){
+            if(eventFound.equals(event)){
+                return eventFound;
             }
         }
         return null;
     }
 
-    public Task searchTask(String name){
-        for (Task task : tasks){
-            if(task.getName().equals(name)){
-                return task;
+    public Task searchTask(Object task){
+        for (Task taskFound : tasks){
+            if(taskFound.equals(task)){
+                return taskFound;
             }
         }
         return null;

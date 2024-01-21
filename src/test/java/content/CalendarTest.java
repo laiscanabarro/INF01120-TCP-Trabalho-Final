@@ -64,8 +64,22 @@ public class CalendarTest {
         taskLists.add(taskList);
         calendar.addSchecule(schedule);
         int beforeTaskSize = calendar.getTasks().size();
-        calendar.addTask(task, taskList);
+        calendar.addTask(task);
+        taskList.addTask(task);
         assertNotEquals(beforeTaskSize, calendar.getTasks().size());
+    }
+
+    @Test 
+    public void removeTask(){
+        taskLists.add(taskList);
+        calendar.addSchecule(schedule);
+        task.setDeadline(date);
+        calendar.addTask(task);
+        taskList.addTask(task);
+        int beforeEventSize = calendar.getTasks().size();
+        calendar.removeTask(task);
+        taskList.removeTask(task);
+        assertNotEquals(beforeEventSize, calendar.getTasks().size());
     }
     
     @Test
@@ -83,18 +97,15 @@ public class CalendarTest {
     
     @Test
     public void searchEvent(){
-        String name = "class";
         calendar.addEvent(event1);
-        Event eventFound = calendar.searchEvent(name);
+        Event eventFound = calendar.searchEvent(event1);
         assertEquals(eventFound, event1);
     }
     
     @Test
     public void searchTask(){
-        String name = "test";
-        task.setName(name);
-        calendar.addTask(task, taskList);
-        Task taskFound = calendar.searchTask(name);
+        calendar.addTask(task);
+        Task taskFound = calendar.searchTask(task);
         assertEquals(taskFound, task);        
     }
 

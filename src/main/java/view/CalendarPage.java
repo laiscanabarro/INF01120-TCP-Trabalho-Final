@@ -69,7 +69,7 @@ public class CalendarPage extends Page {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusTraversalPolicyProvider(true);
 
-        labelTitle.setFont(new java.awt.Font("Ariel", 1, 24)); // NOI18N
+        labelTitle.setFont(new java.awt.Font("Ariel", 1, 20)); // NOI18N
         labelTitle.setForeground(new java.awt.Color(51, 51, 51));
         labelTitle.setText("Calendar");
 
@@ -206,7 +206,7 @@ public class CalendarPage extends Page {
                 .addGap(36, 36, 36)
                 .addComponent(labelMonthYear)
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jScrollCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addComponent(jScrollCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(textFieldTask, javax.swing.GroupLayout.DEFAULT_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -261,10 +261,12 @@ public class CalendarPage extends Page {
                 newTask.setName(text);
                 newTask.setDeadline(date);
                 if (LocalDate.now().equals(date)) {
-                    calendar.addTask(newTask, DailyList.getInstance());
+                    calendar.addTask(newTask);
+                    DailyList.getInstance().addTask(newTask);
                 }
                 else {
-                    calendar.addTask(newTask, list);
+                    calendar.addTask(newTask);
+                    list.addTask(newTask);
                 }
                 setTableSchedule(date, true);
             }
@@ -309,7 +311,7 @@ public class CalendarPage extends Page {
     private void tableScheduleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableScheduleMouseClicked
         int col = tableSchedule.getSelectedColumn();
         int row = tableSchedule.getSelectedRow();        
-        String selected = calendar.searchSchedule(date).displaySchedule()[row][col].toString();
+        Object selected = calendar.searchSchedule(date).scheduleObjects()[row][col];
         
         if (selected != null && col == 0) {
             Task task = calendar.searchTask(selected);
