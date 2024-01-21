@@ -20,8 +20,7 @@ public class NotificationList {
     }
 
     public void addNotification(Notification notification){
-        notifications.add(notification);
-        displayNotification(notification);        
+        notifications.add(notification);       
     }
 
     public void removeNotification(Notification notification){
@@ -32,15 +31,13 @@ public class NotificationList {
         notifications.clear();
     }
 
-    private static void displayNotification(Notification notification){
+    public String displayNotification(Notification notification){
         String name = notification.getName();
         LocalDate date = notification.getDate();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         String formattedDate = date.format(formatter);
-        System.out.printf("%s %s%n", name, formattedDate);
+        return name + " " + formattedDate;
     }
-
-    //public selectNotification(Notification notification){}
 
 }
